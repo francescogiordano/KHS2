@@ -54,13 +54,14 @@ static const gecko_configuration_t config = {
 
 void main(void){
 
-	//InitWdog();
-	//LockWdog();
+#if	(HAL_WDOG_ENABLE)
+	InitWdog();
+	LockWdog();
+#endif
 
 	InitMcu();
 	InitBoard();	//Init Mcu ports & IO for PCB
 	InitApp();		//Init ICs
-
 
 	/*
 	BSP_LedsInit();				// Initialize LEDs
@@ -105,6 +106,9 @@ void main(void){
 		struct gecko_cmd_packet* evt;
 		evt = gecko_wait_event();	// Check for stack event
 		HandleEventsApp(evt);		// Run application and event handler.
-		//FeedWdog();
+
+	#if	(HAL_WDOG_ENABLE)
+		FeedWdog();
+	#endif
 	}
 }

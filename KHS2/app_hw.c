@@ -24,7 +24,7 @@
 #include "app_ui.h"
 
 /* Own headers*/
-#include "app_timer.h"
+#include <app_timer.h>
 #include "app_extsignals.h"
 #include "app_hw.h"
 #include "app_ble.h"

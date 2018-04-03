@@ -63,7 +63,8 @@ app_ui.o: ../app_ui.c ../boards.h ../ble-configuration.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp_bcp.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_usart.h \
- ../graphics.h ../app_timer.h ../app_ui.h
+ ../graphics.h G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/app_timer.h \
+ ../app_ui.h
 
 ../boards.h:
 
@@ -199,6 +200,6 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_usart.h:
 
 ../graphics.h:
 
-../app_timer.h:
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/app_timer.h:
 
 ../app_ui.h:

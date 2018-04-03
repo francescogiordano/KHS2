@@ -1,4 +1,5 @@
 // standard library headers
+#include <app_timer.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -12,9 +13,6 @@
 // application specific headers
 #include "app_hw.h"
 #include "app_ui.h"
-#include "app_timer.h"
-
-// Own header
 #include "payloadbuffer.h"
 #include "mstimer.h"
 #include "letimer.h"

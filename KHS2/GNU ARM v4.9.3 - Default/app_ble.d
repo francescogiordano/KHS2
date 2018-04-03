@@ -1,4 +1,5 @@
 app_ble.o: ../app_ble.c \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/app_timer.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h \
  ../gatt_db.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_gattdb_def.h \
@@ -61,13 +62,15 @@ app_ble.o: ../app_ble.c \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_gattdb_def.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_errorcodes.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\app\bluetooth_2.6\common\stack_bridge/infrastructure.h \
- ../app_hw.h ../app_ui.h ../app_timer.h ../payloadbuffer.h \
+ ../app_hw.h ../app_ui.h ../payloadbuffer.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\mstimer\inc/mstimer.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\common\inc/ecode.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\mstimer\config/mstimer_config.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\letimer\inc/letimer.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\letimer\config/letimer_config.h \
  ../app_ble.h
+
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/app_timer.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h:
 
@@ -196,8 +199,6 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\app\bluetooth_2.6\common\stack_bridg
 ../app_hw.h:
 
 ../app_ui.h:
-
-../app_timer.h:
 
 ../payloadbuffer.h:
 

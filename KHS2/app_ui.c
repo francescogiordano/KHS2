@@ -42,7 +42,7 @@
 #include "em_gpio.h"
 
 /* application specific header files*/
-#include "app_timer.h"
+#include <app_timer.h>
 
 /* Own header */
 #include "app_ui.h"

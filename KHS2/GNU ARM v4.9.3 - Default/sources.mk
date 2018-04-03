@@ -20,6 +20,7 @@ hardware/kit/common/bsp \
 hardware/kit/common/drivers \
 platform/Device/SiliconLabs/EFR32BG1B/Source/GCC \
 platform/emdrv/dmadrv/src \
+platform/emdrv/gpiointerrupt/src \
 platform/emdrv/letimer/src \
 platform/emdrv/mstimer/src \
 platform/emdrv/uartdrv/src \

@@ -1,3 +1,4 @@
+#include <app_timer.h>
 #include <stdint.h>
 #include <string.h>
 #include <stdio.h>
@@ -22,7 +23,6 @@
 #include "app_hw.h"
 #include "advertisement.h"
 #include "beacon.h"
-#include "app_timer.h"
 #include "board_features.h"
 
 

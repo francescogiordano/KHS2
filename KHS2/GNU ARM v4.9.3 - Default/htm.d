@@ -1,4 +1,4 @@
-htm.o: ../htm.c \
+htm.o: ../htm.c G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/app_timer.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h \
  ../gatt_db.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_gattdb_def.h \
@@ -61,7 +61,9 @@ htm.o: ../htm.c \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_gattdb_def.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_errorcodes.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\app\bluetooth_2.6\common\stack_bridge/infrastructure.h \
- ../app_hw.h ../app_ui.h ../app_timer.h ../htm.h
+ ../app_hw.h ../app_ui.h ../htm.h
+
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/app_timer.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h:
 
@@ -190,7 +192,5 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\app\bluetooth_2.6\common\stack_bridg
 ../app_hw.h:
 
 ../app_ui.h:
-
-../app_timer.h:
 
 ../htm.h:
