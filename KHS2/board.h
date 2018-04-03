@@ -1,5 +1,5 @@
-#ifndef INIT_BOARD_H
-#define INIT_BOARD_H
+#ifndef BOARD_H
+#define BOARD_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -13,4 +13,4 @@ void InitBoard(void);
 }
 #endif
 
-#endif // INIT_BOARD_H
+#endif // BOARD_H

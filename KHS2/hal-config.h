@@ -49,6 +49,6 @@
 
 #define HAL_VCOM_ENABLE                   				(0)
 #define HAL_SPI_ENABLE		              				(1)
-#define HAL_I2CSENSOR_ENABLE              				(1)
+#define HAL_I2C_ENABLE    		          				(1)
 
 #endif

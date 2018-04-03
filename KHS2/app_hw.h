@@ -24,7 +24,6 @@ int32_t appHwReadTm(int32_t* tempData);
  *  \brief  Initialise temperature measurement.
  *  \return  true if a Si7013 is detected, false otherwise
  **************************************************************************************************/
-bool appHwInitTempSens(void);
 
 bool GetAppHwErrorFlag(void);
 #ifdef __cplusplus

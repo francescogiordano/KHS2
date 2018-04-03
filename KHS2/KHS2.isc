@@ -73,6 +73,16 @@ appPlugin: stack_bridge=false
       <value length="251" type="hex" variable_length="false">0x00</value>
       <properties indicate="true" indicate_requirement="optional"/>
     </characteristic>
+    <characteristic id="HighAccel" name="HighAccel" sourceId="custom.type" uuid="2200">
+      <informativeText>Custom characteristic</informativeText>
+      <value length="251" type="hex" variable_length="false">0x00</value>
+      <properties notify="true" notify_requirement="optional"/>
+    </characteristic>
+    <characteristic id="DiagInfo" name="DiagInfo" sourceId="custom.type" uuid="2300">
+      <informativeText>Custom characteristic</informativeText>
+      <value length="3" type="hex" variable_length="false">0x00,0x00,0x00</value>
+      <properties read="true" read_requirement="optional"/>
+    </characteristic>
   </service>
 </gatt>
 }

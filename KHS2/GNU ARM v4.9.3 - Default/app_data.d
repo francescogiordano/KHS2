@@ -1,4 +1,4 @@
-app_data.o: G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/app_data.c \
+app_data.o: ../app_data.c \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\soc/native_gecko.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/hal-config.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/board_features.h \
@@ -62,13 +62,12 @@ app_data.o: G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/app_data.c \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\common\inc/ecode.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\letimer\config/letimer_config.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\gpiointerrupt\inc/gpiointerrupt.h \
- G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/app_extsignals.h \
- G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/payloadbuffer.h \
+ ../app_extsignals.h ../payloadbuffer.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/lsm6dsl.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_lsm6dsl.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/h3lis331dl.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_h3lis331dl.h \
- G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/app_data.h
+ ../app_data.h
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\soc/native_gecko.h:
 
@@ -196,9 +195,9 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\letimer\config/letime
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\gpiointerrupt\inc/gpiointerrupt.h:
 
-G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/app_extsignals.h:
+../app_extsignals.h:
 
-G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/payloadbuffer.h:
+../payloadbuffer.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/lsm6dsl.h:
 
@@ -208,4 +207,4 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/h3lis331
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_h3lis331dl.h:
 
-G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/app_data.h:
+../app_data.h:

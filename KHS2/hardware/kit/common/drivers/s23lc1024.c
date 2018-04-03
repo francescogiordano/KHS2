@@ -283,7 +283,7 @@ static void SendFlashAddr( uint32_t flash_address, uint8_t io_mode, bool addr_4b
        4-byte mode: Send 4-byte address (A31-A0)
        3-byte mode: Send 3-byte address (A23-A0) */
     if( addr_4byte_mode == TRUE ){
-        SendByte( (flash_address >> 24), io_mode ); // A31-A24
+        sendByte( (flash_address >> 24), io_mode ); // A31-A24
     }
     /* A23-A0 */
     SendByte( (flash_address >> 16), io_mode );
@@ -405,9 +405,9 @@ ReturnMsg23lc1024 SRAM23LC_RDID( uint32_t *Identification )
     SendByte( FLASH_CMD_RDID, SIO );
 
     // Get manufacturer identification, device identification
-    gDataBuffer[0] = GetByte( SIO );
-    gDataBuffer[1] = GetByte( SIO );
-    gDataBuffer[2] = GetByte( SIO );
+    gDataBuffer[0] = getByte(SIO);
+    gDataBuffer[1] = getByte(SIO);
+    gDataBuffer[2] = getByte(SIO);
 
     // Chip select go high to end a command
     setCSHigh();

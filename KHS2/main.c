@@ -1,6 +1,3 @@
-#include "init_mcu.h"
-#include "init_board.h"
-#include "init_app.h"
 #include "boards.h"
 #include "ble-configuration.h"
 #include "board_features.h"

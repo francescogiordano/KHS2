@@ -1,5 +1,4 @@
-board.o: G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/board.c \
- G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/board.h \
+board.o: ../board.c ../board.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/bsphalconfig.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/hal-config.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/board_features.h \
@@ -55,8 +54,7 @@ board.o: G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/board.c \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_bus.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_assert.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp_bcp.h \
- G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/hal-config.h \
- G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/pti.h \
+ ../hal-config.h ../pti.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/s23lc1024.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_23lc1024.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/lsm6dsl.h \
@@ -64,7 +62,7 @@ board.o: G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/board.c \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/h3lis331dl.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_h3lis331dl.h
 
-G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/board.h:
+../board.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/bsphalconfig.h:
 
@@ -176,9 +174,9 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_assert.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp_bcp.h:
 
-G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/hal-config.h:
+../hal-config.h:
 
-G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/pti.h:
+../pti.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/s23lc1024.h:
 
