@@ -80,7 +80,8 @@ void graphWriteString(char *string)
 
   /* Reset line number, print header and device name */
   graphLineNum = 0;
-  graphPrintCenter(&glibContext, deviceHeader);
+  //graphPrintCenter(&glibContext, deviceHeader);
+  graphPrintCenter(&glibContext, "Francesco\n\n");
 
   /* Print the string below the header center aligned */
   graphPrintCenter(&glibContext, string);

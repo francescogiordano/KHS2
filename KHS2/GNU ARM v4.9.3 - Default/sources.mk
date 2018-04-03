@@ -20,6 +20,8 @@ hardware/kit/common/bsp \
 hardware/kit/common/drivers \
 platform/Device/SiliconLabs/EFR32BG1B/Source/GCC \
 platform/emdrv/dmadrv/src \
+platform/emdrv/letimer/src \
+platform/emdrv/wdog/src \
 platform/emlib/src \
 platform/middleware/glib/dmd/display \
 platform/middleware/glib/glib \

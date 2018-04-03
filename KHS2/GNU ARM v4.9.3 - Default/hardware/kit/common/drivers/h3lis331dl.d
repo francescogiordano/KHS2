@@ -1,5 +1,7 @@
-init_mcu.o: ../init_mcu.c \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/bsphalconfig.h \
+hardware/kit/common/drivers/h3lis331dl.o: \
+ ../hardware/kit/common/drivers/h3lis331dl.c \
+ ../hardware/kit/common/drivers/h3lis331dl.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_h3lis331dl.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/hal-config.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/board_features.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/boards.h \
@@ -53,17 +55,14 @@ init_mcu.o: ../init_mcu.c \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_gpio.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_bus.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_assert.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp_bcp.h \
- ../hal-config.h ../board_features.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_chip.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_system.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_gpio.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_cmu.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_emu.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_usart.h
+ ../hardware/kit/common/drivers/i2cspm.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/i2cspmhalconfig.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_i2c.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_cmu.h
 
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/bsphalconfig.h:
+../hardware/kit/common/drivers/h3lis331dl.h:
+
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_h3lis331dl.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/hal-config.h:
 
@@ -171,22 +170,10 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_bus.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_assert.h:
 
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp_bcp.h:
+../hardware/kit/common/drivers/i2cspm.h:
 
-../hal-config.h:
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/i2cspmhalconfig.h:
 
-../board_features.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_chip.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_system.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_gpio.h:
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_i2c.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_cmu.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_emu.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_usart.h:

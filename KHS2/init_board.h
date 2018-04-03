@@ -7,7 +7,7 @@ extern "C" {
 
 #include "stdbool.h"
 
-void initBoard(void);
+void InitBoard(void);
 
 #ifdef __cplusplus
 }

@@ -1,14 +1,3 @@
-/***********************************************************************************************//**
- * \file   app_hw.c
- * \brief  Hardware specific application code
- ***************************************************************************************************
- * <b> (C) Copyright 2015 Silicon Labs, http://www.silabs.com</b>
- ***************************************************************************************************
- * This file is licensed under the Silabs License Agreement. See the file
- * "Silabs_License_Agreement.txt" for details. Before using this software for
- * any purpose, you must agree to the terms of that agreement.
- **************************************************************************************************/
-
 /* BG stack headers */
 #include "bg_types.h"
 
@@ -35,80 +24,124 @@
 #include "app_ui.h"
 
 /* Own headers*/
+#include "app_timer.h"
+#include "app_extsignals.h"
 #include "app_hw.h"
+#include "app_ble.h"
+#include "wdog.h"
 
-/***********************************************************************************************//**
- * @addtogroup Application
- * @{
- **************************************************************************************************/
-
-/***********************************************************************************************//**
- * @addtogroup app_hw
- * @{
- **************************************************************************************************/
-
-/***************************************************************************************************
- * Local Macros and Definitions
- **************************************************************************************************/
+#include "s23lc1024.h"
+#include "lsm6dsl.h"
+#include "h3lis331dl.h"
 
 /* Text definitions*/
 #define APP_HW_SENSOR_FAIL_TEXT         "Failed to detect\nsi7021 sensor."
 
-/***************************************************************************************************
- * Local Variables
- **************************************************************************************************/
+//**************************   STATIC VARIABLES   *****************************
 
 /** Status flag of the Temperature Sensor. */
 static bool si7013_status = false;
 
-/** I2C init structure. */
+static bool sramErrorFlag = false;
+static bool lowAccelGyroSensErrorFlag = false;
+static bool highAccelSensErrorFlag = false;
 
-/***************************************************************************************************
- * Static Function Declarations
- **************************************************************************************************/
+static int counter = 0;
 
-static void appBtnCback(AppUiBtnEvt_t btn);
+//**************************   STATIC FUNCTION DEFINIITIONS   *****************
 
-/***************************************************************************************************
- * Public Function Definitions
- **************************************************************************************************/
-void appHwInit(void)
-{
-  /* Register button callback */
-  appUiBtnRegister(appBtnCback);
+static void appBtnCback(AppUiBtnEvt_t btn){
 
-  /* Initialize temperature sensor. */
-  if (!appHwInitTempSens()) {
-    appUiWriteString(APP_HW_SENSOR_FAIL_TEXT); /* Display error message on screen. */
+  if (APP_UI_BTN_0_SHORT == btn) {
+	  KhsDataCharUpdate();
+	  KhsDiagInfoCharWrite();
+	  //gecko_external_signal(APP_DATA_LOW_ACCEL_GYRO);
+  }
+  if (APP_UI_BTN_1_SHORT == btn) {
+	  KhsHighAccelCharUpdate();
   }
 }
-int32_t appHwReadTm(int32_t* tempData)
-{
-  uint32_t rhData = 0;
-  return Si7013_MeasureRHAndTemp(I2C0, SI7021_ADDR, &rhData, tempData);
-}
-
-bool appHwInitTempSens(void)
-{
+static bool appHwInitTempSens(void){
   /* Get initial sensor status */
   si7013_status = Si7013_Detect(I2C0, SI7021_ADDR, NULL);
   return si7013_status;
 }
 
-/***************************************************************************************************
- * Static Function Definitions
- **************************************************************************************************/
+static bool appHwInitSram(void){
+	bool result = false;
 
-/***********************************************************************************************//**
- *  \brief  Button press callback.
- *  \param[in]  btn  Button press length and button number
- **************************************************************************************************/
-static void appBtnCback(AppUiBtnEvt_t btn)
-{
-  if (APP_UI_BTN_0_SHORT == btn) {
-    advSwitchAdvMessage();
-  }
+	if(Detect23lc1024() == Lsm6dslSuccess){
+		result = true;
+	}
+
+	return result;
+}
+static bool appHwInitLowAccelGyroSens(void){
+	bool result = false;
+
+	if(DetectLsm6dsl() == Lsm6dslSuccess){
+		result = true;
+	}
+	return result;
+}
+static bool appHwInitHighAccelSens(void){
+	bool result = false;
+
+	if(DetectH3lis331dl() == H3lis331dlSuccess){
+		result = true;
+	}
+	return result;
 }
 
-/** @} (end addtogroup app_hw) */
-/** @} (end addtogroup Application) */
+//**************************   PUBLIC FUNCTION DEFINIITIONS   *****************
+
+void InitAppHw(void){
+
+  /* Register button callback */
+  appUiBtnRegister(appBtnCback);
+
+  gecko_cmd_hardware_set_soft_timer(TIMER_MS_2_TIMERTICK(HWTIMER_PERIOD), HW_TIMER, false);
+
+  /* Initialize temperature sensor. */
+  if (!appHwInitTempSens()){
+    appUiWriteString(APP_HW_SENSOR_FAIL_TEXT); /* Display error message on screen. */
+  }
+
+  if(!appHwInitSram()){
+	  sramErrorFlag = true;
+  }
+  if(!appHwInitLowAccelGyroSens()){
+	  lowAccelGyroSensErrorFlag = true;
+  }
+  if(!appHwInitHighAccelSens()){
+	  highAccelSensErrorFlag = true;
+  }
+}
+void appHwTick(void){
+
+	//static int secs = 0;
+	//char str[10];
+	counter++;
+
+	if (counter%10 == 0){
+		//secs++;
+		//sprintf(str, "%i", secs);
+	    //appUiWriteString(str);
+		KhsDataCharUpdate();
+	  }
+
+	//gecko_cmd_hardware_set_soft_timer(TIMER_MS_2_TIMERTICK(HWTIMER_PERIOD), HW_TIMER, false);
+}
+int32_t appHwReadTm(int32_t* tempData){
+  uint32_t rhData = 0;
+  return Si7013_MeasureRHAndTemp(I2C0, SI7021_ADDR, &rhData, tempData);
+}
+
+bool GetAppHwErrorFlag(void){
+	bool result = false;
+
+	if(sramErrorFlag || lowAccelGyroSensErrorFlag || highAccelSensErrorFlag){
+		result = true;
+	}
+	return result;
+}

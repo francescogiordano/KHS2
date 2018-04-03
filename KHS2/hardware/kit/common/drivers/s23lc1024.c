@@ -1,168 +1,49 @@
-/*
- * COPYRIGHT (c) 2010-2015 MACRONIX INTERNATIONAL CO., LTD
- * SPI Flash Low Level Driver (LLD) Sample Code
- *
- * SPI interface command set
- *
- * $Id: MX25_CMD.c,v 1.31 2015/03/24 01:06:33 mxclldb1 Exp $
- */
-
-#include "mx25flash_spi.h"
+#include "s23lc1024.h"
 #include "em_gpio.h"
 #include "em_usart.h"
 #include "em_cmu.h"
 
 /* Fallback to loc 11 if no location is defined for backwards compatibility */
-#ifndef MX25_LOC_RX
-#define MX25_LOC_RX            _USART_ROUTELOC0_RXLOC_LOC11
+#ifndef SRAM23LC_LOC_RX
+#define SRAM23LC_LOC_RX            _USART_ROUTELOC0_RXLOC_LOC11
 #endif
-#ifndef MX25_LOC_SCLK
-#define MX25_LOC_SCLK          _USART_ROUTELOC0_CLKLOC_LOC11
+#ifndef SRAM23LC_LOC_SCLK
+#define SRAM23LC_LOC_SCLK          _USART_ROUTELOC0_CLKLOC_LOC11
 #endif
-#ifndef MX25_LOC_TX
-#define MX25_LOC_TX            _USART_ROUTELOC0_TXLOC_LOC11
+#ifndef SRAM23LC_LOC_TX
+#define SRAM23LC_LOC_TX            _USART_ROUTELOC0_TXLOC_LOC11
 #endif
 /* Fallback to baudrate of 8 MHz if not defined for backwards compatibility */
-#ifndef MX25_BAUDRATE
-#define MX25_BAUDRATE   8000000
+#ifndef SRAM23LC_BAUDRATE
+#define SRAM23LC_BAUDRATE   8000000
 #endif
 
-/* Local functions */
+//**************************   STATIC FUNCTION DEFINIITIONS   *****************
 
-/* Basic functions */
-void CS_High( void );
-void CS_Low( void );
-void InsertDummyCycle( uint8_t dummy_cycle );
-void SendByte( uint8_t byte_value, uint8_t transfer_type );
-uint8_t GetByte( uint8_t transfer_type );
-
-/* Utility functions */
-void Wait_Flash_WarmUp( void );
-void Initial_Spi( void );
-bool WaitFlashReady( uint32_t ExpectTime );
-bool WaitRYBYReady( uint32_t ExpectTime );
-bool IsFlashBusy( void );
-bool IsFlashQIO( void );
-bool IsFlash4Byte( void );
-void SendFlashAddr( uint32_t flash_address, uint8_t io_mode, bool addr_4byte_mode );
-uint8_t GetDummyCycle( uint32_t default_cycle );
-
-
-void MX25_init( void )
-{
-   USART_InitSync_TypeDef init = USART_INITSYNC_DEFAULT;
-
-   CMU_ClockEnable( cmuClock_GPIO, true );
-   CMU_ClockEnable( MX25_USART_CLK, true );
-
-   init.msbf     = true;
-   init.baudrate = MX25_BAUDRATE;
-   USART_InitSync( MX25_USART, &init );
-
-   /* IO config */
-   GPIO_PinModeSet( MX25_PORT_MOSI, MX25_PIN_MOSI, gpioModePushPull, 1 );
-   GPIO_PinModeSet( MX25_PORT_MISO, MX25_PIN_MISO, gpioModeInput,    0 );
-   GPIO_PinModeSet( MX25_PORT_SCLK, MX25_PIN_SCLK, gpioModePushPull, 1 );
-   GPIO_PinModeSet( MX25_PORT_CS,   MX25_PIN_CS,   gpioModePushPull, 1 );
-
-   MX25_USART->ROUTELOC0 = ( (MX25_LOC_RX << _USART_ROUTELOC0_RXLOC_SHIFT)
-                           | (MX25_LOC_TX << _USART_ROUTELOC0_TXLOC_SHIFT)
-                           | (MX25_LOC_SCLK << _USART_ROUTELOC0_CLKLOC_SHIFT) );
-   MX25_USART->ROUTEPEN  = (  USART_ROUTEPEN_RXPEN
-                            | USART_ROUTEPEN_TXPEN
-                            | USART_ROUTEPEN_CLKPEN );
-
-   /* Wait for flash warm-up */
-   Initial_Spi();
-}
-
-
-/*
- --Common functions
- */
-
-/*
- * Function:       Wait_Flash_WarmUp
- * Arguments:      None.
- * Description:    Wait some time until flash read / write enable.
- * Return Message: None.
- */
-void Wait_Flash_WarmUp()
-{
+static void Wait_Flash_WarmUp(){
     volatile int time_cnt = FlashFullAccessTime;
-    while( time_cnt > 0 )
-    {
+    while( time_cnt > 0 ){
         time_cnt--;
     }
 }
-
-/*
- * Function:       Initial_Spi
- * Arguments:      None
- * Description:    Initial spi flash state and wait flash warm-up
- *                 (enable read/write).
- * Return Message: None
- */
-void Initial_Spi()
-{
+static void Initial_Spi(){
    // Wait flash warm-up
    Wait_Flash_WarmUp();
 }
-
-/*
- * Function:       CS_Low, CS_High
- * Arguments:      None.
- * Description:    Chip select go low / high.
- * Return Message: None.
- */
-void CS_Low()
-{
-   GPIO_PinOutClear( MX25_PORT_CS, MX25_PIN_CS );
+static void setCSLow(){
+	GPIO_PinOutClear( SRAM23LC_PORT_CS, SRAM23LC_PIN_CS );
+}
+static void setCSHigh(){
+   GPIO_PinOutSet( SRAM23LC_PORT_CS, SRAM23LC_PIN_CS );
 }
 
-void CS_High()
-{
-   GPIO_PinOutSet( MX25_PORT_CS, MX25_PIN_CS );
-}
-
-/*
- * Function:       InsertDummyCycle
- * Arguments:      dummy_cycle, number of dummy clock cycle
- * Description:    Insert dummy cycle of SCLK
- * Return Message: None.
- */
-void InsertDummyCycle( uint8_t dummy_cycle )
-{
-   int i;
-
-   for( i = 0; i < dummy_cycle/8; i++ )
-   {
-      USART_SpiTransfer( MX25_USART, 0xff );
-   }
-}
-
-/*
- * Function:       SendByte
- * Arguments:      byte_value, data transfer to flash
- *                 transfer_type, select different type of I/O mode.
- *                 Seven mode:
- *                 SIO, single IO
- *                 DIO, dual IO
- *                 QIO, quad IO
- *                 PIO, parallel
- *                 DTSIO, double transfer rate SIO
- *                 DTDIO, double transfer rate DIO
- *                 DTQIO, double transfer rate QIO
- * Description:    Send one byte data to flash
- * Return Message: None.
- */
-void SendByte( uint8_t byte_value, uint8_t transfer_type )
+static void sendByte( uint8_t byte_value, uint8_t transfer_type )
 {
    switch( transfer_type )
    {
 #ifdef SIO
    case SIO: // Single I/O
-      USART_SpiTransfer( MX25_USART, byte_value );
+      USART_SpiTransfer( SRAM23LC_USART, byte_value );
       break;
 #endif
 #ifdef DIO
@@ -199,24 +80,7 @@ void SendByte( uint8_t byte_value, uint8_t transfer_type )
       break;
    }
 }
-
-
-/*
- * Function:       GetByte
- * Arguments:      byte_value, data receive from flash
- *                 transfer_type, select different type of I/O mode.
- *                 Seven mode:
- *                 SIO, single IO
- *                 DIO, dual IO
- *                 QIO, quad IO
- *                 PIO, parallel IO
- *                 DTSIO, double transfer rate SIO
- *                 DTDIO, double transfer rate DIO
- *                 DTQIO, double transfer rate QIO
- * Description:    Get one byte data to flash
- * Return Message: 8 bit data
- */
-uint8_t GetByte( uint8_t transfer_type )
+static uint8_t getByte( uint8_t transfer_type )
 {
    uint8_t data_buf = 0;
 
@@ -225,7 +89,7 @@ uint8_t GetByte( uint8_t transfer_type )
 #ifdef SIO
    case SIO: // Single I/O
       //--- insert your code here for single IO receive. ---//
-      data_buf = USART_SpiTransfer( MX25_USART, 0xff );
+      data_buf = USART_SpiTransfer( SRAM23LC_USART, 0xff );
       break;
 #endif
 #ifdef DIO
@@ -265,6 +129,39 @@ uint8_t GetByte( uint8_t transfer_type )
 }
 
 /*
+ * Function:       IsFlashBusy
+ * Arguments:      None.
+ * Description:    Check status register WIP bit.
+ *                 If  WIP bit = 1: return TRUE ( Busy )
+ *                             = 0: return FALSE ( Ready ).
+ * Return Message: TRUE, FALSE
+ */
+static bool IsFlashBusy( void ){
+    uint8_t  gDataBuffer;
+    SRAM23LC_RDSR( &gDataBuffer );
+    if( (gDataBuffer & FLASH_WIP_MASK)  == FLASH_WIP_MASK ){
+        return TRUE;
+    }
+    else{
+        return FALSE;
+    }
+}
+/*
+ * Function:       InsertDummyCycle
+ * Arguments:      dummy_cycle, number of dummy clock cycle
+ * Description:    Insert dummy cycle of SCLK
+ * Return Message: None.
+ */
+static void InsertDummyCycle( uint8_t dummy_cycle )
+{
+   int i;
+
+   for( i = 0; i < dummy_cycle/8; i++ )
+   {
+      USART_SpiTransfer( SRAM23LC_USART, 0xff );
+   }
+}
+/*
  * Function:       WaitFlashReady
  * Arguments:      ExpectTime, expected time-out value of flash operations.
  *                 No use at non-synchronous IO mode.
@@ -275,7 +172,7 @@ uint8_t GetByte( uint8_t transfer_type )
  *                 Always return TRUE
  * Return Message: TRUE, FALSE
  */
-bool WaitFlashReady( uint32_t ExpectTime )
+static bool WaitFlashReady( uint32_t ExpectTime )
 {
 #ifndef NON_SYNCHRONOUS_IO
     volatile uint32_t temp = 0;
@@ -292,7 +189,6 @@ bool WaitFlashReady( uint32_t ExpectTime )
     return TRUE;
 #endif
 }
-
 /*
  * Function:       WaitRYBYReady
  * Arguments:      ExpectTime, expected time-out value of flash operations.
@@ -304,14 +200,14 @@ bool WaitFlashReady( uint32_t ExpectTime )
  *                 Always return TRUE
  * Return Message: TRUE, FALSE
  */
-bool WaitRYBYReady( uint32_t ExpectTime )
+static bool WaitRYBYReady( uint32_t ExpectTime )
 {
 #ifndef NON_SYNCHRONOUS_IO
     uint32_t temp = 0;
 #ifdef GPIO_SPI
     while( SO == 0 )
 #else
-    while( GPIO_PinInGet(MX25_PORT_MISO, MX25_PIN_MISO) == 0 );
+    while( GPIO_PinInGet(SRAM23LC_PORT_MISO, SRAM23LC_PIN_MISO) == 0 );
 #endif
     {
         if( temp > ExpectTime )
@@ -326,40 +222,20 @@ bool WaitRYBYReady( uint32_t ExpectTime )
     return TRUE;
 #endif
 }
-
 /*
- * Function:       IsFlashBusy
- * Arguments:      None.
- * Description:    Check status register WIP bit.
- *                 If  WIP bit = 1: return TRUE ( Busy )
- *                             = 0: return FALSE ( Ready ).
- * Return Message: TRUE, FALSE
- */
-bool IsFlashBusy( void )
-{
-    uint8_t  gDataBuffer;
-
-    MX25_RDSR( &gDataBuffer );
-    if( (gDataBuffer & FLASH_WIP_MASK)  == FLASH_WIP_MASK )
-        return TRUE;
-    else
-        return FALSE;
-}
-
-/*
- * Function:       IsFlashQIO
+* Function:       IsFlashQIO
  * Arguments:      None.
  * Description:    If flash QE bit = 1: return TRUE
  *                                 = 0: return FALSE.
  * Return Message: TRUE, FALSE
  */
-bool IsFlashQIO( void )
+static bool IsFlashQIO( void )
 {
 #ifdef FLASH_NO_QE_BIT
     return TRUE;
 #else
     uint8_t  gDataBuffer;
-    MX25_RDSR( &gDataBuffer );
+    SRAM23LC_RDSR( &gDataBuffer );
     if( (gDataBuffer & FLASH_QE_MASK) == FLASH_QE_MASK )
         return TRUE;
     else
@@ -374,7 +250,7 @@ bool IsFlashQIO( void )
  *                                    = 0: return FALSE.
  * Return Message: TRUE, FALSE
  */
-bool IsFlash4Byte( void )
+static bool IsFlash4Byte( void )
 {
 #ifdef FLASH_CMD_RDSCUR
     #ifdef FLASH_4BYTE_ONLY
@@ -383,7 +259,7 @@ bool IsFlash4Byte( void )
         return FALSE;
     #else
         uint8_t  gDataBuffer;
-        MX25_RDSCUR( &gDataBuffer );
+        SRAM23LC_RDSCUR( &gDataBuffer );
         if( (gDataBuffer & FLASH_4BYTE_MASK) == FLASH_4BYTE_MASK )
             return TRUE;
         else
@@ -401,7 +277,7 @@ bool IsFlash4Byte( void )
  * Description:    Send flash address with 3-byte or 4-byte mode.
  * Return Message: None
  */
-void SendFlashAddr( uint32_t flash_address, uint8_t io_mode, bool addr_4byte_mode )
+static void SendFlashAddr( uint32_t flash_address, uint8_t io_mode, bool addr_4byte_mode )
 {
     /* Check flash is 3-byte or 4-byte mode.
        4-byte mode: Send 4-byte address (A31-A0)
@@ -414,7 +290,6 @@ void SendFlashAddr( uint32_t flash_address, uint8_t io_mode, bool addr_4byte_mod
     SendByte( (flash_address >> 8), io_mode );
     SendByte( (flash_address), io_mode );
 }
-
 /*
  * Function:       GetDummyCycle
  * Arguments:      default_cycle, default dummy cycle
@@ -427,12 +302,12 @@ void SendFlashAddr( uint32_t flash_address, uint8_t io_mode, bool addr_4byte_mod
                          in some product.
  * Return Message: Dummy cycle value
  */
-uint8_t GetDummyCycle( uint32_t default_cycle )
+static uint8_t GetDummyCycle( uint32_t default_cycle )
 {
 #ifdef FLASH_CMD_RDCR
     uint8_t gDataBuffer;
     uint8_t dummy_cycle = default_cycle;
-    MX25_RDCR( &gDataBuffer );
+    SRAM23LC_RDCR( &gDataBuffer );
     #ifdef SUPPORT_CR_DC
         // product support 1-bit dummy cycle configuration
         if( (gDataBuffer & FLASH_DC_MASK) == FLASH_DC_MASK )
@@ -466,26 +341,65 @@ uint8_t GetDummyCycle( uint32_t default_cycle )
 #endif
 }
 
+//**************************   PUBLIC FUNCTION DEFINIITIONS   *****************
+
+void Set23lc1024(void){
+   USART_InitSync_TypeDef init = USART_INITSYNC_DEFAULT;
+
+   CMU_ClockEnable(cmuClock_GPIO, true);
+   CMU_ClockEnable(SRAM23LC_USART_CLK, true);
+
+   init.msbf     = true;
+   init.baudrate = SRAM23LC_BAUDRATE;
+
+   USART_InitSync(SRAM23LC_USART, &init);
+
+   // IO config
+   GPIO_PinModeSet( SRAM23LC_PORT_MOSI, SRAM23LC_PIN_MOSI, gpioModePushPull, 1 );
+   GPIO_PinModeSet( SRAM23LC_PORT_MISO, SRAM23LC_PIN_MISO, gpioModeInput,    0 );
+   GPIO_PinModeSet( SRAM23LC_PORT_SCLK, SRAM23LC_PIN_SCLK, gpioModePushPull, 1 );
+   GPIO_PinModeSet( SRAM23LC_PORT_CS,   SRAM23LC_PIN_CS,   gpioModePushPull, 1 );
+
+   SRAM23LC_USART->ROUTELOC0 = ( (SRAM23LC_LOC_RX << _USART_ROUTELOC0_RXLOC_SHIFT)
+                           | (SRAM23LC_LOC_TX << _USART_ROUTELOC0_TXLOC_SHIFT)
+                           | (SRAM23LC_LOC_SCLK << _USART_ROUTELOC0_CLKLOC_SHIFT) );
+   SRAM23LC_USART->ROUTEPEN  = (  USART_ROUTEPEN_RXPEN
+                            | USART_ROUTEPEN_TXPEN
+                            | USART_ROUTEPEN_CLKPEN );
+
+   /* Wait for flash warm-up */
+   Initial_Spi();
+}
+void Init23lc1024(void){
+
+}
+bool Detect23lc1024(void){
+	bool result = false;
+
+	return result;
+}
+
+
+
+
+
+
 
 
 /*
- * ID Command
- */
-
-/*
- * Function:       MX25_RDID
+ * Function:       SRAM23LC_RDID
  * Arguments:      Identification, 32 bit buffer to store id
  * Description:    The RDID instruction is to read the manufacturer ID
  *                 of 1-byte and followed by Device ID of 2-byte.
- * Return Message: FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_RDID( uint32_t *Identification )
+ReturnMsg23lc1024 SRAM23LC_RDID( uint32_t *Identification )
 {
     uint32_t temp;
     uint8_t  gDataBuffer[3];
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Send command
     SendByte( FLASH_CMD_RDID, SIO );
@@ -496,28 +410,27 @@ ReturnMsg MX25_RDID( uint32_t *Identification )
     gDataBuffer[2] = GetByte( SIO );
 
     // Chip select go high to end a command
-    CS_High();
+    setCSHigh();
 
     // Store identification
     temp =  gDataBuffer[0];
     temp =  (temp << 8) | gDataBuffer[1];
     *Identification =  (temp << 8) | gDataBuffer[2];
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
 /*
- * Function:       MX25_RES
+ * Function:       SRAM23LC_RES
  * Arguments:      ElectricIdentification, 8 bit buffer to store electric id
  * Description:    The RES instruction is to read the Device
  *                 electric identification of 1-byte.
- * Return Message: FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_RES( uint8_t *ElectricIdentification )
+ReturnMsg23lc1024 SRAM23LC_RES( uint8_t *ElectricIdentification )
 {
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Send flash command and insert dummy cycle
     SendByte( FLASH_CMD_RES, SIO );
@@ -527,25 +440,24 @@ ReturnMsg MX25_RES( uint8_t *ElectricIdentification )
     *ElectricIdentification = GetByte( SIO );
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
 /*
- * Function:       MX25_REMS
+ * Function:       SRAM23LC_REMS
  * Arguments:      REMS_Identification, 16 bit buffer to store id
  *                 fsptr, pointer of flash status structure
  * Description:    The REMS instruction is to read the Device
  *                 manufacturer ID and electric ID of 1-byte.
- * Return Message: FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_REMS( uint16_t *REMS_Identification, FlashStatus *fsptr )
+ReturnMsg23lc1024 SRAM23LC_REMS( uint16_t *REMS_Identification, FlashStatus *fsptr )
 {
     uint8_t  gDataBuffer[2];
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Send flash command and insert dummy cycle ( if need )
     // ArrangeOpt = 0x00 will output the manufacturer's ID first
@@ -562,62 +474,55 @@ ReturnMsg MX25_REMS( uint16_t *REMS_Identification, FlashStatus *fsptr )
     *REMS_Identification = (gDataBuffer[0] << 8) | gDataBuffer[1];
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
-
 /*
- * Register  Command
- */
-
-/*
- * Function:       MX25_RDSR
+ * Function:       SRAM23LC_RDSR
  * Arguments:      StatusReg, 8 bit buffer to store status register value
  * Description:    The RDSR instruction is for reading Status Register Bits.
- * Return Message: FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_RDSR( uint8_t *StatusReg )
+ReturnMsg23lc1024 SRAM23LC_RDSR( uint8_t *StatusReg )
 {
     uint8_t  gDataBuffer;
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Send command
     SendByte( FLASH_CMD_RDSR, SIO );
     gDataBuffer = GetByte( SIO );
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
     *StatusReg = gDataBuffer;
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
 /*
- * Function:       MX25_WRSR
+ * Function:       SRAM23LC_WRSR
  * Arguments:      UpdateValue, 8/16 bit status register value to updata
  * Description:    The WRSR instruction is for changing the values of
  *                 Status Register Bits (and configuration register)
- * Return Message: FlashIsBusy, FlashTimeOut, FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashIsBusy, Msg23lc1024FlashTimeOut, Msg23lc1024FlashOperationSuccess
  */
 #ifdef SUPPORT_WRSR_CR
-ReturnMsg MX25_WRSR( uint16_t UpdateValue )
+ReturnMsg23lc1024 SRAM23LC_WRSR( uint16_t UpdateValue )
 #else
-ReturnMsg MX25_WRSR( uint8_t UpdateValue )
+ReturnMsg23lc1024 SRAM23LC_WRSR( uint8_t UpdateValue )
 #endif
 {
     // Check flash is busy or not
-    if( IsFlashBusy() )    return FlashIsBusy;
+    if( IsFlashBusy() )    return Msg23lc1024FlashIsBusy;
 
     // Setting Write Enable Latch bit
-    MX25_WREN();
+    SRAM23LC_WREN();
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Send command and update value
     SendByte( FLASH_CMD_WRSR, SIO );
@@ -627,130 +532,121 @@ ReturnMsg MX25_WRSR( uint8_t UpdateValue )
 #endif
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
 
     if( WaitFlashReady( WriteStatusRegCycleTime ) )
-        return FlashOperationSuccess;
+        return Msg23lc1024FlashOperationSuccess;
     else
-        return FlashTimeOut;
+        return Msg23lc1024FlashTimeOut;
 
 }
-
 /*
- * Function:       MX25_RDSCUR
+ * Function:       SRAM23LC_RDSCUR
  * Arguments:      SecurityReg, 8 bit buffer to store security register value
  * Description:    The RDSCUR instruction is for reading the value of
  *                 Security Register bits.
- * Return Message: FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_RDSCUR( uint8_t *SecurityReg )
+ReturnMsg23lc1024 SRAM23LC_RDSCUR( uint8_t *SecurityReg )
 {
     uint8_t  gDataBuffer;
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     //Send command
     SendByte( FLASH_CMD_RDSCUR, SIO );
     gDataBuffer = GetByte( SIO );
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
     *SecurityReg = gDataBuffer;
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 
 }
-
 /*
- * Function:       MX25_WRSCUR
+ * Function:       SRAM23LC_WRSCUR
  * Arguments:      None.
  * Description:    The WRSCUR instruction is for changing the values of
  *                 Security Register Bits.
- * Return Message: FlashIsBusy, FlashOperationSuccess, FlashWriteRegFailed,
- *                 FlashTimeOut
+ * Return Message: Msg23lc1024FlashIsBusy, Msg23lc1024FlashOperationSuccess, FlashWriteRegFailed,
+ *                 Msg23lc1024FlashTimeOut
  */
-ReturnMsg MX25_WRSCUR( void )
+ReturnMsg23lc1024 SRAM23LC_WRSCUR( void )
 {
     uint8_t  gDataBuffer;
 
     // Check flash is busy or not
-    if( IsFlashBusy() )    return FlashIsBusy;
+    if( IsFlashBusy() )    return Msg23lc1024FlashIsBusy;
 
     // Setting Write Enable Latch bit
-    MX25_WREN();
+    SRAM23LC_WREN();
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Write WRSCUR command
     SendByte( FLASH_CMD_WRSCUR, SIO );
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
     if( WaitFlashReady( WriteSecuRegCycleTime ) ){
 
-        MX25_RDSCUR( &gDataBuffer );
+        SRAM23LC_RDSCUR( &gDataBuffer );
 
         // Check security register LDSO bit
         if( (gDataBuffer & FLASH_LDSO_MASK) == FLASH_LDSO_MASK )
-                return FlashOperationSuccess;
+                return Msg23lc1024FlashOperationSuccess;
         else
-                return FlashWriteRegFailed;
+                return Msg23lc1024FlashWriteRegFailed;
     }
     else
-        return FlashTimeOut;
+        return Msg23lc1024FlashTimeOut;
 
 }
-
 /*
- * Function:       MX25_RDCR
+ * Function:       SRAM23LC_RDCR
  * Arguments:      ConfigReg, 8 bit buffer to store Configuration register value
  * Description:    The RDCR instruction is for reading Configuration Register Bits.
- * Return Message: FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_RDCR( uint8_t *ConfigReg )
+ReturnMsg23lc1024 SRAM23LC_RDCR( uint8_t *ConfigReg )
 {
     uint8_t  gDataBuffer;
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Send command
     SendByte( FLASH_CMD_RDCR, SIO );
     gDataBuffer = GetByte( SIO );
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
     *ConfigReg = gDataBuffer;
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
-
 /*
- * Read Command
- */
-
-/*
- * Function:       MX25_READ
+ * Function:       SRAM23LC_READ
  * Arguments:      flash_address, 32 bit flash memory address
  *                 target_address, buffer address to store returned data
  *                 byte_length, length of returned data in byte unit
  * Description:    The READ instruction is for reading data out.
- * Return Message: FlashAddressInvalid, FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashAddressInvalid, Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_READ( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length )
+ReturnMsg23lc1024 SRAM23LC_READ( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length )
 {
     uint32_t index;
     uint8_t  addr_4byte_mode;
 
     // Check flash address
-    if( flash_address > FlashSize ) return FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -759,7 +655,7 @@ ReturnMsg MX25_READ( uint32_t flash_address, uint8_t *target_address, uint32_t b
         addr_4byte_mode = FALSE; // 3-byte mode
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Write READ command and address
     SendByte( FLASH_CMD_READ, SIO );
@@ -773,28 +669,27 @@ ReturnMsg MX25_READ( uint32_t flash_address, uint8_t *target_address, uint32_t b
     }
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
 /*
- * Function:       MX25_2READ
+ * Function:       SRAM23LC_2READ
  * Arguments:      flash_address, 32 bit flash memory address
  *                 target_address, buffer address to store returned data
  *                 byte_length, length of returned data in byte unit
  * Description:    The 2READ instruction enable double throughput of Serial
  *                 Flash in read mode
- * Return Message: FlashAddressInvalid, FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashAddressInvalid, Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_2READ( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length )
+ReturnMsg23lc1024 SRAM23LC_2READ( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length )
 {
     uint32_t index;
     uint8_t  addr_4byte_mode;
     uint8_t  dc;
 
     // Check flash address
-    if( flash_address > FlashSize ) return FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -805,7 +700,7 @@ ReturnMsg MX25_2READ( uint32_t flash_address, uint8_t *target_address, uint32_t 
     dc = GetDummyCycle( DUMMY_CONF_2READ );
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Write 2-I/O Read command and address
     SendByte( FLASH_CMD_2READ, SIO );
@@ -819,21 +714,20 @@ ReturnMsg MX25_2READ( uint32_t flash_address, uint8_t *target_address, uint32_t 
     }
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
 /*
- * Function:       MX25_4READ
+ * Function:       SRAM23LC_4READ
  * Arguments:      flash_address, 32 bit flash memory address
  *                 target_address, buffer address to store returned data
  *                 byte_length, length of returned data in byte unit
  * Description:    The 4READ instruction enable quad throughput of
  *                 Serial Flash in read mode.
- * Return Message: FlashAddressInvalid, FlashQuadNotEnable, FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashAddressInvalid, Msg23lc1024FlashQuadNotEnable, Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_4READ( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length )
+ReturnMsg23lc1024 SRAM23LC_4READ( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length )
 {
     uint32_t index=0;
     uint8_t  addr_4byte_mode;
@@ -841,11 +735,11 @@ ReturnMsg MX25_4READ( uint32_t flash_address, uint8_t *target_address, uint32_t 
 
 
     // Check flash address
-    if( flash_address > FlashSize ) return FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
 
 #ifndef NO_QE_BIT
     // Check QE bit
-    if( IsFlashQIO() != TRUE )  return FlashQuadNotEnable;
+    if( IsFlashQIO() != TRUE )  return Msg23lc1024FlashQuadNotEnable;
 #endif
 
     // Check 3-byte or 4-byte mode
@@ -858,7 +752,7 @@ ReturnMsg MX25_4READ( uint32_t flash_address, uint8_t *target_address, uint32_t 
     dc = GetDummyCycle( DUMMY_CONF_4READ );
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Write 4-I/O Read Array command
     SendByte( FLASH_CMD_4READ, SIO );
@@ -872,29 +766,27 @@ ReturnMsg MX25_4READ( uint32_t flash_address, uint8_t *target_address, uint32_t 
     }
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
-
 /*
- * Function:       MX25_DREAD
+ * Function:       SRAM23LC_DREAD
  * Arguments:      flash_address, 32 bit flash memory address
  *                 target_address, buffer address to store returned data
  *                 byte_length, length of returned data in byte unit
  * Description:    The DREAD instruction enable double throughput of Serial
  *                 Flash in read mode
- * Return Message: FlashAddressInvalid, FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashAddressInvalid, Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_DREAD( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length )
+ReturnMsg23lc1024 SRAM23LC_DREAD( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length )
 {
     uint32_t index;
     uint8_t  addr_4byte_mode;
     uint8_t  dc;
 
     // Check flash address
-    if( flash_address > FlashSize ) return FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -906,7 +798,7 @@ ReturnMsg MX25_DREAD( uint32_t flash_address, uint8_t *target_address, uint32_t 
     dc = GetDummyCycle( DUMMY_CONF_DREAD );
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Write 2-I/O Read command and address
     SendByte( FLASH_CMD_DREAD, SIO );
@@ -920,31 +812,30 @@ ReturnMsg MX25_DREAD( uint32_t flash_address, uint8_t *target_address, uint32_t 
     }
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
 /*
- * Function:       MX25_QREAD
+ * Function:       SRAM23LC_QREAD
  * Arguments:      flash_address, 32 bit flash memory address
  *                 target_address, buffer address to store returned data
  *                 byte_length, length of returned data in byte unit
  * Description:    The QREAD instruction enable quad throughput of
  *                 Serial Flash in read mode.
- * Return Message: FlashAddressInvalid, FlashQuadNotEnable, FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashAddressInvalid, Msg23lc1024FlashQuadNotEnable, Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_QREAD( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length )
+ReturnMsg23lc1024 SRAM23LC_QREAD( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length )
 {
     uint32_t index=0;
     uint8_t  addr_4byte_mode;
     uint8_t  dc;
 
     // Check flash address
-    if( flash_address > FlashSize ) return FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
 
     // Check QE bit
-    if( IsFlashQIO() != TRUE )  return FlashQuadNotEnable;
+    if( IsFlashQIO() != TRUE )  return Msg23lc1024FlashQuadNotEnable;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -956,7 +847,7 @@ ReturnMsg MX25_QREAD( uint32_t flash_address, uint8_t *target_address, uint32_t 
     dc = GetDummyCycle( DUMMY_CONF_QREAD );
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Write 4-I/O Read Array command
     SendByte( FLASH_CMD_QREAD, SIO );
@@ -970,27 +861,26 @@ ReturnMsg MX25_QREAD( uint32_t flash_address, uint8_t *target_address, uint32_t 
     }
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
 /*
- * Function:       MX25_FASTREAD
+ * Function:       SRAM23LC_FASTREAD
  * Arguments:      flash_address, 32 bit flash memory address
  *                 target_address, buffer address to store returned data
  *                 byte_length, length of returned data in byte unit
  * Description:    The FASTREAD instruction is for quickly reading data out.
- * Return Message: FlashAddressInvalid, FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashAddressInvalid, Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_FASTREAD( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length )
+ReturnMsg23lc1024 SRAM23LC_FASTREAD( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length )
 {
     uint32_t index;
     uint8_t  addr_4byte_mode;
     uint8_t  dc;
 
     // Check flash address
-    if( flash_address > FlashSize ) return FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -1001,7 +891,7 @@ ReturnMsg MX25_FASTREAD( uint32_t flash_address, uint8_t *target_address, uint32
     dc = GetDummyCycle( DUMMY_CONF_FASTREAD );
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Write Fast Read command, address and dummy cycle
     SendByte( FLASH_CMD_FASTREAD, SIO );
@@ -1015,29 +905,27 @@ ReturnMsg MX25_FASTREAD( uint32_t flash_address, uint8_t *target_address, uint32
     }
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
-
 /*
- * Function:       MX25_RDSFDP
+ * Function:       SRAM23LC_RDSFDP
  * Arguments:      flash_address, 32 bit flash memory address
  *                 target_address, buffer address to store returned data
  *                 byte_length, length of returned data in byte unit
  * Description:    RDSFDP can retrieve the operating characteristics, structure
  *                 and vendor-specified information such as identifying information,
  *                 memory size, operating voltages and timinginformation of device
- * Return Message: FlashAddressInvalid, FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashAddressInvalid, Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_RDSFDP( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length )
+ReturnMsg23lc1024 SRAM23LC_RDSFDP( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length )
 {
     uint32_t index;
     uint8_t  addr_4byte_mode;
 
     // Check flash address
-    if( flash_address > FlashSize ) return FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -1046,7 +934,7 @@ ReturnMsg MX25_RDSFDP( uint32_t flash_address, uint8_t *target_address, uint32_t
         addr_4byte_mode = FALSE; // 3-byte mode
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Write Read SFDP command
     SendByte( FLASH_CMD_RDSFDP, SIO );
@@ -1060,58 +948,54 @@ ReturnMsg MX25_RDSFDP( uint32_t flash_address, uint8_t *target_address, uint32_t
     }
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
 /*
  * Program Command
  */
-
 /*
- * Function:       MX25_WREN
+ * Function:       SRAM23LC_WREN
  * Arguments:      None.
  * Description:    The WREN instruction is for setting
  *                 Write Enable Latch (WEL) bit.
- * Return Message: FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_WREN( void )
+ReturnMsg23lc1024 SRAM23LC_WREN( void )
 {
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Write Enable command = 0x06, Setting Write Enable Latch Bit
     SendByte( FLASH_CMD_WREN, SIO );
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
 /*
- * Function:       MX25_WRDI
+ * Function:       SRAM23LC_WRDI
  * Arguments:      None.
  * Description:    The WRDI instruction is to reset
  *                 Write Enable Latch (WEL) bit.
- * Return Message: FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_WRDI( void )
+ReturnMsg23lc1024 SRAM23LC_WRDI( void )
 {
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Write Disable command = 0x04, resets Write Enable Latch Bit
     SendByte( FLASH_CMD_WRDI, SIO );
 
-    CS_High();
+    setCSHigh();
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
-
 /*
- * Function:       MX25_PP
+ * Function:       SRAM23LC_PP
  * Arguments:      flash_address, 32 bit flash memory address
  *                 source_address, buffer address of source data to program
  *                 byte_length, byte length of data to programm
@@ -1121,19 +1005,19 @@ ReturnMsg MX25_WRDI( void )
  *                 If the page address ( flash_address[7:0] ) reach 0xFF, it will
  *                 program next at 0x00 of the same page.
  *                 Some products have smaller page size ( 32 byte )
- * Return Message: FlashAddressInvalid, FlashIsBusy, FlashOperationSuccess,
- *                 FlashTimeOut
+ * Return Message: Msg23lc1024FlashAddressInvalid, Msg23lc1024FlashIsBusy, Msg23lc1024FlashOperationSuccess,
+ *                 Msg23lc1024FlashTimeOut
  */
-ReturnMsg MX25_PP( uint32_t flash_address, uint8_t *source_address, uint32_t byte_length )
+ReturnMsg23lc1024 SRAM23LC_PP( uint32_t flash_address, uint8_t *source_address, uint32_t byte_length )
 {
     uint32_t index;
     uint8_t  addr_4byte_mode;
 
     // Check flash address
-    if( flash_address > FlashSize ) return FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
 
     // Check flash is busy or not
-    if( IsFlashBusy() )    return FlashIsBusy;
+    if( IsFlashBusy() )    return Msg23lc1024FlashIsBusy;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -1142,10 +1026,10 @@ ReturnMsg MX25_PP( uint32_t flash_address, uint8_t *source_address, uint32_t byt
         addr_4byte_mode = FALSE; // 3-byte mode
 
     // Setting Write Enable Latch bit
-    MX25_WREN();
+    SRAM23LC_WREN();
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Write Page Program command
     SendByte( FLASH_CMD_PP, SIO );
@@ -1159,17 +1043,15 @@ ReturnMsg MX25_PP( uint32_t flash_address, uint8_t *source_address, uint32_t byt
     }
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
     if( WaitFlashReady( PageProgramCycleTime ) )
-        return FlashOperationSuccess;
+        return Msg23lc1024FlashOperationSuccess;
     else
-        return FlashTimeOut;
+        return Msg23lc1024FlashTimeOut;
 }
-
-
 /*
- * Function:       MX25_4PP
+ * Function:       SRAM23LC_4PP
  * Arguments:      flash_address, 32 bit flash memory address
  *                 source_address, buffer address of source data to program
  *                 byte_length, byte length of data to programm
@@ -1179,22 +1061,22 @@ ReturnMsg MX25_PP( uint32_t flash_address, uint8_t *source_address, uint32_t byt
  *                 If the page address ( flash_address[7:0] ) reach 0xFF, it will
  *                 program next at 0x00 of the same page.
  *                 The different between QPP and 4PP is the IO number during sending address
- * Return Message: FlashQuadNotEnable, FlashAddressInvalid, FlashIsBusy,
- *                 FlashOperationSuccess, FlashTimeOut
+ * Return Message: Msg23lc1024FlashQuadNotEnable, Msg23lc1024FlashAddressInvalid, Msg23lc1024FlashIsBusy,
+ *                 Msg23lc1024FlashOperationSuccess, Msg23lc1024FlashTimeOut
  */
-ReturnMsg MX25_4PP( uint32_t flash_address, uint8_t *source_address, uint32_t byte_length )
+ReturnMsg23lc1024 SRAM23LC_4PP( uint32_t flash_address, uint8_t *source_address, uint32_t byte_length )
 {
     uint32_t index;
     uint8_t  addr_4byte_mode;
 
     // Check QE bit
-    if( !IsFlashQIO() ) return FlashQuadNotEnable;
+    if( !IsFlashQIO() ) return Msg23lc1024FlashQuadNotEnable;
 
     // Check flash address
-    if( flash_address > FlashSize ) return FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
 
     // Check flash is busy or not
-    if( IsFlashBusy() )    return FlashIsBusy;
+    if( IsFlashBusy() )    return Msg23lc1024FlashIsBusy;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -1203,10 +1085,10 @@ ReturnMsg MX25_4PP( uint32_t flash_address, uint8_t *source_address, uint32_t by
         addr_4byte_mode = FALSE; // 3-byte mode
 
     // Setting Write Enable Latch bit
-    MX25_WREN();
+    SRAM23LC_WREN();
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Write 4-I/O Page Program command
     SendByte( FLASH_CMD_4PP, SIO );
@@ -1219,35 +1101,30 @@ ReturnMsg MX25_4PP( uint32_t flash_address, uint8_t *source_address, uint32_t by
     }
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
     if( WaitFlashReady( PageProgramCycleTime ) )
-        return FlashOperationSuccess;
+        return Msg23lc1024FlashOperationSuccess;
     else
-        return FlashTimeOut;
+        return Msg23lc1024FlashTimeOut;
 }
-
 /*
- * Erase Command
- */
-
-/*
- * Function:       MX25_SE
+ * Function:       SRAM23LC_SE
  * Arguments:      flash_address, 32 bit flash memory address
  * Description:    The SE instruction is for erasing the data
  *                 of the chosen sector (4KB) to be "1".
- * Return Message: FlashAddressInvalid, FlashIsBusy, FlashOperationSuccess,
- *                 FlashTimeOut
+ * Return Message: Msg23lc1024FlashAddressInvalid, Msg23lc1024FlashIsBusy, Msg23lc1024FlashOperationSuccess,
+ *                 Msg23lc1024FlashTimeOut
  */
-ReturnMsg MX25_SE( uint32_t flash_address )
+ReturnMsg23lc1024 SRAM23LC_SE( uint32_t flash_address )
 {
     uint8_t  addr_4byte_mode;
 
     // Check flash address
-    if( flash_address > FlashSize ) return FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
 
     // Check flash is busy or not
-    if( IsFlashBusy() )    return FlashIsBusy;
+    if( IsFlashBusy() )    return Msg23lc1024FlashIsBusy;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -1256,41 +1133,40 @@ ReturnMsg MX25_SE( uint32_t flash_address )
         addr_4byte_mode = FALSE; // 3-byte mode
 
     // Setting Write Enable Latch bit
-    MX25_WREN();
+    SRAM23LC_WREN();
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     //Write Sector Erase command = 0x20;
     SendByte( FLASH_CMD_SE, SIO );
     SendFlashAddr( flash_address, SIO, addr_4byte_mode );
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
     if( WaitFlashReady( SectorEraseCycleTime ) )
-        return FlashOperationSuccess;
+        return Msg23lc1024FlashOperationSuccess;
     else
-        return FlashTimeOut;
+        return Msg23lc1024FlashTimeOut;
 }
-
 /*
- * Function:       MX25_BE32K
+ * Function:       SRAM23LC_BE32K
  * Arguments:      flash_address, 32 bit flash memory address
  * Description:    The BE32K instruction is for erasing the data
  *                 of the chosen sector (32KB) to be "1".
- * Return Message: FlashAddressInvalid, FlashIsBusy, FlashOperationSuccess,
- *                 FlashTimeOut
+ * Return Message: Msg23lc1024FlashAddressInvalid, Msg23lc1024FlashIsBusy, Msg23lc1024FlashOperationSuccess,
+ *                 Msg23lc1024FlashTimeOut
  */
-ReturnMsg MX25_BE32K( uint32_t flash_address )
+ReturnMsg23lc1024 SRAM23LC_BE32K( uint32_t flash_address )
 {
     uint8_t  addr_4byte_mode;
 
     // Check flash address
-    if( flash_address > FlashSize ) return FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
 
     // Check flash is busy or not
-    if( IsFlashBusy() )    return FlashIsBusy;
+    if( IsFlashBusy() )    return Msg23lc1024FlashIsBusy;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -1299,41 +1175,40 @@ ReturnMsg MX25_BE32K( uint32_t flash_address )
         addr_4byte_mode = FALSE; // 3-byte mode
 
     // Setting Write Enable Latch bit
-    MX25_WREN();
+    SRAM23LC_WREN();
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     //Write Block Erase32KB command;
     SendByte( FLASH_CMD_BE32K, SIO );
     SendFlashAddr( flash_address, SIO, addr_4byte_mode );
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
     if( WaitFlashReady( BlockErase32KCycleTime ) )
-        return FlashOperationSuccess;
+        return Msg23lc1024FlashOperationSuccess;
     else
-        return FlashTimeOut;
+        return Msg23lc1024FlashTimeOut;
 }
-
 /*
- * Function:       MX25_BE
+ * Function:       SRAM23LC_BE
  * Arguments:      flash_address, 32 bit flash memory address
  * Description:    The BE instruction is for erasing the data
  *                 of the chosen sector (64KB) to be "1".
- * Return Message: FlashAddressInvalid, FlashIsBusy, FlashOperationSuccess,
- *                 FlashTimeOut
+ * Return Message: Msg23lc1024FlashAddressInvalid, Msg23lc1024FlashIsBusy, Msg23lc1024FlashOperationSuccess,
+ *                 Msg23lc1024FlashTimeOut
  */
-ReturnMsg MX25_BE( uint32_t flash_address )
+ReturnMsg23lc1024 SRAM23LC_BE( uint32_t flash_address )
 {
     uint8_t  addr_4byte_mode;
 
     // Check flash address
-    if( flash_address > FlashSize ) return FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
 
     // Check flash is busy or not
-    if( IsFlashBusy() )    return FlashIsBusy;
+    if( IsFlashBusy() )    return Msg23lc1024FlashIsBusy;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -1342,271 +1217,239 @@ ReturnMsg MX25_BE( uint32_t flash_address )
         addr_4byte_mode = FALSE; // 3-byte mode
 
     // Setting Write Enable Latch bit
-    MX25_WREN();
+    SRAM23LC_WREN();
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     //Write Block Erase command = 0xD8;
     SendByte( FLASH_CMD_BE, SIO );
     SendFlashAddr( flash_address, SIO, addr_4byte_mode );
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
     if( WaitFlashReady( BlockEraseCycleTime ) )
-        return FlashOperationSuccess;
+        return Msg23lc1024FlashOperationSuccess;
     else
-        return FlashTimeOut;
+        return Msg23lc1024FlashTimeOut;
 }
-
 /*
- * Function:       MX25_CE
+ * Function:       SRAM23LC_CE
  * Arguments:      None.
  * Description:    The CE instruction is for erasing the data
  *                 of the whole chip to be "1".
- * Return Message: FlashIsBusy, FlashOperationSuccess, FlashTimeOut
+ * Return Message: Msg23lc1024FlashIsBusy, Msg23lc1024FlashOperationSuccess, Msg23lc1024FlashTimeOut
  */
-ReturnMsg MX25_CE( void )
+ReturnMsg23lc1024 SRAM23LC_CE( void )
 {
     // Check flash is busy or not
-    if( IsFlashBusy() )    return FlashIsBusy;
+    if( IsFlashBusy() )    return Msg23lc1024FlashIsBusy;
 
     // Setting Write Enable Latch bit
-    MX25_WREN();
+    SRAM23LC_WREN();
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     //Write Chip Erase command = 0x60;
     SendByte( FLASH_CMD_CE, SIO );
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
     if( WaitFlashReady( ChipEraseCycleTime ) )
-        return FlashOperationSuccess;
+        return Msg23lc1024FlashOperationSuccess;
     else
-        return FlashTimeOut;
+        return Msg23lc1024FlashTimeOut;
 }
-
-
 /*
- * Mode setting Command
- */
-
-/*
- * Function:       MX25_DP
+ * Function:       SRAM23LC_DP
  * Arguments:      None.
  * Description:    The DP instruction is for setting the
  *                 device on the minimizing the power consumption.
- * Return Message: FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_DP( void )
+ReturnMsg23lc1024 SRAM23LC_DP( void )
 {
     // Wake up flash in case the device is in deep power down mode already.
-    CS_Low();
+    setCSLow();
     InsertDummyCycle ( 20*8 );        // wait for tCRDP=20us  (20 x 8 bit / 8Mbps)
-    CS_High();
+    setCSHigh();
     InsertDummyCycle ( 30*8 );        // wait for tRDP=35us (20 x 8 bit / 8Mbps)
     InsertDummyCycle ( 5*8 );     
 	
 	// Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Deep Power Down Mode command
     SendByte( FLASH_CMD_DP, SIO );
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
-
 /*
- * Function:       MX25_ENSO
+ * Function:       SRAM23LC_ENSO
  * Arguments:      None.
  * Description:    The ENSO instruction is for entering the secured OTP mode.
- * Return Message: FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_ENSO( void )
+ReturnMsg23lc1024 SRAM23LC_ENSO( void )
 {
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Write ENSO command
     SendByte( FLASH_CMD_ENSO, SIO );
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
 /*
- * Function:       MX25_EXSO
+ * Function:       SRAM23LC_EXSO
  * Arguments:      None.
  * Description:    The EXSO instruction is for exiting the secured OTP mode.
- * Return Message: FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_EXSO( void )
+ReturnMsg23lc1024 SRAM23LC_EXSO( void )
 {
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Write EXSO command = 0xC1
     SendByte( FLASH_CMD_EXSO, SIO );
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
-
 /*
- * Function:       MX25_SBL
+ * Function:       SRAM23LC_SBL
  * Arguments:      burstconfig, burst length configuration
  * Description:    To set the Burst length
- * Return Message: FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_SBL( uint8_t burstconfig )
+ReturnMsg23lc1024 SRAM23LC_SBL( uint8_t burstconfig )
 {
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Send SBL command and config data
     SendByte( FLASH_CMD_SBL, SIO );
     SendByte( burstconfig, SIO );
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
-
 /*
- * Reset setting Command
- */
-
-/*
- * Function:       MX25_RSTEN
+ * Function:       SRAM23LC_RSTEN
  * Arguments:      None.
  * Description:    Enable RST command
- * Return Message: FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_RSTEN( void )
+ReturnMsg23lc1024 SRAM23LC_RSTEN( void )
 {
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Write RSTEN command
     SendByte( FLASH_CMD_RSTEN, SIO );
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
 /*
- * Function:       MX25_RST
+ * Function:       SRAM23LC_RST
  * Arguments:      fsptr, pointer of flash status structure
  * Description:    The RST instruction is used as a system (software) reset that
  *                 puts the device in normal operating Ready mode.
- * Return Message: FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_RST( FlashStatus *fsptr )
+ReturnMsg23lc1024 SRAM23LC_RST( FlashStatus *fsptr )
 {
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Write RST command = 0x99
     SendByte(  FLASH_CMD_RST, SIO );
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
     // Reset current state
     fsptr->ArrangeOpt = FALSE;
     fsptr->ModeReg = 0x00;
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
 /*
- * Security Command
- */
-
-
-/*
- * Suspend/Resume Command
- */
-
-/*
- * Function:       MX25_PGM_ERS_S
+ * Function:       SRAM23LC_PGM_ERS_S
  * Arguments:      None
  * Description:    The PGM_ERS_S suspend Sector-Erase, Block-Erase or
  *                 Page-Program operations and conduct other operations.
- * Return Message: FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_PGM_ERS_S( void )
+ReturnMsg23lc1024 SRAM23LC_PGM_ERS_S( void )
 {
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Send program/erase suspend command
     SendByte( FLASH_CMD_PGM_ERS_S, SIO );
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
 /*
- * Function:       MX25_PGM_ERS_R
+ * Function:       SRAM23LC_PGM_ERS_R
  * Arguments:      None
  * Description:    The PGM_ERS_R resume Sector-Erase, Block-Erase or
  *                 Page-Program operations.
- * Return Message: FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_PGM_ERS_R( void )
+ReturnMsg23lc1024 SRAM23LC_PGM_ERS_R( void )
 {
 
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Send resume command
     SendByte( FLASH_CMD_PGM_ERS_R, SIO );
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
-
-
 /*
- * Function:       MX25_NOP
+ * Function:       SRAM23LC_NOP
  * Arguments:      None.
  * Description:    The NOP instruction is null operation of flash.
- * Return Message: FlashOperationSuccess
+ * Return Message: Msg23lc1024FlashOperationSuccess
  */
-ReturnMsg MX25_NOP( void )
+ReturnMsg23lc1024 SRAM23LC_NOP( void )
 {
     // Chip select go low to start a flash command
-    CS_Low();
+    setCSLow();
 
     // Write NOP command = 0x00
     SendByte( FLASH_CMD_NOP, SIO );
 
     // Chip select go high to end a flash command
-    CS_High();
+    setCSHigh();
 
-    return FlashOperationSuccess;
+    return Msg23lc1024FlashOperationSuccess;
 }
 

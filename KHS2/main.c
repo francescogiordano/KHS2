@@ -1,16 +1,3 @@
-/***********************************************************************************************//**
- * \file   main.c
- * \brief  Silabs HTM IAS and Beaconing Demo Application
- *         This application is intended to be used with the iOS Silicon Labs
- *         app for demonstration purposes
- ***************************************************************************************************
- * <b> (C) Copyright 2015 Silicon Labs, http://www.silabs.com</b>
- ***************************************************************************************************
- * This file is licensed under the Silabs License Agreement. See the file
- * "Silabs_License_Agreement.txt" for details. Before using this software for
- * any purpose, you must agree to the terms of that agreement.
- **************************************************************************************************/
-
 #include "init_mcu.h"
 #include "init_board.h"
 #include "init_app.h"
@@ -42,15 +29,8 @@
 
 #include "bsp.h"
 
-/***********************************************************************************************//**
- * @addtogroup Application
- * @{
- **************************************************************************************************/
-
-/***********************************************************************************************//**
- * @addtogroup app
- * @{
- **************************************************************************************************/
+#include "wdog.h"
+#include "letimer.h"
 
 #ifndef MAX_CONNECTIONS
 #define MAX_CONNECTIONS 4
@@ -75,36 +55,59 @@ static const gecko_configuration_t config = {
 #endif // (HAL_PA_ENABLE) && defined(FEATURE_PA_HIGH_POWER)
 };
 
-void main(void)
-{
-  // Initialize device
-  initMcu();
-  // Initialize board
-  initBoard();
-  // Initialize application
-  initApp();
+void main(void){
 
-  // Initialize LEDs
-  BSP_LedsInit();
+	//InitWdog();
+	//LockWdog();
 
-#ifndef FEATURE_LED_BUTTON_ON_SAME_PIN
-  // Configure pin as input
-  GPIO_PinModeSet(BSP_BUTTON0_PORT, BSP_BUTTON0_PIN, gpioModeInput, 1);
-  // Configure pin as input
-  GPIO_PinModeSet(BSP_BUTTON1_PORT, BSP_BUTTON1_PIN, gpioModeInput, 1);
-#endif
+	InitMcu();
+	InitBoard();	//Init Mcu ports & IO for PCB
+	InitApp();		//Init ICs
 
-  // Initialize stack
-  gecko_init(&config);
 
-  while (1) {
-    struct gecko_cmd_packet* evt;
-    // Check for stack event.
-    evt = gecko_wait_event();
-    // Run application and event handler.
-    appHandleEvents(evt);
-  }
+	/*
+	BSP_LedsInit();				// Initialize LEDs
+
+	#ifndef FEATURE_LED_BUTTON_ON_SAME_PIN
+		GPIO_PinModeSet(BSP_BUTTON0_PORT, BSP_BUTTON0_PIN, gpioModeInput, 1);	// Configure pin as input
+		GPIO_PinModeSet(BSP_BUTTON1_PORT, BSP_BUTTON1_PIN, gpioModeInput, 1);	// Configure pin as input
+	#endif
+	 */
+
+	gecko_init(&config);		// Initialize stack
+
+	//LeTimer must be before gecko_init()
+	InitLeTimer();
+	StartLeTimer();
+
+	/* Test Mode
+	if (nrf_gpio_pin_read(ENABLE_TEST_PIN)) {
+		printUSART0("Entered Test Mode\n", 0);
+		while (nrf_gpio_pin_read(ENABLE_TEST_PIN)) {
+			if (readCharUSART0() == 0x61) {
+
+				//Test Mag & Accel IC
+				initSensors();
+
+				//Test ADC
+				uint32_t value = GetAdcValue();
+				if (value >= 156 && value <= 163) {
+					printUSART0("R7 ADC [OK]\n", 0);
+				}
+				else {
+					//printUSART0("R7 ADC [FAIL][%d]\n", &value);
+					printUSART0("R7 ADC [FAIL]\n", 0);
+				}
+			}
+			tickleWDT();
+		}
+	}
+	*/
+
+	while(1){
+		struct gecko_cmd_packet* evt;
+		evt = gecko_wait_event();	// Check for stack event
+		HandleEventsApp(evt);		// Run application and event handler.
+		//FeedWdog();
+	}
 }
-
-/** @} (end addtogroup app) */
-/** @} (end addtogroup Application) */

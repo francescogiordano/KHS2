@@ -1,24 +1,13 @@
-/*
- * COPYRIGHT (c) 2010-2015 MACRONIX INTERNATIONAL CO., LTD
- * SPI Flash Low Level Driver (LLD) Sample Code
- *
- * Flash device information define
- *
- * $Id: MX25_DEF.h,v 1.420 2015/04/09 03:26:05 mxclldb1 Exp $
- */
-
-#ifndef    __MX25_DEF_H__
-#define    __MX25_DEF_H__
+#ifndef    S23LC1024_H
+#define    S23LC1024_H
 
 #include <stdbool.h>
 #include <stdint.h>
-#ifdef HAL_CONFIG
-#include "mx25flashhalconfig.h"
-#else
-#include "mx25flash_config.h"
-#endif
 
-#define MX25R8035F
+#include "halconfig_23lc1024.h"
+
+
+#define SRAM23LC1024
 
 /* Note:
    Synchronous IO     : MCU will polling WIP bit after
@@ -75,7 +64,7 @@
   (The following information could get from device specification)
 */
 
-#ifdef MX25R8035F
+#ifdef SRAM23LC1024
 #define    FlashID          0xc22814
 #define    ElectronicID     0x14
 #define    RESID0           0xc214
@@ -137,20 +126,20 @@
 #define    WriteExtRegCycleTime        tWREAW / (CLK_PERIOD * Min_Cycle_Per_Inst * One_Loop_Inst)
 #endif
 
-/*** MX25 series command hex code definition ***/
-//ID comands
+/*** SRAM23LC series command hex code definition ***/
+//ID commands
 #define    FLASH_CMD_RDID      0x9F    //RDID (Read Identification)
 #define    FLASH_CMD_RES       0xAB    //RES (Read Electronic ID)
 #define    FLASH_CMD_REMS      0x90    //REMS (Read Electronic & Device ID)
 
-//Register comands
+//Register commands
 #define    FLASH_CMD_WRSR      0x01    //WRSR (Write Status Register)
 #define    FLASH_CMD_RDSR      0x05    //RDSR (Read Status Register)
 #define    FLASH_CMD_WRSCUR    0x2F    //WRSCUR (Write Security Register)
 #define    FLASH_CMD_RDSCUR    0x2B    //RDSCUR (Read Security Register)
 #define    FLASH_CMD_RDCR      0x15    //RDCR (Read Configuration Register)
 
-//READ comands
+//READ commands
 #define    FLASH_CMD_READ        0x03    //READ (1 x I/O)
 #define    FLASH_CMD_2READ       0xBB    //2READ (2 x I/O)
 #define    FLASH_CMD_4READ       0xEB    //4READ (4 x I/O)
@@ -159,19 +148,19 @@
 #define    FLASH_CMD_QREAD       0x6B    //QREAD (1In/4 Out fast read)
 #define    FLASH_CMD_RDSFDP      0x5A    //RDSFDP (Read SFDP)
 
-//Program comands
+//Program commands
 #define    FLASH_CMD_WREN     0x06    //WREN (Write Enable)
 #define    FLASH_CMD_WRDI     0x04    //WRDI (Write Disable)
 #define    FLASH_CMD_PP       0x02    //PP (page program)
 #define    FLASH_CMD_4PP      0x38    //4PP (Quad page program)
 
-//Erase comands
+//Erase commands
 #define    FLASH_CMD_SE       0x20    //SE (Sector Erase)
 #define    FLASH_CMD_BE32K    0x52    //BE32K (Block Erase 32kb)
 #define    FLASH_CMD_BE       0xD8    //BE (Block Erase)
 #define    FLASH_CMD_CE       0x60    //CE (Chip Erase) hex code: 60 or C7
 
-//Mode setting comands
+//Mode setting commands
 #define    FLASH_CMD_DP       0xB9    //DP (Deep Power Down)
 #define    FLASH_CMD_ENSO     0xB1    //ENSO (Enter Secured OTP)
 #define    FLASH_CMD_EXSO     0xC1    //EXSO  (Exit Secured OTP)
@@ -181,29 +170,33 @@
 #define    FLASH_CMD_SBL      0xC0    //SBL (Set Burst Length) Old: 0xC0
 #endif
 
-//Reset comands
+//Reset commands
 #define    FLASH_CMD_RSTEN     0x66    //RSTEN (Reset Enable)
 #define    FLASH_CMD_RST       0x99    //RST (Reset Memory)
 
-//Security comands
+//Security commands
 #ifdef LCR_CMD_0xDD_0xD5
 #else
 #endif
 
-//Suspend/Resume comands
+//Suspend/Resume commands
 #define    FLASH_CMD_PGM_ERS_S    0xB0    //PGM/ERS Suspend (Suspends Program/Erase)
 #define    FLASH_CMD_PGM_ERS_R    0x30    //PGM/ERS Erase (Resumes Program/Erase)
 #define    FLASH_CMD_NOP          0x00    //NOP (No Operation)
 
+//*****************************   TYPEDEFS   **********************************
+
 // Return Message
 typedef enum {
-    FlashOperationSuccess,
-    FlashWriteRegFailed,
-    FlashTimeOut,
-    FlashIsBusy,
-    FlashQuadNotEnable,
-    FlashAddressInvalid
-}ReturnMsg;
+	Msg23lc1024FlashOperationSuccess,
+	Msg23lc1024FlashWriteRegFailed,
+	Msg23lc1024FlashTimeOut,
+	Msg23lc1024FlashIsBusy,
+	Msg23lc1024FlashQuadNotEnable,
+	Msg23lc1024FlashAddressInvalid
+}ReturnMsg23lc1024;
+
+//*****************************   STRUCTURES   ********************************
 
 // Flash status structure define
 struct sFlashStatus{
@@ -225,55 +218,56 @@ struct sFlashStatus{
 
 typedef struct sFlashStatus FlashStatus;
 
-void MX25_init( void );
+//**************************   FUNCTION DECLARATIONS   ************************
+
+void Set23lc1024(void);
+void Init23lc1024(void);
+bool Detect23lc1024(void);
 
 /* Flash commands */
-ReturnMsg MX25_RDID( uint32_t *Identification );
-ReturnMsg MX25_RES( uint8_t *ElectricIdentification );
-ReturnMsg MX25_REMS( uint16_t *REMS_Identification, FlashStatus *fsptr );
+ReturnMsg23lc1024 SRAM23LC_RDID( uint32_t *Identification );
+ReturnMsg23lc1024 SRAM23LC_RES( uint8_t *ElectricIdentification );
+ReturnMsg23lc1024 SRAM23LC_REMS( uint16_t *REMS_Identification, FlashStatus *fsptr );
 
-ReturnMsg MX25_RDSR( uint8_t *StatusReg );
+ReturnMsg23lc1024 SRAM23LC_RDSR( uint8_t *StatusReg );
 #ifdef SUPPORT_WRSR_CR
-   ReturnMsg MX25_WRSR( uint16_t UpdateValue );
+   ReturnMsg23lc1024 SRAM23LC_WRSR( uint16_t UpdateValue );
 #else
-   ReturnMsg MX25_WRSR( uint8_t UpdateValue );
+   ReturnMsg23lc1024 SRAM23LC_WRSR( uint8_t UpdateValue );
 #endif
-ReturnMsg MX25_RDSCUR( uint8_t *SecurityReg );
-ReturnMsg MX25_WRSCUR( void );
-ReturnMsg MX25_RDCR( uint8_t *ConfigReg );
+ReturnMsg23lc1024 SRAM23LC_RDSCUR( uint8_t *SecurityReg );
+ReturnMsg23lc1024 SRAM23LC_WRSCUR( void );
+ReturnMsg23lc1024 SRAM23LC_RDCR( uint8_t *ConfigReg );
 
-ReturnMsg MX25_READ( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length  );
-ReturnMsg MX25_2READ( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length );
-ReturnMsg MX25_4READ( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length );
-ReturnMsg MX25_FASTREAD( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length );
-ReturnMsg MX25_DREAD( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length );
-ReturnMsg MX25_QREAD( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length );
-ReturnMsg MX25_RDSFDP( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length );
+ReturnMsg23lc1024 SRAM23LC_READ( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length  );
+ReturnMsg23lc1024 SRAM23LC_2READ( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length );
+ReturnMsg23lc1024 SRAM23LC_4READ( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length );
+ReturnMsg23lc1024 SRAM23LC_FASTREAD( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length );
+ReturnMsg23lc1024 SRAM23LC_DREAD( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length );
+ReturnMsg23lc1024 SRAM23LC_QREAD( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length );
+ReturnMsg23lc1024 SRAM23LC_RDSFDP( uint32_t flash_address, uint8_t *target_address, uint32_t byte_length );
 
-ReturnMsg MX25_WREN( void );
-ReturnMsg MX25_WRDI( void );
-ReturnMsg MX25_PP( uint32_t flash_address, uint8_t *source_address, uint32_t byte_length );
-ReturnMsg MX25_4PP( uint32_t flash_address, uint8_t *source_address, uint32_t byte_length );
+ReturnMsg23lc1024 SRAM23LC_WREN( void );
+ReturnMsg23lc1024 SRAM23LC_WRDI( void );
+ReturnMsg23lc1024 SRAM23LC_PP( uint32_t flash_address, uint8_t *source_address, uint32_t byte_length );
+ReturnMsg23lc1024 SRAM23LC_4PP( uint32_t flash_address, uint8_t *source_address, uint32_t byte_length );
 
-ReturnMsg MX25_SE( uint32_t flash_address );
-ReturnMsg MX25_BE32K( uint32_t flash_address );
-ReturnMsg MX25_BE( uint32_t flash_address );
-ReturnMsg MX25_CE( void );
+ReturnMsg23lc1024 SRAM23LC_SE( uint32_t flash_address );
+ReturnMsg23lc1024 SRAM23LC_BE32K( uint32_t flash_address );
+ReturnMsg23lc1024 SRAM23LC_BE( uint32_t flash_address );
+ReturnMsg23lc1024 SRAM23LC_CE( void );
 
-ReturnMsg MX25_DP( void );
-ReturnMsg MX25_ENSO( void );
-ReturnMsg MX25_EXSO( void );
-ReturnMsg MX25_SBL( uint8_t burstconfig );
+ReturnMsg23lc1024 SRAM23LC_DP( void );
+ReturnMsg23lc1024 SRAM23LC_ENSO( void );
+ReturnMsg23lc1024 SRAM23LC_EXSO( void );
+ReturnMsg23lc1024 SRAM23LC_SBL( uint8_t burstconfig );
 
-ReturnMsg MX25_RSTEN( void );
-ReturnMsg MX25_RST( FlashStatus *fsptr );
+ReturnMsg23lc1024 SRAM23LC_RSTEN( void );
+ReturnMsg23lc1024 SRAM23LC_RST( FlashStatus *fsptr );
 
-ReturnMsg MX25_PGM_ERS_S( void );
-ReturnMsg MX25_PGM_ERS_R( void );
-ReturnMsg MX25_NOP( void );
+ReturnMsg23lc1024 SRAM23LC_PGM_ERS_S( void );
+ReturnMsg23lc1024 SRAM23LC_PGM_ERS_R( void );
+ReturnMsg23lc1024 SRAM23LC_NOP( void );
 
-
-
-
-#endif    /* end of __MX25_DEF_H__  */
+#endif    // end of S23LC1024_H
 

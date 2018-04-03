@@ -1,5 +1,7 @@
-init_board.o: ../init_board.c \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/bsphalconfig.h \
+hardware/kit/common/drivers/s23lc1024.o: \
+ ../hardware/kit/common/drivers/s23lc1024.c \
+ ../hardware/kit/common/drivers/s23lc1024.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_23lc1024.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/hal-config.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/board_features.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/boards.h \
@@ -53,15 +55,12 @@ init_board.o: ../init_board.c \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_gpio.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_bus.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_assert.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp_bcp.h \
- ../hal-config.h ../board_features.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_cmu.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_usart.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/mx25flash_spi.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/mx25flashhalconfig.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp.h
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_cmu.h
 
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/bsphalconfig.h:
+../hardware/kit/common/drivers/s23lc1024.h:
+
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_23lc1024.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/hal-config.h:
 
@@ -169,18 +168,6 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_bus.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_assert.h:
 
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp_bcp.h:
-
-../hal-config.h:
-
-../board_features.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_cmu.h:
-
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_usart.h:
 
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/mx25flash_spi.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/mx25flashhalconfig.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp.h:
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_cmu.h:

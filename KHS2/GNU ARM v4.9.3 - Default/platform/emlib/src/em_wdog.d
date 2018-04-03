@@ -1,11 +1,5 @@
-ia.o: ../ia.c \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\soc/native_gecko.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/hal-config.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/board_features.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/boards.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/ble-configuration.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\EFR32BG1_BRD4303A\config/hal-config-board.h \
+platform/emlib/src/em_wdog.o: ../platform/emlib/src/em_wdog.c \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_wdog.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\Device\SiliconLabs\EFR32BG1B\Include/em_device.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\Device\SiliconLabs\EFR32BG1B\Include/efr32bg1b232f256gm56.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\CMSIS\Include/core_cm4.h \
@@ -50,29 +44,9 @@ ia.o: ../ia.c \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\Device\SiliconLabs\EFR32BG1B\Include/efr32bg1b_dmareq.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\Device\SiliconLabs\EFR32BG1B\Include/efr32bg1b_af_ports.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\Device\SiliconLabs\EFR32BG1B\Include/efr32bg1b_af_pins.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\halconfig\inc\hal-config/hal-config-types.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_gpio.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_bus.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_assert.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/gecko_configuration.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_gattdb_def.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_errorcodes.h \
- ../app_ui.h ../ia.h
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_bus.h
 
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\soc/native_gecko.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/hal-config.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/board_features.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/boards.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/ble-configuration.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\EFR32BG1_BRD4303A\config/hal-config-board.h:
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_wdog.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\Device\SiliconLabs\EFR32BG1B\Include/em_device.h:
 
@@ -162,22 +136,4 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\Device\SiliconLabs\EFR32BG1
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\Device\SiliconLabs\EFR32BG1B\Include/efr32bg1b_af_pins.h:
 
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\halconfig\inc\hal-config/hal-config-types.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_gpio.h:
-
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_bus.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_assert.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/gecko_configuration.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_gattdb_def.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_errorcodes.h:
-
-../app_ui.h:
-
-../ia.h:

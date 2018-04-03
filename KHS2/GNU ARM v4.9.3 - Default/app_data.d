@@ -1,5 +1,5 @@
-init_app.o: ../init_app.c \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/bsphalconfig.h \
+app_data.o: G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/app_data.c \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\soc/native_gecko.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/hal-config.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/board_features.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/boards.h \
@@ -53,16 +53,24 @@ init_app.o: ../init_app.c \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_gpio.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_bus.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_assert.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp_bcp.h \
- ../hal-config.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_usart.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/i2cspm.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/i2cspmhalconfig.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_i2c.h \
- ../pti.h
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/gecko_configuration.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_gattdb_def.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_errorcodes.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\letimer\inc/letimer.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\common\inc/ecode.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\letimer\config/letimer_config.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\gpiointerrupt\inc/gpiointerrupt.h \
+ G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/app_extsignals.h \
+ G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/payloadbuffer.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/lsm6dsl.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_lsm6dsl.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/h3lis331dl.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_h3lis331dl.h \
+ G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/app_data.h
 
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/bsphalconfig.h:
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\soc/native_gecko.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/hal-config.h:
 
@@ -170,18 +178,34 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_bus.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_assert.h:
 
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp_bcp.h:
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h:
 
-../hal-config.h:
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/gecko_configuration.h:
 
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp.h:
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_gattdb_def.h:
 
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_usart.h:
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h:
 
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/i2cspm.h:
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_errorcodes.h:
 
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/i2cspmhalconfig.h:
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\letimer\inc/letimer.h:
 
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_i2c.h:
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\common\inc/ecode.h:
 
-../pti.h:
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\letimer\config/letimer_config.h:
+
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\gpiointerrupt\inc/gpiointerrupt.h:
+
+G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/app_extsignals.h:
+
+G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/payloadbuffer.h:
+
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/lsm6dsl.h:
+
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_lsm6dsl.h:
+
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/h3lis331dl.h:
+
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_h3lis331dl.h:
+
+G:/My\ Drive/R&D/Firmware\ Design/KHS/KHS/app_data.h:
