@@ -62,13 +62,21 @@
 #define PORTIO_GPIO_SWV_PIN                           (2)
 #define PORTIO_GPIO_SWV_PORT                          (gpioPortF)
 #define PORTIO_GPIO_SWV_LOC                           (0)
-
+/*
+//For BGM11S DEMO board
 #define BSP_TRACE_SWO_PIN                             (2)
 #define BSP_TRACE_SWO_PORT                            (gpioPortF)
 #define BSP_TRACE_SWO_LOC                             (0)
+/**/
+/**/
+//For Prototype board
+#define BSP_TRACE_SWO_PIN                             (11)
+#define BSP_TRACE_SWO_PORT                            (gpioPortC)
+#define BSP_TRACE_SWO_LOC                             (3)
+/**/
 // [GPIO]$
 
-// $[I2C0]
+// $[I2C0].
 #define PORTIO_I2C0_SCL_PIN                           (10)
 #define PORTIO_I2C0_SCL_PORT                          (gpioPortC)
 #define PORTIO_I2C0_SCL_LOC                           (14)

@@ -35,7 +35,7 @@
 #define HAL_PTI_MODE                                  	(HAL_PTI_MODE_UART)
 #define HAL_PTI_BAUD_RATE                             	(1600000)
 
-#define HAL_SPIDISPLAY_ENABLE                         	(1)
+#define HAL_SPIDISPLAY_ENABLE                         	(0)
 #define HAL_SPIDISPLAY_EXTCOMIN_CALLBACK
 #if defined(FEATURE_IOEXPANDER)
 #define HAL_SPIDISPLAY_EXTMODE_EXTCOMIN               	(0)
@@ -48,7 +48,8 @@
 #define HAL_SPIDISPLAY_FREQUENCY                      	(1000000)
 
 #define HAL_VCOM_ENABLE                   				(0)
-#define HAL_SPI_ENABLE		              				(1)
-#define HAL_I2C_ENABLE    		          				(1)
+#define HAL_SPI_ENABLE		              				(0)
+#define HAL_I2C_ENABLE    		          				(0)
+#define HAL_WDOG_ENABLE    		          				(0)
 
 #endif

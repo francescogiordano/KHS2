@@ -28,6 +28,7 @@
 
 #include "wdog.h"
 #include "letimer.h"
+#include "udelay.h"
 
 #ifndef MAX_CONNECTIONS
 #define MAX_CONNECTIONS 4
@@ -70,11 +71,11 @@ void main(void){
 		GPIO_PinModeSet(BSP_BUTTON0_PORT, BSP_BUTTON0_PIN, gpioModeInput, 1);	// Configure pin as input
 		GPIO_PinModeSet(BSP_BUTTON1_PORT, BSP_BUTTON1_PIN, gpioModeInput, 1);	// Configure pin as input
 	#endif
-	 */
+	/**/
 
-	gecko_init(&config);		// Initialize stack
+	//gecko_init(&config);		// Initialize stack
 
-	//LeTimer must be before gecko_init()
+	//LeTimer must be after gecko_init()
 	InitLeTimer();
 	StartLeTimer();
 
@@ -102,11 +103,18 @@ void main(void){
 	}
 	*/
 
+	RETARGET_SwoInit();
+	RETARGET_WriteChar('S');
+	RETARGET_WriteChar('W');
+	RETARGET_WriteChar('O');
+	RETARGET_WriteChar('\n');
+
 	while(1){
+		/**/
 		struct gecko_cmd_packet* evt;
 		evt = gecko_wait_event();	// Check for stack event
 		HandleEventsApp(evt);		// Run application and event handler.
-
+		/**/
 	#if	(HAL_WDOG_ENABLE)
 		FeedWdog();
 	#endif

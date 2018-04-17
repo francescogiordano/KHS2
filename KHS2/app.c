@@ -55,13 +55,14 @@ void InitApp(void){
   //snprintf(devName, APP_DEVNAME_LEN + 1, APP_DEVNAME, devId);
   //gecko_cmd_gatt_server_write_attribute_value(gattdb_device_name, 0, strlen(devName), (uint8_t *)devName);
 
-
+  /**/
   // Initialize LEDs, buttons, graphics.
   appUiInit(devId);
 
   InitAppHw();
   InitAppData();
   InitAppBle();
+  /**/
 }
 
 void HandleEventsApp(struct gecko_cmd_packet *evt){
@@ -182,7 +183,7 @@ void HandleEventsApp(struct gecko_cmd_packet *evt){
       }
       break;
 
-    case gecko_evt_system_external_signal_id:
+	case gecko_evt_system_external_signal_id:
     	switch(evt->data.evt_system_external_signal.extsignals){
     		case APP_DATA_LOW_ACCEL_GYRO:
     			//LowAccelGyroAppDataProcessRead();

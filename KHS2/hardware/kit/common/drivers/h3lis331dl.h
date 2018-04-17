@@ -14,15 +14,9 @@ extern "C" {
 
 // I2C device address for H3lis331dl
 #define H3LIS331DL_ADDR      0x82
-// I2C device address for Si7021
-//#define SI7021_ADDR      0x80
 
 // Device ID value for H3lis331dl
 #define H3LIS331DL_DEVICE_ID 0x0D
-// Device ID value for Si7020
-//#define SI7020_DEVICE_ID 0x14
-// Device ID value for Si7021
-//#define SI7021_DEVICE_ID 0x21
 
 #define H3LIS331DL_INT_PIN		15
 

@@ -18,16 +18,6 @@ uint64_t GetLeCounter(void);
 
 
 
-
-
-
-
-
-
-
-
-
-
 #ifdef __cplusplus
 }
 #endif

@@ -29,6 +29,10 @@ void LETIMER_IRQHandler(void){
 			LETIMER_IntClear(LETIMER, LETIMER_IFC_COMP0);
 		)
 		leCounter++;
+
+		if(leCounter%10 == 0){
+			RETARGET_WriteChar('F');
+		}
 	}
 }
 

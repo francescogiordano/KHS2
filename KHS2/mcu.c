@@ -19,16 +19,20 @@
 #include "lsm6dsl.h"
 #include "h3lis331dl.h"
 
+#include "udelay.h"
+
 //**************************   STATIC FUNCTION DEFINIITIONS   *****************
 
 static void initMcu_clocks(void)
 {
+/*
   // Initialize HFXO
   CMU_HFXOInit_TypeDef hfxoInit = BSP_CLK_HFXO_INIT;
 #if defined(BSP_CLK_HFXO_CTUNE) && BSP_CLK_HFXO_CTUNE > -1
   hfxoInit.ctuneStartup = BSP_CLK_HFXO_CTUNE;
   hfxoInit.ctuneSteadyState = BSP_CLK_HFXO_CTUNE;
 #endif
+
   CMU_HFXOInit(&hfxoInit);
 
   // Set system HFXO frequency
@@ -43,6 +47,10 @@ static void initMcu_clocks(void)
   // HFRCO not needed when using HFXO
   CMU_OscillatorEnable(cmuOsc_HFRCO, false, false);
 
+
+  // Enabling HFBUSCLKLE clock for LE peripherals
+  CMU_ClockEnable(cmuClock_HFLE, true);
+
   // Initialize LFXO
   CMU_LFXOInit_TypeDef lfxoInit = BSP_CLK_LFXO_INIT;
   lfxoInit.ctune = BSP_CLK_LFXO_CTUNE;
@@ -52,9 +60,21 @@ static void initMcu_clocks(void)
   SystemLFXOClockSet(BSP_CLK_LFXO_FREQ);
 
   // Set LFXO if selected as LFCLK
+  CMU_ClockEnable(cmuClock_CORELE, true);
+
+  // Set LFXO if selected as LFCLK
   CMU_ClockSelectSet(cmuClock_LFA, cmuSelect_LFXO);
   CMU_ClockSelectSet(cmuClock_LFB, cmuSelect_LFXO);
   CMU_ClockSelectSet(cmuClock_LFE, cmuSelect_LFXO);
+
+/**/
+/**/
+	CMU_ClockEnable(cmuClock_CORELE, true);
+	CMU_ClockSelectSet(cmuClock_LFA, cmuSelect_LFRCO);
+	CMU_ClockSelectSet(cmuClock_LFB, cmuSelect_LFRCO);
+	CMU_ClockSelectSet(cmuClock_LFE, cmuSelect_LFRCO);
+
+/**/
 }
 static void initMcu_ports(void){
 

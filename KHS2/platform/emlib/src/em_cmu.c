@@ -4796,7 +4796,7 @@ void CMU_LFXOInit(const CMU_LFXOInit_TypeDef *lfxoInit)
  *   @li true - wait for oscillator start-up time to timeout before returning.
  *   @li false - do not wait for oscillator start-up time to timeout before
  *     returning.
- ******************************************************************************/
+ ********************1**********************************************************/
 void CMU_OscillatorEnable(CMU_Osc_TypeDef osc, bool enable, bool wait)
 {
   uint32_t rdyBitPos;

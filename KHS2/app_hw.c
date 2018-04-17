@@ -103,9 +103,11 @@ void InitAppHw(void){
   gecko_cmd_hardware_set_soft_timer(TIMER_MS_2_TIMERTICK(HWTIMER_PERIOD), HW_TIMER, false);
 
   /* Initialize temperature sensor. */
+  /*
   if (!appHwInitTempSens()){
-    appUiWriteString(APP_HW_SENSOR_FAIL_TEXT); /* Display error message on screen. */
+    appUiWriteString(APP_HW_SENSOR_FAIL_TEXT); / Display error message on screen.
   }
+  */
 
   if(!appHwInitSram()){
 	  sramErrorFlag = true;
