@@ -3,8 +3,11 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include "bg_types.h"
 
 #include "halconfig_23lc1024.h"
+
+#include "payloadbuffer.h"
 
 
 #define SRAM23LC1024
@@ -18,12 +21,25 @@
 */
 //#define    NON_SYNCHRONOUS_IO
 
+#define INSTRUCTION_WRMR	0x01	//Write Mode Register
+#define INSTRUCTION_WRITE	0x02	//Write data to memory array beginning at selected address
+#define INSTRUCTION_READ	0x03	//Read data from memory array beginning at selected address
+#define INSTRUCTION_RDMR	0x05	//Read Mode Register
+
+#define INSTRUCTION_EQIO	0x38	//Enter Quad I/O access (enter SQI bus mode)
+#define INSTRUCTION_EDIO	0x3B	//Enter Dual I/O access (enter SDI bus mode)
+#define INSTRUCTION_RSTIO	0xFF	//Reset Dual and Quad I/O access (revert tp SPI bus mode)
+
+#define SRAM23LC1024_ADDRESS_MAX	0x1FFFF		//Max Address Value
+#define SRAM23LC1024_ADDRESS_MIN	0x00000		//Min Address Value
+
+
 // variable
-#define    TRUE     1
-#define    FALSE    0
-#define    BYTE_LEN          8
-#define    IO_MASK           0x80
-#define    HALF_WORD_MASK    0x0000ffff
+#define    TRUE     		1
+#define    FALSE    		0
+#define    BYTE_LEN         8
+#define    IO_MASK          0x80
+#define    HALF_WORD_MASK	0x0000ffff
 
 /*
   Flash Related Parameter Define
@@ -188,12 +204,16 @@
 
 // Return Message
 typedef enum {
-	Msg23lc1024FlashOperationSuccess,
-	Msg23lc1024FlashWriteRegFailed,
-	Msg23lc1024FlashTimeOut,
-	Msg23lc1024FlashIsBusy,
-	Msg23lc1024FlashQuadNotEnable,
-	Msg23lc1024FlashAddressInvalid
+	Msg23lc1024Success,
+	Msg23lc1024Failure,
+	Msg23lc1024InvalidArgument,
+	Msg23lc1024CommModeNotSetup,
+	Msg23lc1024CommPortNotSetup,
+	Msg23lc1024NotInitialized,
+	Msg23lc1024TimeOut,
+	Msg23lc1024Busy,
+	Msg23lc1024Invalid,
+	Msg23lc1024QuadNotEnable
 }ReturnMsg23lc1024;
 
 //*****************************   STRUCTURES   ********************************
@@ -223,6 +243,16 @@ typedef struct sFlashStatus FlashStatus;
 void Set23lc1024(void);
 void Init23lc1024(void);
 bool Detect23lc1024(void);
+
+void WritePayload23lc1024(PAYLOAD_BUFFER_Header_t header, uint8_t* dataBytes, int dataSize);
+void ReadPayload23lc1024(PAYLOAD_BUFFER_Header_t header, uint8_t* dataBytes, int dataSize);
+
+void writeBytes23lc1024(uint8_t* addressBytes3, uint8_t* dataBytes, int dataSize);
+void readBytes23lc1024(uint8_t* addressBytes3, uint8_t* dataBytes, int dataSize);
+
+void rstio23lc1024(void);
+void rdmr23lc1024(void);
+
 
 /* Flash commands */
 ReturnMsg23lc1024 SRAM23LC_RDID( uint32_t *Identification );

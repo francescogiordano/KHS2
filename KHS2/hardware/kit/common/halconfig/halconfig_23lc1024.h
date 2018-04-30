@@ -45,6 +45,8 @@
 
 #define SRAM23LC_PORT_CS            BSP_EXTSRAM_CS_PORT
 #define SRAM23LC_PIN_CS             BSP_EXTSRAM_CS_PIN
+#define SRAM23LC_LOC_CS             BSP_EXTSRAM_CS_LOC
+
 
 #define SRAM23LC_BAUDRATE           HAL_EXTSRAM_FREQUENCY
 

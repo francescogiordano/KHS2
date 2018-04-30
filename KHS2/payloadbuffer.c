@@ -6,6 +6,8 @@
 #include "s23lc1024.h"
 #include "payloadbuffer.h"
 
+#include "retargetswo.h"
+
 static uint16_t head = 0;
 static uint16_t tail = 0;
 
@@ -21,25 +23,27 @@ static void incrementTail(void){
 //**************************   FUNCTION DEFINITIONS   *************************
 
 bool PutPayloadBuffer(uint8_t* data, uint8_t dataSize, uint16_t payloadCounter){
-	bool result = true;
+	bool result = false;
 
-	PAYLOAD_BUFFER_Header_t header = {
-		(head >> 8) 			& 0xFF,
-		(head) 					& 0xFF,
-		(payloadCounter >> 8)	& 0xFF,
-		(payloadCounter) 		& 0xFF
-	};
+	if(dataSize <= PAYLOAD_BUFFER_DATA_SIZE){
+		PAYLOAD_BUFFER_Header_t header = {head >> 8, head,
+										payloadCounter >> 8, payloadCounter};
 
-	//WriteSram(address = head*PAYLOAD_BUFFER_PAGE_SIZE, header, PAYLOAD_BUFFER_HEADER_SIZE);
-	//WriteSram(address = head*PAYLOAD_BUFFER_PAGE_SIZE + PAYLOAD_BUFFER_HEADER_SIZE, data, dataSize);
+		WritePayload23lc1024(header, data, dataSize);
 
-	incrementHead();
+		incrementHead();
 
-	//Verify if head has reached tail
-	if(head == tail){
-		incrementTail();
+		if(head >= 512){
+			RETARGET_WriteString("Error Head", 10);
+		}
+
+		//Verify if head has reached tail
+		if(head == tail){
+			incrementTail();
+		}
+
+		result = true;
 	}
-
 	return result;
 }
 bool GetPayloadBuffer(uint8_t* data, uint8_t dataSize, uint16_t* payloadCounter){
@@ -47,17 +51,23 @@ bool GetPayloadBuffer(uint8_t* data, uint8_t dataSize, uint16_t* payloadCounter)
 
 	//Verify If Buffer Not empty
 	if(!IsEmptyPayloadBuffer()){
-		PAYLOAD_BUFFER_Header_t header;
+		PAYLOAD_BUFFER_Header_t header = {tail >> 8, tail, 0x00, 0x00};
 
-		//ReadSram(address = tail*PAYLOAD_BUFFER_PAGE_SIZE, header, PAYLOAD_BUFFER_HEADER_SIZE);
+		ReadPayload23lc1024(header, data, dataSize);
 
-		if(tail == (header.IdByte1 * 0xFF) + header.IdByte0){
-			//ReadSram(address = tail*PAYLOAD_BUFFER_PAGE_SIZE + PAYLOAD_BUFFER_HEADER_SIZE, data, dataSize);
+		if(tail == (header.IdByte1 * 256) + header.IdByte0){
 
-			*payloadCounter = (header.CountByte1 * 0xFF) + header.CountByte0;
-			result = true;
+			*payloadCounter = (header.CountByte1 * 256) + header.CountByte0;
 			incrementTail();
+
+			result = true;
 		}
+		else{
+			RETARGET_WriteString("Error Tail", 10);
+		}
+	}
+	else{
+		RETARGET_WriteString("Error Empty", 11);
 	}
 	return result;
 }

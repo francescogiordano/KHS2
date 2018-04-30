@@ -1,5 +1,6 @@
 payloadbuffer.o: ../payloadbuffer.c \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/s23lc1024.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_23lc1024.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/hal-config.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/board_features.h \
@@ -54,9 +55,13 @@ payloadbuffer.o: ../payloadbuffer.c \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_gpio.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_bus.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_assert.h \
- ../payloadbuffer.h
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/payloadbuffer.h \
+ ../payloadbuffer.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/retargetswo.h
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/s23lc1024.h:
+
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_23lc1024.h:
 
@@ -166,4 +171,8 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_bus.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_assert.h:
 
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/payloadbuffer.h:
+
 ../payloadbuffer.h:
+
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/retargetswo.h:

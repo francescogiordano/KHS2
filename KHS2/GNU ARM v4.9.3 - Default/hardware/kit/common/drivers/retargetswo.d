@@ -1,5 +1,6 @@
 hardware/kit/common/drivers/retargetswo.o: \
  ../hardware/kit/common/drivers/retargetswo.c \
+ ../hardware/kit/common/drivers/retargetswo.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_cmu.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\Device\SiliconLabs\EFR32BG1B\Include/em_device.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\Device\SiliconLabs\EFR32BG1B\Include/efr32bg1b232f256gm56.h \
@@ -58,6 +59,8 @@ hardware/kit/common/drivers/retargetswo.o: \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\EFR32BG1_BRD4303A\config/hal-config-board.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\halconfig\inc\hal-config/hal-config-types.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_gpio.h
+
+../hardware/kit/common/drivers/retargetswo.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_cmu.h:
 

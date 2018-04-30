@@ -30,6 +30,10 @@
 #include "letimer.h"
 #include "udelay.h"
 
+#include "retargetswo.h"
+
+#include "payloadbuffer.h"
+
 #ifndef MAX_CONNECTIONS
 #define MAX_CONNECTIONS 4
 #endif
@@ -53,12 +57,16 @@ static const gecko_configuration_t config = {
 #endif // (HAL_PA_ENABLE) && defined(FEATURE_PA_HIGH_POWER)
 };
 
+
 void main(void){
 
-#if	(HAL_WDOG_ENABLE)
+#if	HAL_WDOG_ENABLE
 	InitWdog();
 	LockWdog();
 #endif
+
+	RETARGET_SwoInit();
+	//RETARGET_WriteString("Main Enter", 10);
 
 	InitMcu();
 	InitBoard();	//Init Mcu ports & IO for PCB
@@ -76,8 +84,8 @@ void main(void){
 	//gecko_init(&config);		// Initialize stack
 
 	//LeTimer must be after gecko_init()
-	InitLeTimer();
-	StartLeTimer();
+	//InitLeTimer();
+	//StartLeTimer();
 
 	/* Test Mode
 	if (nrf_gpio_pin_read(ENABLE_TEST_PIN)) {
@@ -103,19 +111,57 @@ void main(void){
 	}
 	*/
 
-	RETARGET_SwoInit();
-	RETARGET_WriteChar('S');
-	RETARGET_WriteChar('W');
-	RETARGET_WriteChar('O');
-	RETARGET_WriteChar('\n');
+
+	int dataSize = 251;
+
+	uint8 writeAddress[] = {0x00, 0x00, 0x00};
+	uint8 readAddress[] = {0x00, 0x00, 0x05};
+	uint8 data[dataSize];
+	uint8 read[dataSize];
+
+	uint16_t* tempPayloadCounter;
+	PAYLOAD_BUFFER_Header_t header;
+
+
+	for(int i=0; i<1000; i++){
+
+		for(int j=0; j<dataSize;j++){
+			data[j] = i;
+		}
+		PutPayloadBuffer(data, dataSize, i);
+	}
+
+	for(int i=0; i<512; i++){
+		if(GetPayloadBuffer(read, dataSize, tempPayloadCounter)){
+			/*
+			for(int j=0; j<dataSize; j++){
+				if(read[j] > 0x20 && read[j] < 0x7B){
+					RETARGET_WriteChar(read[j]);
+				}
+				else{
+					RETARGET_WriteChar('!');
+				}
+			}
+		    RETARGET_WriteChar('\n');
+		    */
+		}
+	}
+
+	for(int i=0; i<10; i++){
+		PutPayloadBuffer(data, dataSize, i);
+	}
+
+	for(int i=0; i<15; i++){
+		GetPayloadBuffer(read, dataSize, tempPayloadCounter);
+	}
 
 	while(1){
-		/**/
+
 		struct gecko_cmd_packet* evt;
 		evt = gecko_wait_event();	// Check for stack event
 		HandleEventsApp(evt);		// Run application and event handler.
-		/**/
-	#if	(HAL_WDOG_ENABLE)
+
+	#if	HAL_WDOG_ENABLE
 		FeedWdog();
 	#endif
 	}

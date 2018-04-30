@@ -1,17 +1,4 @@
-/**************************************************************************//**
-* @file
-* @brief helper functions for configuring SWO
-* @version 5.3.3
-******************************************************************************
-* # License
-* <b>(C) Copyright 2015 Silicon Labs, http://www.silabs.com</b>
-*******************************************************************************
-*
-* This file is licensed under the Silabs License Agreement. See the file
-* "Silabs_License_Agreement.txt" for details. Before using this software for
-* any purpose, you must agree to the terms of that agreement.
-*
-******************************************************************************/
+#include "retargetswo.h"
 
 #include "em_cmu.h"
 #include "bsp_trace.h"
@@ -26,6 +13,14 @@
 int RETARGET_WriteChar(char c)
 {
   return ITM_SendChar(c);
+}
+
+void RETARGET_WriteString(char* s, int length)
+{
+	for(int i=0; i<length; i++){
+		ITM_SendChar(s[i]);
+	}
+	ITM_SendChar('\n');
 }
 
 /**

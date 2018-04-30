@@ -3,6 +3,7 @@
 #include "em_usart.h"
 #include "em_cmu.h"
 
+
 /* Fallback to loc 11 if no location is defined for backwards compatibility */
 #ifndef SRAM23LC_LOC_RX
 #define SRAM23LC_LOC_RX            _USART_ROUTELOC0_RXLOC_LOC11
@@ -345,14 +346,22 @@ static uint8_t GetDummyCycle( uint32_t default_cycle )
 
 void Set23lc1024(void){
    USART_InitSync_TypeDef init = USART_INITSYNC_DEFAULT;
-
-   CMU_ClockEnable(cmuClock_GPIO, true);
-   CMU_ClockEnable(SRAM23LC_USART_CLK, true);
-
-   init.msbf     = true;
+   init.enable = usartDisable;
    init.baudrate = SRAM23LC_BAUDRATE;
+   init.msbf     = true;
+
+   CMU_ClockEnable(SRAM23LC_USART_CLK, true);
+   //CMU_ClockEnable(cmuClock_GPIO, true);
 
    USART_InitSync(SRAM23LC_USART, &init);
+
+   SRAM23LC_USART->ROUTELOC0 = ( (SRAM23LC_LOC_RX << _USART_ROUTELOC0_RXLOC_SHIFT)
+                           	   | (SRAM23LC_LOC_TX << _USART_ROUTELOC0_TXLOC_SHIFT)
+							   | (SRAM23LC_LOC_SCLK << _USART_ROUTELOC0_CLKLOC_SHIFT) );
+
+   SRAM23LC_USART->ROUTEPEN  = (  USART_ROUTEPEN_RXPEN
+                            	| USART_ROUTEPEN_TXPEN
+								| USART_ROUTEPEN_CLKPEN );
 
    // IO config
    GPIO_PinModeSet( SRAM23LC_PORT_MOSI, SRAM23LC_PIN_MOSI, gpioModePushPull, 1 );
@@ -360,18 +369,11 @@ void Set23lc1024(void){
    GPIO_PinModeSet( SRAM23LC_PORT_SCLK, SRAM23LC_PIN_SCLK, gpioModePushPull, 1 );
    GPIO_PinModeSet( SRAM23LC_PORT_CS,   SRAM23LC_PIN_CS,   gpioModePushPull, 1 );
 
-   SRAM23LC_USART->ROUTELOC0 = ( (SRAM23LC_LOC_RX << _USART_ROUTELOC0_RXLOC_SHIFT)
-                           | (SRAM23LC_LOC_TX << _USART_ROUTELOC0_TXLOC_SHIFT)
-                           | (SRAM23LC_LOC_SCLK << _USART_ROUTELOC0_CLKLOC_SHIFT) );
-   SRAM23LC_USART->ROUTEPEN  = (  USART_ROUTEPEN_RXPEN
-                            | USART_ROUTEPEN_TXPEN
-                            | USART_ROUTEPEN_CLKPEN );
-
-   /* Wait for flash warm-up */
-   Initial_Spi();
+   USART_Enable(SRAM23LC_USART, usartEnable);
 }
 void Init23lc1024(void){
-
+	rstio23lc1024();
+	rdmr23lc1024();
 }
 bool Detect23lc1024(void){
 	bool result = false;
@@ -379,7 +381,124 @@ bool Detect23lc1024(void){
 	return result;
 }
 
+void WritePayload23lc1024(PAYLOAD_BUFFER_Header_t header, uint8_t* dataBytes, int dataSize){
+    // Chip select go low to start a flash command
+    setCSLow();
 
+    //Instruction
+    sendByte(INSTRUCTION_WRITE, SIO);
+
+    //Address 24-bit
+    sendByte(header.IdByte1, SIO);
+    sendByte(header.IdByte0, SIO);
+    sendByte(0x00, SIO);
+
+    //Data
+    sendByte(header.IdByte1, SIO);
+    sendByte(header.IdByte0, SIO);
+    sendByte(header.CountByte1, SIO);
+    sendByte(header.CountByte0, SIO);
+
+    for(int i=0; i<dataSize; i++){
+        sendByte(dataBytes[i], SIO);
+    }
+
+    // Chip select go high to end a flash command
+    setCSHigh();
+}
+void ReadPayload23lc1024(PAYLOAD_BUFFER_Header_t header, uint8_t* dataBytes, int dataSize){
+    // Chip select go low to start a flash command
+    setCSLow();
+
+    //Instruction
+    sendByte(INSTRUCTION_READ, SIO);
+
+    //Address 24-bit
+    sendByte(header.IdByte1, SIO);
+    sendByte(header.IdByte0, SIO);
+    sendByte(0x00, SIO);
+
+    //Data
+    header.IdByte1 = getByte(SIO);
+    header.IdByte0 = getByte(SIO);
+	header.CountByte1 = getByte(SIO);
+	header.CountByte0 = getByte(SIO);
+
+    for(int i=0; i<dataSize; i++){
+    	dataBytes[i] = getByte(SIO);
+    }
+
+    // Chip select go high to end a flash command
+    setCSHigh();
+}
+
+
+void writeBytes23lc1024(uint8_t* addressBytes3, uint8_t* dataBytes, int dataSize){
+    // Chip select go low to start a flash command
+    setCSLow();
+
+    sendByte(INSTRUCTION_WRITE, SIO);
+
+    for(int i=0; i<3; i++){
+        sendByte(addressBytes3[i], SIO);
+    }
+
+    for(int i=0; i<dataSize; i++){
+        sendByte(dataBytes[i], SIO);
+    }
+
+    // Chip select go high to end a flash command
+    setCSHigh();
+}
+void readBytes23lc1024(uint8_t* addressBytes3, uint8_t* dataBytes, int dataSize){
+
+    // Chip select go low to start a flash command
+    setCSLow();
+
+    sendByte(INSTRUCTION_READ, SIO);
+
+    for(int i=0; i<3; i++){
+        sendByte(addressBytes3[i], SIO);
+    }
+
+    for(int i=0; i<dataSize; i++){
+    	dataBytes[i] = getByte(SIO);
+    }
+
+    // Chip select go high to end a flash command
+    setCSHigh();
+}
+
+
+void rstio23lc1024(void){
+
+	//RETARGET_WriteString("rstio Enter", 11);
+    uint8_t  dataTemp;
+
+    // Chip select go low to start a flash command
+    setCSLow();
+
+    sendByte( INSTRUCTION_RSTIO, SIO );
+
+    // Chip select go high to end a flash command
+    setCSHigh();
+    //RETARGET_WriteString("rstio Exit", 10);
+}
+
+void rdmr23lc1024(void){
+
+	//RETARGET_WriteString("rdmr Enter", 10);
+    uint8_t  dataTemp;
+
+    // Chip select go low to start a flash command
+    setCSLow();
+
+    sendByte( INSTRUCTION_RDMR, SIO );
+    dataTemp = getByte( SIO );
+
+    // Chip select go high to end a flash command
+    setCSHigh();
+}
 
 
 
@@ -417,7 +536,7 @@ ReturnMsg23lc1024 SRAM23LC_RDID( uint32_t *Identification )
     temp =  (temp << 8) | gDataBuffer[1];
     *Identification =  (temp << 8) | gDataBuffer[2];
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_RES
@@ -442,7 +561,7 @@ ReturnMsg23lc1024 SRAM23LC_RES( uint8_t *ElectricIdentification )
     // Chip select go high to end a flash command
     setCSHigh();
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_REMS
@@ -476,7 +595,7 @@ ReturnMsg23lc1024 SRAM23LC_REMS( uint16_t *REMS_Identification, FlashStatus *fsp
     // Chip select go high to end a flash command
     setCSHigh();
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_RDSR
@@ -500,7 +619,7 @@ ReturnMsg23lc1024 SRAM23LC_RDSR( uint8_t *StatusReg )
 
     *StatusReg = gDataBuffer;
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_WRSR
@@ -516,7 +635,7 @@ ReturnMsg23lc1024 SRAM23LC_WRSR( uint8_t UpdateValue )
 #endif
 {
     // Check flash is busy or not
-    if( IsFlashBusy() )    return Msg23lc1024FlashIsBusy;
+    if( IsFlashBusy() )    return Msg23lc1024Busy;
 
     // Setting Write Enable Latch bit
     SRAM23LC_WREN();
@@ -536,9 +655,9 @@ ReturnMsg23lc1024 SRAM23LC_WRSR( uint8_t UpdateValue )
 
 
     if( WaitFlashReady( WriteStatusRegCycleTime ) )
-        return Msg23lc1024FlashOperationSuccess;
+        return Msg23lc1024Success;
     else
-        return Msg23lc1024FlashTimeOut;
+        return Msg23lc1024TimeOut;
 
 }
 /*
@@ -564,7 +683,7 @@ ReturnMsg23lc1024 SRAM23LC_RDSCUR( uint8_t *SecurityReg )
 
     *SecurityReg = gDataBuffer;
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 
 }
 /*
@@ -580,7 +699,7 @@ ReturnMsg23lc1024 SRAM23LC_WRSCUR( void )
     uint8_t  gDataBuffer;
 
     // Check flash is busy or not
-    if( IsFlashBusy() )    return Msg23lc1024FlashIsBusy;
+    if( IsFlashBusy() )    return Msg23lc1024Busy;
 
     // Setting Write Enable Latch bit
     SRAM23LC_WREN();
@@ -600,12 +719,12 @@ ReturnMsg23lc1024 SRAM23LC_WRSCUR( void )
 
         // Check security register LDSO bit
         if( (gDataBuffer & FLASH_LDSO_MASK) == FLASH_LDSO_MASK )
-                return Msg23lc1024FlashOperationSuccess;
+                return Msg23lc1024Success;
         else
-                return Msg23lc1024FlashWriteRegFailed;
+                return Msg23lc1024Failure;
     }
     else
-        return Msg23lc1024FlashTimeOut;
+        return Msg23lc1024TimeOut;
 
 }
 /*
@@ -630,7 +749,7 @@ ReturnMsg23lc1024 SRAM23LC_RDCR( uint8_t *ConfigReg )
 
     *ConfigReg = gDataBuffer;
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_READ
@@ -646,7 +765,7 @@ ReturnMsg23lc1024 SRAM23LC_READ( uint32_t flash_address, uint8_t *target_address
     uint8_t  addr_4byte_mode;
 
     // Check flash address
-    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024Invalid;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -671,7 +790,7 @@ ReturnMsg23lc1024 SRAM23LC_READ( uint32_t flash_address, uint8_t *target_address
     // Chip select go high to end a flash command
     setCSHigh();
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_2READ
@@ -689,7 +808,7 @@ ReturnMsg23lc1024 SRAM23LC_2READ( uint32_t flash_address, uint8_t *target_addres
     uint8_t  dc;
 
     // Check flash address
-    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024Invalid;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -716,7 +835,7 @@ ReturnMsg23lc1024 SRAM23LC_2READ( uint32_t flash_address, uint8_t *target_addres
     // Chip select go high to end a flash command
     setCSHigh();
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_4READ
@@ -735,11 +854,11 @@ ReturnMsg23lc1024 SRAM23LC_4READ( uint32_t flash_address, uint8_t *target_addres
 
 
     // Check flash address
-    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024Invalid;
 
 #ifndef NO_QE_BIT
     // Check QE bit
-    if( IsFlashQIO() != TRUE )  return Msg23lc1024FlashQuadNotEnable;
+    if( IsFlashQIO() != TRUE )  return Msg23lc1024QuadNotEnable;
 #endif
 
     // Check 3-byte or 4-byte mode
@@ -768,7 +887,7 @@ ReturnMsg23lc1024 SRAM23LC_4READ( uint32_t flash_address, uint8_t *target_addres
     // Chip select go high to end a flash command
     setCSHigh();
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_DREAD
@@ -786,7 +905,7 @@ ReturnMsg23lc1024 SRAM23LC_DREAD( uint32_t flash_address, uint8_t *target_addres
     uint8_t  dc;
 
     // Check flash address
-    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024Invalid;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -814,7 +933,7 @@ ReturnMsg23lc1024 SRAM23LC_DREAD( uint32_t flash_address, uint8_t *target_addres
     // Chip select go high to end a flash command
     setCSHigh();
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_QREAD
@@ -832,10 +951,10 @@ ReturnMsg23lc1024 SRAM23LC_QREAD( uint32_t flash_address, uint8_t *target_addres
     uint8_t  dc;
 
     // Check flash address
-    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024Invalid;
 
     // Check QE bit
-    if( IsFlashQIO() != TRUE )  return Msg23lc1024FlashQuadNotEnable;
+    if( IsFlashQIO() != TRUE )  return Msg23lc1024QuadNotEnable;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -863,7 +982,7 @@ ReturnMsg23lc1024 SRAM23LC_QREAD( uint32_t flash_address, uint8_t *target_addres
     // Chip select go high to end a flash command
     setCSHigh();
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_FASTREAD
@@ -880,7 +999,7 @@ ReturnMsg23lc1024 SRAM23LC_FASTREAD( uint32_t flash_address, uint8_t *target_add
     uint8_t  dc;
 
     // Check flash address
-    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024Invalid;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -907,7 +1026,7 @@ ReturnMsg23lc1024 SRAM23LC_FASTREAD( uint32_t flash_address, uint8_t *target_add
     // Chip select go high to end a flash command
     setCSHigh();
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_RDSFDP
@@ -925,7 +1044,7 @@ ReturnMsg23lc1024 SRAM23LC_RDSFDP( uint32_t flash_address, uint8_t *target_addre
     uint8_t  addr_4byte_mode;
 
     // Check flash address
-    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024Invalid;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -950,7 +1069,7 @@ ReturnMsg23lc1024 SRAM23LC_RDSFDP( uint32_t flash_address, uint8_t *target_addre
     // Chip select go high to end a flash command
     setCSHigh();
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Program Command
@@ -973,7 +1092,7 @@ ReturnMsg23lc1024 SRAM23LC_WREN( void )
     // Chip select go high to end a flash command
     setCSHigh();
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_WRDI
@@ -992,7 +1111,7 @@ ReturnMsg23lc1024 SRAM23LC_WRDI( void )
 
     setCSHigh();
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_PP
@@ -1014,10 +1133,10 @@ ReturnMsg23lc1024 SRAM23LC_PP( uint32_t flash_address, uint8_t *source_address, 
     uint8_t  addr_4byte_mode;
 
     // Check flash address
-    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024Invalid;
 
     // Check flash is busy or not
-    if( IsFlashBusy() )    return Msg23lc1024FlashIsBusy;
+    if( IsFlashBusy() )    return Msg23lc1024Busy;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -1046,9 +1165,9 @@ ReturnMsg23lc1024 SRAM23LC_PP( uint32_t flash_address, uint8_t *source_address, 
     setCSHigh();
 
     if( WaitFlashReady( PageProgramCycleTime ) )
-        return Msg23lc1024FlashOperationSuccess;
+        return Msg23lc1024Success;
     else
-        return Msg23lc1024FlashTimeOut;
+        return Msg23lc1024TimeOut;
 }
 /*
  * Function:       SRAM23LC_4PP
@@ -1070,13 +1189,13 @@ ReturnMsg23lc1024 SRAM23LC_4PP( uint32_t flash_address, uint8_t *source_address,
     uint8_t  addr_4byte_mode;
 
     // Check QE bit
-    if( !IsFlashQIO() ) return Msg23lc1024FlashQuadNotEnable;
+    if( !IsFlashQIO() ) return Msg23lc1024QuadNotEnable;
 
     // Check flash address
-    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024Invalid;
 
     // Check flash is busy or not
-    if( IsFlashBusy() )    return Msg23lc1024FlashIsBusy;
+    if( IsFlashBusy() )    return Msg23lc1024Busy;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -1104,9 +1223,9 @@ ReturnMsg23lc1024 SRAM23LC_4PP( uint32_t flash_address, uint8_t *source_address,
     setCSHigh();
 
     if( WaitFlashReady( PageProgramCycleTime ) )
-        return Msg23lc1024FlashOperationSuccess;
+        return Msg23lc1024Success;
     else
-        return Msg23lc1024FlashTimeOut;
+        return Msg23lc1024TimeOut;
 }
 /*
  * Function:       SRAM23LC_SE
@@ -1121,10 +1240,10 @@ ReturnMsg23lc1024 SRAM23LC_SE( uint32_t flash_address )
     uint8_t  addr_4byte_mode;
 
     // Check flash address
-    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024Invalid;
 
     // Check flash is busy or not
-    if( IsFlashBusy() )    return Msg23lc1024FlashIsBusy;
+    if( IsFlashBusy() )    return Msg23lc1024Busy;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -1146,9 +1265,9 @@ ReturnMsg23lc1024 SRAM23LC_SE( uint32_t flash_address )
     setCSHigh();
 
     if( WaitFlashReady( SectorEraseCycleTime ) )
-        return Msg23lc1024FlashOperationSuccess;
+        return Msg23lc1024Success;
     else
-        return Msg23lc1024FlashTimeOut;
+        return Msg23lc1024TimeOut;
 }
 /*
  * Function:       SRAM23LC_BE32K
@@ -1163,10 +1282,10 @@ ReturnMsg23lc1024 SRAM23LC_BE32K( uint32_t flash_address )
     uint8_t  addr_4byte_mode;
 
     // Check flash address
-    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024Invalid;
 
     // Check flash is busy or not
-    if( IsFlashBusy() )    return Msg23lc1024FlashIsBusy;
+    if( IsFlashBusy() )    return Msg23lc1024Busy;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -1188,9 +1307,9 @@ ReturnMsg23lc1024 SRAM23LC_BE32K( uint32_t flash_address )
     setCSHigh();
 
     if( WaitFlashReady( BlockErase32KCycleTime ) )
-        return Msg23lc1024FlashOperationSuccess;
+        return Msg23lc1024Success;
     else
-        return Msg23lc1024FlashTimeOut;
+        return Msg23lc1024TimeOut;
 }
 /*
  * Function:       SRAM23LC_BE
@@ -1205,10 +1324,10 @@ ReturnMsg23lc1024 SRAM23LC_BE( uint32_t flash_address )
     uint8_t  addr_4byte_mode;
 
     // Check flash address
-    if( flash_address > FlashSize ) return Msg23lc1024FlashAddressInvalid;
+    if( flash_address > FlashSize ) return Msg23lc1024Invalid;
 
     // Check flash is busy or not
-    if( IsFlashBusy() )    return Msg23lc1024FlashIsBusy;
+    if( IsFlashBusy() )    return Msg23lc1024Busy;
 
     // Check 3-byte or 4-byte mode
     if( IsFlash4Byte() )
@@ -1230,9 +1349,9 @@ ReturnMsg23lc1024 SRAM23LC_BE( uint32_t flash_address )
     setCSHigh();
 
     if( WaitFlashReady( BlockEraseCycleTime ) )
-        return Msg23lc1024FlashOperationSuccess;
+        return Msg23lc1024Success;
     else
-        return Msg23lc1024FlashTimeOut;
+        return Msg23lc1024TimeOut;
 }
 /*
  * Function:       SRAM23LC_CE
@@ -1244,7 +1363,7 @@ ReturnMsg23lc1024 SRAM23LC_BE( uint32_t flash_address )
 ReturnMsg23lc1024 SRAM23LC_CE( void )
 {
     // Check flash is busy or not
-    if( IsFlashBusy() )    return Msg23lc1024FlashIsBusy;
+    if( IsFlashBusy() )    return Msg23lc1024Busy;
 
     // Setting Write Enable Latch bit
     SRAM23LC_WREN();
@@ -1259,9 +1378,9 @@ ReturnMsg23lc1024 SRAM23LC_CE( void )
     setCSHigh();
 
     if( WaitFlashReady( ChipEraseCycleTime ) )
-        return Msg23lc1024FlashOperationSuccess;
+        return Msg23lc1024Success;
     else
-        return Msg23lc1024FlashTimeOut;
+        return Msg23lc1024TimeOut;
 }
 /*
  * Function:       SRAM23LC_DP
@@ -1288,7 +1407,7 @@ ReturnMsg23lc1024 SRAM23LC_DP( void )
     // Chip select go high to end a flash command
     setCSHigh();
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_ENSO
@@ -1307,7 +1426,7 @@ ReturnMsg23lc1024 SRAM23LC_ENSO( void )
     // Chip select go high to end a flash command
     setCSHigh();
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_EXSO
@@ -1326,7 +1445,7 @@ ReturnMsg23lc1024 SRAM23LC_EXSO( void )
     // Chip select go high to end a flash command
     setCSHigh();
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_SBL
@@ -1346,7 +1465,7 @@ ReturnMsg23lc1024 SRAM23LC_SBL( uint8_t burstconfig )
     // Chip select go high to end a flash command
     setCSHigh();
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_RSTEN
@@ -1365,7 +1484,7 @@ ReturnMsg23lc1024 SRAM23LC_RSTEN( void )
     // Chip select go high to end a flash command
     setCSHigh();
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_RST
@@ -1389,7 +1508,7 @@ ReturnMsg23lc1024 SRAM23LC_RST( FlashStatus *fsptr )
     fsptr->ArrangeOpt = FALSE;
     fsptr->ModeReg = 0x00;
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_PGM_ERS_S
@@ -1410,7 +1529,7 @@ ReturnMsg23lc1024 SRAM23LC_PGM_ERS_S( void )
     // Chip select go high to end a flash command
     setCSHigh();
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_PGM_ERS_R
@@ -1431,7 +1550,7 @@ ReturnMsg23lc1024 SRAM23LC_PGM_ERS_R( void )
     // Chip select go high to end a flash command
     setCSHigh();
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 /*
  * Function:       SRAM23LC_NOP
@@ -1450,6 +1569,6 @@ ReturnMsg23lc1024 SRAM23LC_NOP( void )
     // Chip select go high to end a flash command
     setCSHigh();
 
-    return Msg23lc1024FlashOperationSuccess;
+    return Msg23lc1024Success;
 }
 

@@ -59,7 +59,9 @@ board.o: ../board.c ../board.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_usart.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/s23lc1024.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_23lc1024.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/payloadbuffer.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/lsm6dsl.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_lsm6dsl.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/h3lis331dl.h \
@@ -191,7 +193,11 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/s23lc1024.h:
 
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h:
+
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_23lc1024.h:
+
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/payloadbuffer.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/lsm6dsl.h:
 

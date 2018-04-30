@@ -49,7 +49,8 @@ platform/emdrv/tempdrv/src/tempdrv.o: \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_bus.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\tempdrv\inc/tempdrv.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\common\inc/ecode.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\tempdrv\config/tempdrv_config.h
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\tempdrv\config/tempdrv_config.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\Device\SiliconLabs\EFR32BG1B\Include/system_efr32bg1b.h
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\Device\SiliconLabs\EFR32BG1B\Include/em_device.h:
 
@@ -150,3 +151,5 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\tempdrv\inc/tempdrv.h
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\common\inc/ecode.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\tempdrv\config/tempdrv_config.h:
+
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\Device\SiliconLabs\EFR32BG1B\Include/system_efr32bg1b.h:

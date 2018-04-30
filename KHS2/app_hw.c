@@ -39,9 +39,6 @@
 
 //**************************   STATIC VARIABLES   *****************************
 
-/** Status flag of the Temperature Sensor. */
-static bool si7013_status = false;
-
 static bool sramErrorFlag = false;
 static bool lowAccelGyroSensErrorFlag = false;
 static bool highAccelSensErrorFlag = false;
@@ -61,16 +58,11 @@ static void appBtnCback(AppUiBtnEvt_t btn){
 	  KhsHighAccelCharUpdate();
   }
 }
-static bool appHwInitTempSens(void){
-  /* Get initial sensor status */
-  si7013_status = Si7013_Detect(I2C0, SI7021_ADDR, NULL);
-  return si7013_status;
-}
 
 static bool appHwInitSram(void){
 	bool result = false;
 
-	if(Detect23lc1024() == Lsm6dslSuccess){
+	if(Detect23lc1024() == Msg23lc1024Success){
 		result = true;
 	}
 
@@ -96,6 +88,17 @@ static bool appHwInitHighAccelSens(void){
 //**************************   PUBLIC FUNCTION DEFINIITIONS   *****************
 
 void InitAppHw(void){
+
+#if HAL_SPI_ENABLE
+	Init23lc1024();
+#endif
+
+#if HAL_I2C_ENABLE
+	RETARGET_WriteString("Init Enter", 10);
+	//InitLsm6dsl();
+	//InitH3lis331dl();
+	RETARGET_WriteString("Init Exit", 9);
+#endif
 
   /* Register button callback */
   appUiBtnRegister(appBtnCback);

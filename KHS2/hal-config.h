@@ -17,7 +17,7 @@
 #endif
 #define BSP_CLK_LFXO_CTUNE                            	(32)
 
-#define HAL_EXTSRAM_FREQUENCY                        	(1000000)
+#define HAL_EXTSRAM_FREQUENCY                        	(16000000)
 #define HAL_I2CSENSOR_FREQUENCY                     	I2C_FREQ_STANDARD_MAX
 
 #define HAL_PA_ENABLE                                 	(1)
@@ -48,7 +48,7 @@
 #define HAL_SPIDISPLAY_FREQUENCY                      	(1000000)
 
 #define HAL_VCOM_ENABLE                   				(0)
-#define HAL_SPI_ENABLE		              				(0)
+#define HAL_SPI_ENABLE		              				(1)
 #define HAL_I2C_ENABLE    		          				(0)
 #define HAL_WDOG_ENABLE    		          				(0)
 

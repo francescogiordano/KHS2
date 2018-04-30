@@ -54,8 +54,12 @@ static void highAccelAppDataInterrupt(uint8_t gpioPinNo){
 //**************************   FUNCTION DEFINITIONS   *************************
 
 void InitAppData(void){
+
+#if HAL_I2C_ENABLE
 	GPIOINT_CallbackRegister(LSM6DSL_INT_PIN, lowAccelGyroAppDataInterrupt);
 	GPIOINT_CallbackRegister(H3LIS331DL_INT_PIN, highAccelAppDataInterrupt);
+#endif
+
 }
 
 void LowAccelGyroAppDataProcessRead(void){

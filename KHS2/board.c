@@ -21,26 +21,20 @@
 void InitBoard(void){
 
 	// Enable PTI
-	configEnablePti();
-
-	#if defined(HAL_SPIDISPLAY_ENABLE)
-		// Enable SPI display if requested
-		GPIO_PinModeSet(BSP_SPIDISPLAY_ENABLE_PORT, BSP_SPIDISPLAY_ENABLE_PIN, gpioModePushPull, HAL_SPIDISPLAY_ENABLE);
-	#endif // HAL_SPIDISPLAY_ENABLE
+	//configEnablePti();
 
 	// Enable GPIO clock source
 	CMU_ClockEnable(cmuClock_GPIO, true);
 
-#if defined HAL_SPI_ENABLE
-	#if HAL_SPI_ENABLE
-	Init23lc1024();
-	#endif
+#if	HAL_SPI_ENABLE
+  //RETARGET_WriteString("MCU Enter", 9);
+  Set23lc1024();
+  //RETARGET_WriteString("MCU Exit", 8);
 #endif
 
-#if defined HAL_I2C_ENABLE
-	#if HAL_I2C_ENABLE
-	InitLsm6dsl();
-	InitH3lis331dl();
-	#endif
+#if (HAL_I2C_ENABLE)
+  SetI2CLsm6dsl();
+  SetI2CH3lis331dl();
 #endif
+
 }

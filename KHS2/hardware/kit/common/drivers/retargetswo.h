@@ -31,6 +31,7 @@ extern "C" {
 #endif
 
 int RETARGET_WriteChar(char c);
+void RETARGET_WriteString(char* s, int length);
 int RETARGET_ReadChar(void);
 void RETARGET_SwoInit(void);
 

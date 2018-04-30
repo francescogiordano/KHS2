@@ -40,22 +40,24 @@
 // [DCDC]$
 
 // $[EXTSRAM]
-#define BSP_EXTSRAM_CS_PIN                           (4)
+#define BSP_EXTSRAM_CS_PIN                           (3U)
 #define BSP_EXTSRAM_CS_PORT                          (gpioPortA)
+#define BSP_EXTSRAM_CS_LOC                           (0U)
 
 #define BSP_EXTSRAM_USART                            (HAL_SPI_PORT_USART1)
-#define BSP_EXTSRAM_INTERNAL                         (0)
-#define BSP_EXTSRAM_CLK_PIN                          (8)
-#define BSP_EXTSRAM_CLK_PORT                         (gpioPortC)
-#define BSP_EXTSRAM_CLK_LOC                          (11)
+#define BSP_EXTSRAM_INTERNAL                         (0U)
 
-#define BSP_EXTSRAM_MISO_PIN                         (7)
-#define BSP_EXTSRAM_MISO_PORT                        (gpioPortC)
-#define BSP_EXTSRAM_MISO_LOC                         (11)
+#define BSP_EXTSRAM_CLK_PIN                          (11U)
+#define BSP_EXTSRAM_CLK_PORT                         (gpioPortB)
+#define BSP_EXTSRAM_CLK_LOC                          (4U)
 
-#define BSP_EXTSRAM_MOSI_PIN                         (6)
-#define BSP_EXTSRAM_MOSI_PORT                        (gpioPortC)
-#define BSP_EXTSRAM_MOSI_LOC                         (11)
+#define BSP_EXTSRAM_MISO_PIN                         (4U)
+#define BSP_EXTSRAM_MISO_PORT                        (gpioPortA)
+#define BSP_EXTSRAM_MISO_LOC                         (3U)
+
+#define BSP_EXTSRAM_MOSI_PIN                         (5U)
+#define BSP_EXTSRAM_MOSI_PORT                        (gpioPortA)
+#define BSP_EXTSRAM_MOSI_LOC                         (5U)
 // [EXTSRAM]$
 
 // $[GPIO]
@@ -99,13 +101,13 @@
 #define BSP_I2CSENSOR_ENABLE_PORT                     (gpioPortD)
 
 #define BSP_I2CSENSOR_PERIPHERAL                      (HAL_I2C_PORT_I2C0)
-#define BSP_I2CSENSOR_SDA_PIN                         (11)
-#define BSP_I2CSENSOR_SDA_PORT                        (gpioPortC)
-#define BSP_I2CSENSOR_SDA_LOC                         (16)
+#define BSP_I2CSENSOR_SDA_PIN                         (13)
+#define BSP_I2CSENSOR_SDA_PORT                        (gpioPortB)
+#define BSP_I2CSENSOR_SDA_LOC                         (7)
 
-#define BSP_I2CSENSOR_SCL_PIN                         (10)
-#define BSP_I2CSENSOR_SCL_PORT                        (gpioPortC)
-#define BSP_I2CSENSOR_SCL_LOC                         (14)
+#define BSP_I2CSENSOR_SCL_PIN                         (12)
+#define BSP_I2CSENSOR_SCL_PORT                        (gpioPortB)
+#define BSP_I2CSENSOR_SCL_LOC                         (6)
 // [I2CSENSOR]$
 
 // $[LED]

@@ -68,6 +68,7 @@ app_hw.o: ../app_hw.c \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\wdog\inc/wdog.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/s23lc1024.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_23lc1024.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/payloadbuffer.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/lsm6dsl.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_lsm6dsl.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/h3lis331dl.h \
@@ -216,6 +217,8 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\wdog\inc/wdog.h:
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/s23lc1024.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_23lc1024.h:
+
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/payloadbuffer.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/lsm6dsl.h:
 

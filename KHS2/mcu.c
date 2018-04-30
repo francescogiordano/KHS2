@@ -68,7 +68,22 @@ static void initMcu_clocks(void)
   CMU_ClockSelectSet(cmuClock_LFE, cmuSelect_LFXO);
 
 /**/
+/*
+	CMU_OscillatorEnable(cmuOsc_HFRCO, true, true);
+
+	CMU_ClockSelectSet(cmuClock_CORE, cmuSelect_HFCLKLE);
+	CMU_ClockEnable(cmuClock_CORE, true);
+
+	CMU_ClockSelectSet(cmuClock_HF, cmuSelect_HFCLKLE);
+	CMU_ClockSelectSet(cmuClock_HFPER, cmuSelect_HFCLKLE);
 /**/
+
+		CMU_HFRCOBandSet(CMU_HFRCO_MAX);
+
+	  // Enabling HFBUSCLKLE clock for LE peripherals
+	  CMU_ClockEnable(cmuClock_HFLE, true);
+
+
 	CMU_ClockEnable(cmuClock_CORELE, true);
 	CMU_ClockSelectSet(cmuClock_LFA, cmuSelect_LFRCO);
 	CMU_ClockSelectSet(cmuClock_LFB, cmuSelect_LFRCO);
@@ -78,25 +93,16 @@ static void initMcu_clocks(void)
 }
 static void initMcu_ports(void){
 
-	#if defined(HAL_VCOM_ENABLE)
+	#if HAL_VCOM_ENABLE
 	  // Enable VCOM if requested
 	  GPIO_PinModeSet(BSP_VCOM_ENABLE_PORT, BSP_VCOM_ENABLE_PIN, gpioModePushPull, HAL_VCOM_ENABLE);
 	#endif // HAL_VCOM_ENABLE
 
 
-	#if defined(HAL_SPIDISPLAY_ENABLE)
+	#if HAL_SPIDISPLAY_ENABLE
 	  // Enable SPI display if requested
 	  GPIO_PinModeSet(BSP_SPIDISPLAY_ENABLE_PORT, BSP_SPIDISPLAY_ENABLE_PIN, gpioModePushPull, HAL_SPIDISPLAY_ENABLE);
 	#endif // HAL_SPIDISPLAY_ENABLE
-
-	#if	(HAL_SPI_ENABLE)
-	  Set23lc1024();
-	#endif
-
-	#if (HAL_I2C_ENABLE)
-	  SetI2CLsm6dsl();
-	  SetI2CH3lis331dl();
-	#endif
 }
 
 //**************************   FUNCTION DEFINIITIONS   *****************
@@ -130,5 +136,6 @@ void InitMcu(void){
 #endif //_EMU_CTRL_EM23VSCALE_MASK
 
   initMcu_ports();
+
 }
 
