@@ -113,14 +113,6 @@ void appUiInit(uint16 devId);
  **************************************************************************************************/
 void appUiTick(void);
 
-/***********************************************************************************************//**
- *  \brief  Write string to graphical display.
- *  \param[in]  string  String to be displayed.
- **************************************************************************************************/
-void appUiWriteString(char *string);
-
-/** @} (end addtogroup app_ui) */
-/** @} (end addtogroup Application) */
 
 #ifdef __cplusplus
 };

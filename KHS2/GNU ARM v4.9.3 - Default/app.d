@@ -60,10 +60,9 @@ app.o: ../app.c G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/app_timer.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_errorcodes.h \
  ../gatt_db.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_gattdb_def.h \
- ../ia.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_system.h \
  ../app.h ../app_data.h ../app_ble.h ../app_ui.h ../app_hw.h \
- ../advertisement.h ../beacon.h ../board_features.h ../app_extsignals.h
+ ../advertisement.h ../board_features.h ../app_extsignals.h
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/app_timer.h:
 
@@ -189,8 +188,6 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_gattdb_def.h:
 
-../ia.h:
-
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_system.h:
 
 ../app.h:
@@ -204,8 +201,6 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_system.h:
 ../app_hw.h:
 
 ../advertisement.h:
-
-../beacon.h:
 
 ../board_features.h:
 

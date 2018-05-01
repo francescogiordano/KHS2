@@ -15,17 +15,9 @@ extern "C" {
 
 // I2C device address for Lsm6dsl
 #define LSM6DSL_ADDR      0x82
-// I2C device address for Si7021
-//#define SI7021_ADDR      0x80
 
 // Device ID value for Lsm6dsl
 #define LSM6DSL_DEVICE_ID 0x0D
-// Device ID value for Si7020
-//#define SI7020_DEVICE_ID 0x14
-// Device ID value for Si7021
-//#define SI7021_DEVICE_ID 0x21
-
-#define LSM6DSL_INT_PIN		15
 
 //LSM6DSL - ACCELEROMETER & GRYOSCOPE
 //BANK A REGISTERS

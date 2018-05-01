@@ -97,12 +97,6 @@ static void initMcu_ports(void){
 	  // Enable VCOM if requested
 	  GPIO_PinModeSet(BSP_VCOM_ENABLE_PORT, BSP_VCOM_ENABLE_PIN, gpioModePushPull, HAL_VCOM_ENABLE);
 	#endif // HAL_VCOM_ENABLE
-
-
-	#if HAL_SPIDISPLAY_ENABLE
-	  // Enable SPI display if requested
-	  GPIO_PinModeSet(BSP_SPIDISPLAY_ENABLE_PORT, BSP_SPIDISPLAY_ENABLE_PIN, gpioModePushPull, HAL_SPIDISPLAY_ENABLE);
-	#endif // HAL_SPIDISPLAY_ENABLE
 }
 
 //**************************   FUNCTION DEFINIITIONS   *****************

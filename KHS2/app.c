@@ -9,9 +9,6 @@
 #include "native_gecko.h"
 #include "gatt_db.h"
 
-// profiles
-#include "ia.h"
-
 // em library
 #include "em_system.h"
 
@@ -22,9 +19,7 @@
 #include "app_ui.h"
 #include "app_hw.h"
 #include "advertisement.h"
-#include "beacon.h"
 #include "board_features.h"
-
 
 #include "app_extsignals.h"
 

@@ -28,48 +28,29 @@
 
 /* application specific headers*/
 #include "app_ui.h"
-#include "beacon.h"
 
 /* Own header */
 #include "advertisement.h"
 
-/***********************************************************************************************//**
- * @addtogroup Advertisement
- * @{
- **************************************************************************************************/
-
-/***********************************************************************************************//**
- * @addtogroup adv
- * @{
- **************************************************************************************************/
-
-/***************************************************************************************************
-   Local Macros and Definitions
-***************************************************************************************************/
-
-/* Text definitions */
-#define ADV_HTMKYFOB_ADV_TEXT        "\nH T M / K E Y F O B\n\nM O D E\n"
 
 /***************************************************************************************************
    Local Variables
  **************************************************************************************************/
 
 static bool advConnectableMode = true;
-
 static bool advIsConnected = false;
 
 /***************************************************************************************************
    Function Definitions
  **************************************************************************************************/
-void advSetup(void)
-{
+void advSetup(void){
+
   if (advConnectableMode == true) {
-    /* set server advertising data and start advertising */
-    appUiWriteString(ADV_HTMKYFOB_ADV_TEXT);
     /* start advertising */
     gecko_cmd_le_gap_set_mode(le_gap_general_discoverable, le_gap_undirected_connectable);
-  } else {
-    bcnSetupAdvBeaconing();
+  }
+  else {
+    //bcnSetupAdvBeaconing();
   }
   appUiLedOff();
 
@@ -88,10 +69,7 @@ void advSwitchAdvMessage(void)
   advSetup();
 }
 
-void advConnectionStarted(void)
-{
+void advConnectionStarted(void){
+
   advIsConnected = true;
 }
-
-/** @} (end addtogroup adv) */
-/** @} (end addtogroup Advertisement) */

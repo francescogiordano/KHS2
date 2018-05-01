@@ -26,7 +26,6 @@ platform/emdrv/mstimer/src \
 platform/emdrv/uartdrv/src \
 platform/emdrv/wdog/src \
 platform/emlib/src \
-platform/middleware/glib/dmd/display \
 platform/middleware/glib/glib \
 protocol/bluetooth_2.6/lib/EFR32BG1B/EABI \
 

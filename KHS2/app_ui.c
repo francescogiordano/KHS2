@@ -36,9 +36,6 @@
 #include "bsp.h"
 #endif /* FEATURE_LED_BUTTON_ON_SAME_PIN */
 
-/* LCD */
-#include "graphics.h"
-
 #include "em_gpio.h"
 
 /* application specific header files*/
@@ -109,10 +106,7 @@ static struct {
 /***************************************************************************************************
    Local Variables
  **************************************************************************************************/
-#ifdef FEATURE_LCD_SUPPORT
-/** Character array to hold the string to be printed on the graphical display. */
-static char appUiHeaderString[APP_HEADER_SIZE];
-#endif /* FEATURE_LCD_SUPPORT */
+
 
 /** Off LED sequence and request. */
 static struct appUiLedStates appUiLedSeqOff[] = { { 0, 0 } };
@@ -188,13 +182,6 @@ void appUiInit(uint16_t devId)
   /* Start repeating (auto-load) timer */
   gecko_cmd_hardware_set_soft_timer(TIMER_MS_2_TIMERTICK(APP_UITIMER_PERIOD), UI_TIMER, false);
 #endif /* BRD4300A */
-
-#ifdef FEATURE_LCD_SUPPORT
-  /* Initialize graphics */
-  /* Create the device name string based on the device ID */
-  snprintf(appUiHeaderString, APP_HEADER_SIZE, APP_HEADER, devId);
-  graphInit(appUiHeaderString);
-#endif /* BRD4301A */
 }
 
 #ifdef FEATURE_LED_BUTTON_ON_SAME_PIN
@@ -236,13 +223,6 @@ void appUiTick(void)
   gecko_cmd_hardware_set_soft_timer(TIMER_MS_2_TIMERTICK(APP_UITIMER_PERIOD), UI_TIMER, false);
 }
 #endif /* BRD4300A */
-
-void appUiWriteString(char *string)
-{
-#ifdef FEATURE_LCD_SUPPORT
-  graphWriteString(string);
-#endif /* BRD4301A */
-}
 
 /***************************************************************************************************
    Static Function Definitions

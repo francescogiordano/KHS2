@@ -18,7 +18,7 @@
 #define BSP_CLK_LFXO_CTUNE                            	(32)
 
 #define HAL_EXTSRAM_FREQUENCY                        	(16000000)
-#define HAL_I2CSENSOR_FREQUENCY                     	I2C_FREQ_STANDARD_MAX
+#define HAL_I2CSENSOR_FREQUENCY                     	I2C_FREQ_FAST_MAX
 
 #define HAL_PA_ENABLE                                 	(1)
 #define HAL_PA_RAMP                                   	(10)
@@ -35,21 +35,15 @@
 #define HAL_PTI_MODE                                  	(HAL_PTI_MODE_UART)
 #define HAL_PTI_BAUD_RATE                             	(1600000)
 
-#define HAL_SPIDISPLAY_ENABLE                         	(0)
-#define HAL_SPIDISPLAY_EXTCOMIN_CALLBACK
-#if defined(FEATURE_IOEXPANDER)
-#define HAL_SPIDISPLAY_EXTMODE_EXTCOMIN               	(0)
-#else
-#define HAL_SPIDISPLAY_EXTMODE_EXTCOMIN               	(1)
-#endif
-#define HAL_SPIDISPLAY_EXTMODE_SPI                    	(0)
-#define HAL_SPIDISPLAY_EXTCOMIN_USE_PRS               	(0)
-#define HAL_SPIDISPLAY_EXTCOMIN_USE_CALLBACK          	(0)
-#define HAL_SPIDISPLAY_FREQUENCY                      	(1000000)
-
 #define HAL_VCOM_ENABLE                   				(0)
 #define HAL_SPI_ENABLE		              				(1)
 #define HAL_I2C_ENABLE    		          				(0)
 #define HAL_WDOG_ENABLE    		          				(0)
+
+#if HAL_I2C_ENABLE
+#define BSP_LSM6DSL_INT_1_PIN							(14)
+#define BSP_LSM6DSL_INT_2_PIN							(15)
+#define BSP_H3LIS331DL_INT_PIN							(16)
+#endif
 
 #endif

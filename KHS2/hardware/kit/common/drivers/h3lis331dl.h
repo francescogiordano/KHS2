@@ -18,8 +18,6 @@ extern "C" {
 // Device ID value for H3lis331dl
 #define H3LIS331DL_DEVICE_ID 0x0D
 
-#define H3LIS331DL_INT_PIN		15
-
 //************************   H3LIS331DL - ACCELEROMETER   *********************
 
 //************************   REGISTER ADDRESS   *******************************

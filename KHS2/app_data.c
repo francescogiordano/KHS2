@@ -19,10 +19,6 @@
 #define APP_DATA_LENGTH_LOW_ACCEL_GYRO		12
 #define APP_DATA_LENGTH_HIGH_ACCEL			6
 
-#define APP_DATA_INT_PIN_LOW_ACCEL_GYRO		15
-#define APP_DATA_INT_PIN_HIGH_ACCEL_GYRO	16
-
-
 static uint8_t 	lowAccelGyroBuffer[APP_DATA_LENGTH_BLE_MAX];
 static uint8_t 	indexLowAccelGyro = 0;
 static uint64_t timeStampLowAccelGyro;
@@ -34,7 +30,6 @@ static uint8_t 	indexHighAccel = 0;
 static uint64_t timeStampHighAccel;
 static uint16_t putPayloadCounterHighAccel = 0;
 static uint16_t getPayloadCounterHighAccel = 0;
-
 
 //**************************   STATIC FUNCTION DEFINITIONS   ******************
 
@@ -56,7 +51,7 @@ static void highAccelAppDataInterrupt(uint8_t gpioPinNo){
 void InitAppData(void){
 
 #if HAL_I2C_ENABLE
-	GPIOINT_CallbackRegister(LSM6DSL_INT_PIN, lowAccelGyroAppDataInterrupt);
+	GPIOINT_CallbackRegister(LSM6DSL_INT_1_PIN, lowAccelGyroAppDataInterrupt);
 	GPIOINT_CallbackRegister(H3LIS331DL_INT_PIN, highAccelAppDataInterrupt);
 #endif
 
@@ -66,6 +61,7 @@ void LowAccelGyroAppDataProcessRead(void){
 
 	uint8_t tempData[APP_DATA_LENGTH_LOW_ACCEL_GYRO];
 
+	//Beginning of buffer - Load Data Type, Time Stamp
 	if(indexLowAccelGyro == 0){
 		lowAccelGyroBuffer[0] = APP_DATA_TYPE_LOW_ACCEL_GYRO;
 		lowAccelGyroBuffer[1] = timeStampLowAccelGyro >> 24;
@@ -78,11 +74,13 @@ void LowAccelGyroAppDataProcessRead(void){
 
 	GetAccelGyroDataLsm6dsl(tempData);
 
+	//Middle of buffer - Load Data
 	for(int i=0; i<APP_DATA_LENGTH_LOW_ACCEL_GYRO; i++){
 		lowAccelGyroBuffer[indexLowAccelGyro + i] = tempData[i];
 	}
 	indexLowAccelGyro += APP_DATA_LENGTH_LOW_ACCEL_GYRO;
 
+	//End of buffer - Place buffer in memory, reset buffer
 	if(indexLowAccelGyro > APP_DATA_LENGTH_BLE_MAX - APP_DATA_LENGTH_LOW_ACCEL_GYRO){
 		PutPayloadBuffer(lowAccelGyroBuffer, APP_DATA_LENGTH_BLE_MAX, putPayloadCounterLowAccelGyro);
 		putPayloadCounterLowAccelGyro++;
@@ -93,6 +91,7 @@ void HighAccelGyroAppDataProcessRead(void){
 
 	uint8_t tempData[APP_DATA_LENGTH_HIGH_ACCEL];
 
+	//Beginning of buffer - Load Data Type, Time Stamp
 	if(indexLowAccelGyro == 0){
 		highAccelBuffer[0] = APP_DATA_TYPE_HIGH_ACCEL;
 		highAccelBuffer[1] = timeStampHighAccel >> 24;
@@ -105,11 +104,13 @@ void HighAccelGyroAppDataProcessRead(void){
 
 	GetAccelDataH3lis331dl(tempData);
 
+	//Middle of buffer - Load Data
 	for(int i=0; i<APP_DATA_LENGTH_HIGH_ACCEL; i++){
 		highAccelBuffer[indexHighAccel + i] = tempData[i];
 	}
 	indexHighAccel += APP_DATA_LENGTH_HIGH_ACCEL;
 
+	//End of buffer - Place buffer in memory, reset buffer
 	if(indexHighAccel > APP_DATA_LENGTH_BLE_MAX - APP_DATA_LENGTH_HIGH_ACCEL){
 		PutPayloadBuffer(highAccelBuffer, APP_DATA_LENGTH_BLE_MAX, putPayloadCounterHighAccel);
 		putPayloadCounterHighAccel++;

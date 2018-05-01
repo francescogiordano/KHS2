@@ -58,7 +58,7 @@ advertisement.o: ../advertisement.c ../boards.h ../ble-configuration.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_errorcodes.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\app\bluetooth_2.6\common\stack_bridge/infrastructure.h \
- ../app_ui.h ../beacon.h ../advertisement.h
+ ../app_ui.h ../advertisement.h
 
 ../boards.h:
 
@@ -183,7 +183,5 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\app\bluetooth_2.6\common\stack_bridge/infrastructure.h:
 
 ../app_ui.h:
-
-../beacon.h:
 
 ../advertisement.h:
