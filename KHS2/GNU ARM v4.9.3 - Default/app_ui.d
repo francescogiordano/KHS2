@@ -58,12 +58,8 @@ app_ui.o: ../app_ui.c ../boards.h ../ble-configuration.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_errorcodes.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\app\bluetooth_2.6\common\stack_bridge/infrastructure.h \
- ../hal-config.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/bsphalconfig.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp_bcp.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_usart.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/app_timer.h ../app_ui.h
+ ../hal-config.h G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/app_timer.h \
+ ../app_ui.h
 
 ../boards.h:
 
@@ -188,14 +184,6 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\app\bluetooth_2.6\common\stack_bridge/infrastructure.h:
 
 ../hal-config.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/bsphalconfig.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp_bcp.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\bsp/bsp.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_usart.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/app_timer.h:
 

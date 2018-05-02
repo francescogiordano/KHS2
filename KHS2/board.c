@@ -27,9 +27,7 @@ void InitBoard(void){
 	CMU_ClockEnable(cmuClock_GPIO, true);
 
 #if	HAL_SPI_ENABLE
-  //RETARGET_WriteString("MCU Enter", 9);
   Set23lc1024();
-  //RETARGET_WriteString("MCU Exit", 8);
 #endif
 
 #if (HAL_I2C_ENABLE)

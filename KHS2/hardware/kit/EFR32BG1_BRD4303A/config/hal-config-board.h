@@ -96,6 +96,7 @@
 #define BSP_I2C0_SCL_LOC                              (14)
 // [I2C0]$
 
+/*
 // $[I2CSENSOR]
 #define BSP_I2CSENSOR_ENABLE_PIN                      (9)
 #define BSP_I2CSENSOR_ENABLE_PORT                     (gpioPortD)
@@ -109,19 +110,22 @@
 #define BSP_I2CSENSOR_SCL_PORT                        (gpioPortB)
 #define BSP_I2CSENSOR_SCL_LOC                         (6)
 // [I2CSENSOR]$
+*/
 
-// $[LED]
-#define BSP_LED_PRESENT                               (1)
+// $[I2CSENSOR] - Prototype
+#define BSP_I2CSENSOR_ENABLE_PIN                      (9)
+#define BSP_I2CSENSOR_ENABLE_PORT                     (gpioPortD)
 
-#define BSP_LED0_PIN                                  (4)
-#define BSP_LED0_PORT                                 (gpioPortF)
+#define BSP_I2CSENSOR_PERIPHERAL                      (HAL_I2C_PORT_I2C0)
+#define BSP_I2CSENSOR_SDA_PIN                         (7)
+#define BSP_I2CSENSOR_SDA_PORT                        (gpioPortC)
+#define BSP_I2CSENSOR_SDA_LOC                         (12)
 
-#define BSP_LED1_PIN                                  (5)
-#define BSP_LED1_PORT                                 (gpioPortF)
+#define BSP_I2CSENSOR_SCL_PIN                         (8)
+#define BSP_I2CSENSOR_SCL_PORT                        (gpioPortC)
+#define BSP_I2CSENSOR_SCL_LOC                         (12)
+// [I2CSENSOR]$
 
-#define BSP_LED_COUNT                                 (2)
-#define BSP_LED_INIT                                  { { BSP_LED0_PORT, BSP_LED0_PIN }, { BSP_LED1_PORT, BSP_LED1_PIN } }
-// [LED]$
 
 // $[PRS]
 #define PORTIO_PRS_CH4_PIN                            (13)
@@ -170,32 +174,6 @@
 #define BSP_SERIAL_APP_RTS_LOC                        (30)
 // [SERIAL]$
 
-// $[SPIDISPLAY]
-#define BSP_SPIDISPLAY_ENABLE_PIN                     (15)
-#define BSP_SPIDISPLAY_ENABLE_PORT                    (gpioPortD)
-
-#define BSP_SPIDISPLAY_CS_PIN                         (14)
-#define BSP_SPIDISPLAY_CS_PORT                        (gpioPortD)
-
-#define BSP_SPIDISPLAY_EXTCOMIN_PIN                   (13)
-#define BSP_SPIDISPLAY_EXTCOMIN_PORT                  (gpioPortD)
-#define BSP_SPIDISPLAY_EXTCOMIN_LOC                   (4)
-
-#define BSP_SPIDISPLAY_USART                          (HAL_SPI_PORT_USART1)
-#define BSP_SPIDISPLAY_DISPLAY                        (HAL_DISPLAY_SHARP_LS013B7DH03)
-#define BSP_SPIDISPLAY_EXTCOMIN_CHANNEL               (4)
-#define BSP_SPIDISPLAY_CLK_PIN                        (8)
-#define BSP_SPIDISPLAY_CLK_PORT                       (gpioPortC)
-#define BSP_SPIDISPLAY_CLK_LOC                        (11)
-
-#define BSP_SPIDISPLAY_MISO_PIN                       (7)
-#define BSP_SPIDISPLAY_MISO_PORT                      (gpioPortC)
-#define BSP_SPIDISPLAY_MISO_LOC                       (11)
-
-#define BSP_SPIDISPLAY_MOSI_PIN                       (6)
-#define BSP_SPIDISPLAY_MOSI_PORT                      (gpioPortC)
-#define BSP_SPIDISPLAY_MOSI_LOC                       (11)
-// [SPIDISPLAY]$
 
 // $[SPINCP]
 #define BSP_SPINCP_NWAKE_PIN                          (11)

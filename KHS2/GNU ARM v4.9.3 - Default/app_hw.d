@@ -60,8 +60,6 @@ app_hw.o: ../app_hw.c \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/i2cspmhalconfig.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/i2cspm.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_i2c.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/si7013.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/tempsens.h \
  ../advertisement.h ../app_ui.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/app_timer.h \
  ../app_extsignals.h ../app_hw.h ../app_ble.h \
@@ -195,10 +193,6 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/i2cspm
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/i2cspm.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emlib\inc/em_i2c.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/si7013.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/tempsens.h:
 
 ../advertisement.h:
 

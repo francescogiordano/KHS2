@@ -13,10 +13,8 @@ extern "C" {
 //*******************************   DEFINES   *********************************
 
 // I2C device address for H3lis331dl
-#define H3LIS331DL_ADDR      0x82
+#define H3LIS331DL_DEVICE_ADDR				0x32
 
-// Device ID value for H3lis331dl
-#define H3LIS331DL_DEVICE_ID 0x0D
 
 //************************   H3LIS331DL - ACCELEROMETER   *********************
 
@@ -185,19 +183,17 @@ extern "C" {
 #define H3LIS331DL_INT2_DURATION_160			0xA0
 #define H3LIS331DL_INT2_DURATION_255			0xFF
 
-//H3LIS331DL Communication Mode
-#define H3LIS331DL_COMM_MODE_SPI			0x01
-#define H3LIS331DL_COMM_MODE_I2C			0x02
 
 //*****************************   TYPEDEFS   **********************************
 
 // Return Message
 typedef enum {
-	H3lis331dlSuccess,
-	H3lis331dlFailure,
-	H3lis331dlInvalidArgument,
-	H3lis331dlCommModeNotSetup,
-	H3lis331dlNotInitialized
+	MsgH3lis331dlSuccess,
+	MsgH3lis331dlFailure,
+	MsgH3lis331dlInvalidArgument,
+	MsgH3lis331dlCommModeNotSetup,
+	MsgH3lis331dlNotInitialized,
+	MsgH3lis331dlNotDetected
 }ReturnMsgH3lis331dl;
 
 //**************************   PUBLIC FUNCTION DECLARATIONS   *****************

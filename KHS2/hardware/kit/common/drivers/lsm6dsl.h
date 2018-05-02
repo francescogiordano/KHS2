@@ -14,13 +14,11 @@ extern "C" {
 //*******************************   DEFINES   ***********************************
 
 // I2C device address for Lsm6dsl
-#define LSM6DSL_ADDR      0x82
+#define LSM6DSL_DEVICE_ADDR				0xD4
 
-// Device ID value for Lsm6dsl
-#define LSM6DSL_DEVICE_ID 0x0D
+//************************   LSM6DSL - ACCELEROMETER   ************************
 
-//LSM6DSL - ACCELEROMETER & GRYOSCOPE
-//BANK A REGISTERS
+//************************   BANK A REGISTER ADDRESS   ************************
 
 #define LSM6DSL_FUNC_CFG_ACCESS			0x01
 #define LSM6DSL_SENSOR_SYNC_TIME_FRAME	0x04
@@ -88,7 +86,7 @@ extern "C" {
 #define LSM6DSL_Y_OFS_USR				0x74
 #define LSM6DSL_Z_OFS_USR				0x75
 
-//BANK B Registers
+//************************   BANK B REGISTER ADDRESS   ************************
 
 #define LSM6DSL_A_WRIST_TILT_LAT		0x50
 #define LSM6DSL_A_WRIST_TILT_THS		0x54
@@ -264,35 +262,32 @@ extern "C" {
 
 // Return Message
 typedef enum {
-	Lsm6dslSuccess,
-	Lsm6dslFailure,
-	Lsm6dslInvalidArgument,
-	Lsm6dslCommModeNotSetup,
-	Lsm6dslCommPortNotSetup,
-	Lsm6dslNotInitialized
+	MsgLsm6dslSuccess,
+	MsgLsm6dslFailure,
+	MsgLsm6dslInvalidArgument,
+	MsgLsm6dslCommModeNotSetup,
+	MsgLsm6dslCommPortNotSetup,
+	MsgLsm6dslNotInitialized,
+	MsgLsm6dslNotDetected
 }ReturnMsgLsm6dsl;
 
 //*****************************   PROTOTYPES   **********************************
-
-int32_t Lsm6dsl_MeasureRHAndTemp(I2C_TypeDef *i2c, uint8_t addr, uint32_t *rhData, int32_t *tData);
-int32_t Lsm6dsl_GetFirmwareRevision(I2C_TypeDef *i2c, uint8_t addr, uint8_t *fwRev);
-
-int32_t Lsm6dsl_ReadNoHoldRHAndTemp(I2C_TypeDef *i2c, uint8_t addr, uint32_t *rhData, int32_t *tData);
-int32_t Lsm6dsl_StartNoHoldMeasureRHAndTemp(I2C_TypeDef *i2c, uint8_t addr);
-int32_t Lsm6dsl_MeasureV(I2C_TypeDef *i2c, uint8_t addr, int32_t *vData);
-
 
 void SetI2CLsm6dsl(void);
 ReturnMsgLsm6dsl InitLsm6dsl(void);
 ReturnMsgLsm6dsl DetectLsm6dsl(void);
 
 
-ReturnMsgLsm6dsl GetLsm6dslAccelData(uint8_t* );
-
 ReturnMsgLsm6dsl GetAccelGyroDataLsm6dsl(uint8_t* data);
+
+
+
 ReturnMsgLsm6dsl GetAccelDataLsm6dsl(uint8_t* data);
 ReturnMsgLsm6dsl GetGyroDataLsm6dsl(uint8_t* data);
 ReturnMsgLsm6dsl GetTempDataLsm6dsl(uint8_t* data);
+
+
+
 
 /*
 bool sleepLsm6dsl(void);

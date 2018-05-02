@@ -4,14 +4,6 @@
 #include "board_features.h"
 #include "hal-config-board.h"
 
-#if defined(FEATURE_IOEXPANDER)
-#include "hal-config-ioexp.h"
-#endif
-
-#if defined(FEATURE_LNA)
-#include "hal-config-lna.h"
-#endif
-
 #ifdef BSP_CLK_LFXO_CTUNE
 #undef BSP_CLK_LFXO_CTUNE
 #endif
@@ -37,7 +29,7 @@
 
 #define HAL_VCOM_ENABLE                   				(0)
 #define HAL_SPI_ENABLE		              				(1)
-#define HAL_I2C_ENABLE    		          				(0)
+#define HAL_I2C_ENABLE    		          				(1)
 #define HAL_WDOG_ENABLE    		          				(0)
 
 #if HAL_I2C_ENABLE

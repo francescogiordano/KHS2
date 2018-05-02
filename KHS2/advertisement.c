@@ -49,11 +49,6 @@ void advSetup(void){
     /* start advertising */
     gecko_cmd_le_gap_set_mode(le_gap_general_discoverable, le_gap_undirected_connectable);
   }
-  else {
-    //bcnSetupAdvBeaconing();
-  }
-  appUiLedOff();
-
   advIsConnected = false;
 }
 

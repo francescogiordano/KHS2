@@ -57,7 +57,6 @@ static const gecko_configuration_t config = {
 #endif // (HAL_PA_ENABLE) && defined(FEATURE_PA_HIGH_POWER)
 };
 
-
 void main(void){
 
 #if	HAL_WDOG_ENABLE
@@ -73,14 +72,6 @@ void main(void){
 	InitApp();		//Init ICs
 
 	/*
-	BSP_LedsInit();				// Initialize LEDs
-
-	#ifndef FEATURE_LED_BUTTON_ON_SAME_PIN
-		GPIO_PinModeSet(BSP_BUTTON0_PORT, BSP_BUTTON0_PIN, gpioModeInput, 1);	// Configure pin as input
-		GPIO_PinModeSet(BSP_BUTTON1_PORT, BSP_BUTTON1_PIN, gpioModeInput, 1);	// Configure pin as input
-	#endif
-	/**/
-
 	//gecko_init(&config);		// Initialize stack
 
 	//LeTimer must be after gecko_init()
@@ -111,7 +102,6 @@ void main(void){
 	}
 	*/
 
-
 	int dataSize = 251;
 
 	uint8 writeAddress[] = {0x00, 0x00, 0x00};
@@ -123,7 +113,7 @@ void main(void){
 	PAYLOAD_BUFFER_Header_t header;
 
 
-	for(int i=0; i<1000; i++){
+	for(int i=0; i<5; i++){
 
 		for(int j=0; j<dataSize;j++){
 			data[j] = i;
@@ -131,7 +121,7 @@ void main(void){
 		PutPayloadBuffer(data, dataSize, i);
 	}
 
-	for(int i=0; i<512; i++){
+	for(int i=0; i<6; i++){
 		if(GetPayloadBuffer(read, dataSize, tempPayloadCounter)){
 			/*
 			for(int j=0; j<dataSize; j++){
@@ -147,13 +137,9 @@ void main(void){
 		}
 	}
 
-	for(int i=0; i<10; i++){
-		PutPayloadBuffer(data, dataSize, i);
-	}
+	uint8_t* dataTemp[6];
 
-	for(int i=0; i<15; i++){
-		GetPayloadBuffer(read, dataSize, tempPayloadCounter);
-	}
+	GetAccelGyroDataLsm6dsl(dataTemp);
 
 	while(1){
 

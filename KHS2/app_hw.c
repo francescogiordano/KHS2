@@ -9,15 +9,13 @@
 #endif
 #include "bsp.h"
 
-/* Temp sensor and I2c*/
+/* Temp sensor and I2C*/
 #if defined(HAL_CONFIG)
 #include "i2cspmhalconfig.h"
 #else
 #include "i2cspmconfig.h"
 #endif
 #include "i2cspm.h"
-#include "si7013.h"
-#include "tempsens.h"
 
 /* application specific headers */
 #include "advertisement.h"
@@ -34,9 +32,6 @@
 #include "lsm6dsl.h"
 #include "h3lis331dl.h"
 
-/* Text definitions*/
-#define APP_HW_SENSOR_FAIL_TEXT         "Failed to detect\nsi7021 sensor."
-
 //**************************   STATIC VARIABLES   *****************************
 
 static bool sramErrorFlag = false;
@@ -46,18 +41,6 @@ static bool highAccelSensErrorFlag = false;
 static int counter = 0;
 
 //**************************   STATIC FUNCTION DEFINIITIONS   *****************
-
-static void appBtnCback(AppUiBtnEvt_t btn){
-
-  if (APP_UI_BTN_0_SHORT == btn) {
-	  KhsDataCharUpdate();
-	  KhsDiagInfoCharWrite();
-	  //gecko_external_signal(APP_DATA_LOW_ACCEL_GYRO);
-  }
-  if (APP_UI_BTN_1_SHORT == btn) {
-	  KhsHighAccelCharUpdate();
-  }
-}
 
 static bool appHwInitSram(void){
 	bool result = false;
@@ -71,16 +54,24 @@ static bool appHwInitSram(void){
 static bool appHwInitLowAccelGyroSens(void){
 	bool result = false;
 
-	if(DetectLsm6dsl() == Lsm6dslSuccess){
+	if(DetectLsm6dsl() == MsgLsm6dslSuccess){
 		result = true;
+		RETARGET_WriteString("Lsm6dsl Detected: true", 22);
+	}
+	else{
+		RETARGET_WriteString("Lsm6dsl Detected: false", 23);
 	}
 	return result;
 }
 static bool appHwInitHighAccelSens(void){
 	bool result = false;
 
-	if(DetectH3lis331dl() == H3lis331dlSuccess){
+	if(DetectH3lis331dl() == MsgH3lis331dlSuccess){
 		result = true;
+		RETARGET_WriteString("H3lis331dl Detected: true", 25);
+	}
+	else{
+		RETARGET_WriteString("H3lis331dl Detected: false", 26);
 	}
 	return result;
 }
@@ -94,14 +85,9 @@ void InitAppHw(void){
 #endif
 
 #if HAL_I2C_ENABLE
-	RETARGET_WriteString("Init Enter", 10);
-	//InitLsm6dsl();
-	//InitH3lis331dl();
-	RETARGET_WriteString("Init Exit", 9);
+	InitLsm6dsl();
+	InitH3lis331dl();
 #endif
-
-  /* Register button callback */
-  appUiBtnRegister(appBtnCback);
 
   gecko_cmd_hardware_set_soft_timer(TIMER_MS_2_TIMERTICK(HWTIMER_PERIOD), HW_TIMER, false);
 
@@ -129,10 +115,6 @@ void appHwTick(void){
 	  }
 
 	//gecko_cmd_hardware_set_soft_timer(TIMER_MS_2_TIMERTICK(HWTIMER_PERIOD), HW_TIMER, false);
-}
-int32_t appHwReadTm(int32_t* tempData){
-  uint32_t rhData = 0;
-  return Si7013_MeasureRHAndTemp(I2C0, SI7021_ADDR, &rhData, tempData);
 }
 
 bool GetAppHwErrorFlag(void){
