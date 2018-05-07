@@ -31,11 +31,16 @@
 #define HAL_SPI_ENABLE		              				(1)
 #define HAL_I2C_ENABLE    		          				(1)
 #define HAL_WDOG_ENABLE    		          				(0)
+#define DEBUG_ENABLE    		          				(1)
 
 #if HAL_I2C_ENABLE
+#define BSP_LSM6DSL_INT_1_PORT							(gpioPortA)
 #define BSP_LSM6DSL_INT_1_PIN							(0)		//PA0
+#define BSP_LSM6DSL_INT_2_PORT							(gpioPortA)
 #define BSP_LSM6DSL_INT_2_PIN							(1)		//PA1
-#define BSP_H3LIS331DL_INT_PIN							(2)		//PA2
+
+#define BSP_H3LIS331DL_INT_2_PORT						(gpioPortA)
+#define BSP_H3LIS331DL_INT_2_PIN						(2)		//PA2
 #endif
 
 #endif

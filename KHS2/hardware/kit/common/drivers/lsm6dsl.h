@@ -283,7 +283,6 @@ typedef enum {
 	MsgLsm6dslSuccess,
 	MsgLsm6dslFailure,
 	MsgLsm6dslInvalidArgument,
-	MsgLsm6dslCommModeNotSetup,
 	MsgLsm6dslCommPortNotSetup,
 	MsgLsm6dslNotInitialized,
 	MsgLsm6dslNotDetected
@@ -295,17 +294,10 @@ void SetI2CLsm6dsl(void);
 ReturnMsgLsm6dsl InitLsm6dsl(void);
 ReturnMsgLsm6dsl DetectLsm6dsl(void);
 
-
 ReturnMsgLsm6dsl GetAccelGyroDataLsm6dsl(uint8_t* data);
-
-
-
 ReturnMsgLsm6dsl GetAccelDataLsm6dsl(uint8_t* data);
 ReturnMsgLsm6dsl GetGyroDataLsm6dsl(uint8_t* data);
 ReturnMsgLsm6dsl GetTempDataLsm6dsl(uint8_t* data);
-
-
-
 
 /*
 bool sleepLsm6dsl(void);

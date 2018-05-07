@@ -76,8 +76,24 @@ void Init23lc1024(void){
 	rdmr23lc1024();			//Set in Read Mode
 }
 bool Detect23lc1024(void){
-	bool result = false;
+	bool result = Msg23lc1024Success;
 
+	uint8_t addressBytes[3] = {0x00, 0x00, 0x00};
+	uint8_t dataBytes[8]	= {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
+	uint8_t readBytes[8]	= {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+
+	//Clear memory
+	WriteBytes23lc1024(addressBytes, readBytes, 8);
+	//Write Sample
+	WriteBytes23lc1024(addressBytes, dataBytes, 8);
+	//Read Sample
+	ReadBytes23lc1024(addressBytes, readBytes, 8);
+
+	for(int i=0; i<8; i++){
+		if(dataBytes[i] != readBytes[i]){
+			result = Msg23lc1024Failure;
+		}
+	}
 	return result;
 }
 

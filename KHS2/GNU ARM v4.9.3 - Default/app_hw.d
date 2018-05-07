@@ -1,4 +1,4 @@
-app_hw.o: ../app_hw.c ../app_timer.h ../app_extsignals.h \
+app_hw.o: ../app_hw.c ../app_hw.h ../app_timer.h ../app_extsignals.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/s23lc1024.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_23lc1024.h \
@@ -60,6 +60,8 @@ app_hw.o: ../app_hw.c ../app_timer.h ../app_extsignals.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_lsm6dsl.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/h3lis331dl.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_h3lis331dl.h
+
+../app_hw.h:
 
 ../app_timer.h:
 

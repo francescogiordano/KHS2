@@ -70,7 +70,7 @@ void HandleEventsApp(struct gecko_cmd_packet *evt){
 		gecko_cmd_system_reset(2);
 		}
 
-		//Potentially shutdown the puck if there is no ble connection
+		//Potentially shutdown the MCU/Sensors if there is no ble connection
 		//gecko_cmd_hardware_set_soft_timer(TIMER_MS_2_TIMERTICK(SHUTDOWN_TIMER_PERIOD), SHUTDOWN_TIMER, true);
 
 		break;
@@ -102,20 +102,20 @@ void HandleEventsApp(struct gecko_cmd_packet *evt){
 		  && (evt->data.evt_gatt_server_characteristic_status.status_flags == gatt_server_client_config)) {
 		// Call LowAccelGyro characteristic status changed callback
 		KhsDataCharStatusChange(
-		  evt->data.evt_gatt_server_characteristic_status.connection,
-		  evt->data.evt_gatt_server_characteristic_status.client_config_flags);
+			evt->data.evt_gatt_server_characteristic_status.connection,
+			evt->data.evt_gatt_server_characteristic_status.client_config_flags);
 		}
 		else if((gattdb_HighAccel == evt->data.evt_gatt_server_attribute_value.attribute)
 		  && (evt->data.evt_gatt_server_characteristic_status.status_flags == gatt_server_client_config)) {
 		// Call HighAccel characteristic status changed callback
 		KhsHighAccelCharStatusChange(
-		  evt->data.evt_gatt_server_characteristic_status.connection,
-		  evt->data.evt_gatt_server_characteristic_status.client_config_flags);
+			evt->data.evt_gatt_server_characteristic_status.connection,
+			evt->data.evt_gatt_server_characteristic_status.client_config_flags);
 		}
 		else if((gattdb_LowAccelGyro == evt->data.evt_gatt_server_attribute_value.attribute) &&
 			  (evt->data.evt_gatt_server_characteristic_status.status_flags == gatt_server_confirmation)){
 
-		  KhsDataCharUpdate();
+			KhsDataCharUpdate();
 		}
 		break;
 
@@ -127,14 +127,14 @@ void HandleEventsApp(struct gecko_cmd_packet *evt){
 				advSetup();
 				break;
 			case HW_TIMER:
-				//appHwTick();
-				KhsHighAccelCharUpdate();
+				//AppHwTick();
+				//KhsHighAccelCharUpdate();
 				break;
 			case KHS_DATA_CHAR_UPDATE_TIMER:
 				KhsDataCharUpdate();
 				break;
 			case SHUTDOWN_TIMER:
-				KhsDataCharUpdate();
+				//KhsDataCharUpdate();
 				break;
 			default:
 			  break;

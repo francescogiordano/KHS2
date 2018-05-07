@@ -18,84 +18,63 @@ static uint8_t i2cAddr = 0;
 
 //**************************   STATIC FUNCTION DEFINIITIONS   *****************
 
-static ReturnMsgH3lis331dl i2cWriteReadH3lis331dl(uint8_t command, uint8_t *data, uint16_t dataLength){
+static ReturnMsgH3lis331dl i2cWriteReadH3lis331dl(uint8_t command, uint8_t* data, uint8_t dataLength){
 	ReturnMsgH3lis331dl msg = MsgH3lis331dlSuccess;
 
 	I2C_TransferSeq_TypeDef    seq;
 	I2C_TransferReturn_TypeDef ret;
-	uint8_t                    i2c_read_data[2];
 	uint8_t                    i2c_write_data[1];
 
-	seq.addr  = i2cAddr;
-	seq.flags = I2C_FLAG_WRITE_READ;
+	if(portSetupFlag){
+		seq.addr  = i2cAddr;
+		seq.flags = I2C_FLAG_WRITE_READ;
 
-	/* Select command to issue */
-	i2c_write_data[0] = command;
-	seq.buf[0].data   = i2c_write_data;
-	seq.buf[0].len    = 1;
+		/* Select command to issue */
+		i2c_write_data[0] = command;
+		seq.buf[0].data   = i2c_write_data;
+		seq.buf[0].len    = 1;
 
-	/* Select location/length of data to be read */
-	seq.buf[1].data = data;
-	seq.buf[1].len  = dataLength;
+		/* Select location/length of data to be read */
+		seq.buf[1].data = data;
+		seq.buf[1].len  = dataLength;
 
-	ret = I2CSPM_Transfer(i2cPort, &seq);
+		ret = I2CSPM_Transfer(i2cPort, &seq);
 
-	if (ret != i2cTransferDone) {
-		*data = 0;
-		msg = MsgH3lis331dlFailure;
+		if (ret != i2cTransferDone) {
+			*data = 0;
+			msg = MsgH3lis331dlFailure;
+		}
+	}
+	else{
+		msg = MsgH3lis331dlCommPortNotSetup;
 	}
 
 	return msg;
 }
-static ReturnMsgH3lis331dl i2cReadH3lis331dl (uint32_t *data){
+static ReturnMsgH3lis331dl i2cWriteH3lis331dl(uint8_t command, uint8_t data){
 	ReturnMsgH3lis331dl msg = MsgH3lis331dlSuccess;
 
-	I2C_TransferSeq_TypeDef    seq;
-	I2C_TransferReturn_TypeDef ret;
-	uint8_t                    i2c_read_data[2];
+	if(portSetupFlag){
+		I2C_TransferSeq_TypeDef    seq;
+		I2C_TransferReturn_TypeDef ret;
+		uint8_t                    i2c_write_data[2];
 
-	seq.addr  = i2cAddr;
-	seq.flags = I2C_FLAG_READ;
-	/* Select command to issue */
-	seq.buf[0].data = i2c_read_data;
-	seq.buf[0].len  = 2;
-	/* Select location/length of data to be read */
-	seq.buf[1].data = i2c_read_data;
-	seq.buf[1].len  = 2;
+		seq.addr  = i2cAddr;
+		seq.flags = I2C_FLAG_WRITE;
+		/* Select command to issue */
+		i2c_write_data[0] = command;
+		i2c_write_data[1] = data;
+		seq.buf[0].data   = i2c_write_data;
+		seq.buf[0].len    = 2;
 
-	ret = I2CSPM_Transfer(i2cPort, &seq);
+		ret = I2CSPM_Transfer(i2cPort, &seq);
 
-	if (ret != i2cTransferDone) {
-		*data = 0;
-		msg = MsgH3lis331dlFailure;
+		if (ret != i2cTransferDone){
+			msg = MsgH3lis331dlFailure;
+		}
 	}
-
-	*data = ((uint32_t) i2c_read_data[0] << 8) + (i2c_read_data[1] & 0xfc);
-
-	return msg;
-}
-static ReturnMsgH3lis331dl i2cWriteH3lis331dl(uint8_t command){
-	ReturnMsgH3lis331dl msg = MsgH3lis331dlSuccess;
-
-	I2C_TransferSeq_TypeDef    seq;
-	I2C_TransferReturn_TypeDef ret;
-	uint8_t                    i2c_read_data[2];
-	uint8_t                    i2c_write_data[1];
-
-	seq.addr  = i2cAddr;
-	seq.flags = I2C_FLAG_WRITE;
-	/* Select command to issue */
-	i2c_write_data[0] = command;
-	seq.buf[0].data   = i2c_write_data;
-	seq.buf[0].len    = 1;
-	/* Select location/length of data to be read */
-	seq.buf[1].data = i2c_read_data;
-	seq.buf[1].len  = 0;
-
-	ret = I2CSPM_Transfer(i2cPort, &seq);
-
-	if (ret != i2cTransferDone){
-		msg = MsgH3lis331dlFailure;
+	else{
+		msg = MsgH3lis331dlCommPortNotSetup;
 	}
 	return msg;
 }
@@ -138,44 +117,70 @@ void SetI2CH3lis331dl(void){
 
 	H3LIS331DL_I2C_PORT->ROUTEPEN  = I2C_ROUTEPEN_SDAPEN | I2C_ROUTEPEN_SCLPEN;
 	H3LIS331DL_I2C_PORT->ROUTELOC0 = (H3LIS331DL_SDA_LOC << _I2C_ROUTELOC0_SDALOC_SHIFT) | (H3LIS331DL_SCL_LOC << _I2C_ROUTELOC0_SCLLOC_SHIFT);
+
+	portSetupFlag = true;
 }
 
-ReturnMsgH3lis331dl DetectH3lis331dl(void){
-
-	ReturnMsgH3lis331dl msg = MsgH3lis331dlNotDetected;
-
-	I2C_TransferSeq_TypeDef    seq;
-	I2C_TransferReturn_TypeDef ret;
-	uint8_t                    i2c_write_data[1];
-	uint8_t                    i2c_read_data[1];
-
-
-	seq.addr  = i2cAddr;
-	seq.flags = I2C_FLAG_WRITE_READ;
-	// Select command to write
-	i2c_write_data[0] = H3LIS331DL_WHO_AM_I;
-	seq.buf[0].data   = i2c_write_data;
-	seq.buf[0].len    = 1;
-	// Select location of data to read
-	seq.buf[1].data = i2c_read_data;
-	seq.buf[1].len  = 1;
-
-	ret = I2CSPM_Transfer(i2cPort, &seq);
-
-
-	if (ret != i2cTransferDone) {
-		msg = MsgH3lis331dlFailure;
-	}
-	else {
-		if(seq.buf[1].data[0] == H3LIS331DL_WHO_AM_I_VALUE){
-			msg = MsgH3lis331dlSuccess;
-		}
-	}
-	return msg;
-}
 ReturnMsgH3lis331dl InitH3lis331dl(void) {
 	ReturnMsgH3lis331dl msg = MsgH3lis331dlSuccess;
 
+	//Reset All Memory
+	if(i2cWriteH3lis331dl(H3LIS331DL_CTRL_REG2, H3LIS331DL_CTRL_REG2_BOOT) != MsgH3lis331dlSuccess) {
+		msg = MsgH3lis331dlFailure;
+	}
+
+	//Set Normal Mode, ODR 1000Hz, Enable All axis
+	if(i2cWriteH3lis331dl(H3LIS331DL_CTRL_REG1, H3LIS331DL_CTRL_REG1_PM1 | H3LIS331DL_CTRL_REG1_DR3 | H3LIS331DL_CTRL_REG1_ALLEN) != MsgH3lis331dlSuccess) {
+		msg = MsgH3lis331dlFailure;
+	}
+
+	//Scale +-400g
+	if(i2cWriteH3lis331dl(H3LIS331DL_CTRL_REG4, H3LIS331DL_CTRL_REG4_FS2) != MsgH3lis331dlSuccess) {
+		msg = MsgH3lis331dlFailure;
+	}
+
+	//Interrupt Configuration
+	/*
+	//INT2 - Enable Interrupt High On All Axis
+	if(i2cWriteH3lis331dl(H3LIS331DL_INT2_CFG, H3LIS331DL_INT2_CFG_ALLHIGHIE) != MsgH3lis331dlSuccess) {
+		msg = MsgH3lis331dlFailure;
+	}
+
+	//INT2 - Threshold 20/256
+	if(i2cWriteH3lis331dl(H3LIS331DL_INT2_THS, H3LIS331DL_INT2_THS_20) != MsgH3lis331dlSuccess) {
+		msg = MsgH3lis331dlFailure;
+	}
+
+	//INT2 - Duration 5/256
+	if(i2cWriteH3lis331dl(H3LIS331DL_INT2_DURATION, H3LIS331DL_INT2_DURATION_5) != MsgH3lis331dlSuccess) {
+		msg = MsgH3lis331dlFailure;
+	}
+	*/
+
+	if(msg == MsgH3lis331dlFailure) {
+	#if DEBUG_ENABLE
+		RETARGET_WriteString("Init Fail", 9);
+	#endif
+	}
+	else{
+		initializedFlag = true;
+	}
+
+	return msg;
+}
+ReturnMsgH3lis331dl DetectH3lis331dl(void){
+	ReturnMsgH3lis331dl msg = MsgH3lis331dlNotDetected;
+
+	uint8_t i2c_read_data[1];
+
+	if(i2cWriteReadH3lis331dl(H3LIS331DL_WHO_AM_I, i2c_read_data, 1) != MsgH3lis331dlSuccess){
+		msg = MsgH3lis331dlFailure;
+	}
+	else {
+		if(i2c_read_data[0] == H3LIS331DL_WHO_AM_I_VALUE){
+			msg = MsgH3lis331dlSuccess;
+		}
+	}
 	return msg;
 }
 
@@ -183,7 +188,9 @@ ReturnMsgH3lis331dl GetAccelDataH3lis331dl(uint8_t* data){
 	ReturnMsgH3lis331dl msg = MsgH3lis331dlSuccess;
 
 	if(initializedFlag == true){
-		msg = i2cReadH3lis331dl(data);
+		if(i2cWriteReadH3lis331dl(H3LIS331DL_OUT_X_L, data, 6) != MsgH3lis331dlSuccess){
+			msg = MsgH3lis331dlFailure;
+		}
 	}
 	else{
 		msg = MsgH3lis331dlNotInitialized;

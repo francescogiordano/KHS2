@@ -69,6 +69,7 @@ extern "C" {
 #define H3LIS331DL_CTRL_REG1_DR2				0x10	//ODR - 400 Hz	: Low-pass filter - 292 Hz
 #define H3LIS331DL_CTRL_REG1_DR3				0x18	//ODR - 1000 Hz	: Low-pass filter - 780 Hz
 
+#define H3LIS331DL_CTRL_REG1_ALLEN				0x07	//Enable All-axis
 #define H3LIS331DL_CTRL_REG1_ZEN				0x04	//Enable Z-axis
 #define H3LIS331DL_CTRL_REG1_YEN				0x02	//Enable Y-axis
 #define H3LIS331DL_CTRL_REG1_XEN				0x01	//Enable X-axis
@@ -155,9 +156,11 @@ extern "C" {
 
 //H3LIS331DL_INT2_CFG	PARAMETERS
 #define H3LIS331DL_INT2_CFG_AOI					0x80	//AND/OR Combination Of Interrupt Levels - 0:OR,1:AND
+
+#define H3LIS331DL_INT2_CFG_ALLHIGHIE			0x2A	//Enable All High Interrupt
+
 #define H3LIS331DL_INT2_CFG_ZHIE				0x20	//Enable Interrupt - 0:Disabled,1:Enabled
 #define H3LIS331DL_INT2_CFG_ZLIE				0x10	//Enable Interrupt - 0:Disabled,1:Enabled
-
 #define H3LIS331DL_INT2_CFG_YHIE				0x08	//Enable Interrupt - 0:Disabled,1:Enabled
 #define H3LIS331DL_INT2_CFG_YLIE				0x04	//Enable Interrupt - 0:Disabled,1:Enabled
 #define H3LIS331DL_INT2_CFG_XHIE				0x02	//Enable Interrupt - 0:Disabled,1:Enabled
@@ -191,7 +194,7 @@ typedef enum {
 	MsgH3lis331dlSuccess,
 	MsgH3lis331dlFailure,
 	MsgH3lis331dlInvalidArgument,
-	MsgH3lis331dlCommModeNotSetup,
+	MsgH3lis331dlCommPortNotSetup,
 	MsgH3lis331dlNotInitialized,
 	MsgH3lis331dlNotDetected
 }ReturnMsgH3lis331dl;
@@ -199,7 +202,6 @@ typedef enum {
 //**************************   PUBLIC FUNCTION DECLARATIONS   *****************
 
 void SetI2CH3lis331dl(void);
-
 ReturnMsgH3lis331dl InitH3lis331dl(void);
 ReturnMsgH3lis331dl DetectH3lis331dl(void);
 

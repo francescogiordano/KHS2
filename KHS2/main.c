@@ -57,15 +57,17 @@ static const gecko_configuration_t config = {
 #endif // (HAL_PA_ENABLE) && defined(FEATURE_PA_HIGH_POWER)
 };
 
-void main(void){
+	void main(void){
 
 #if	HAL_WDOG_ENABLE
 	InitWdog();
 	LockWdog();
 #endif
 
+#if DEBUG_ENABLE
 	RETARGET_SwoInit();
 	//RETARGET_WriteString("Main Enter", 10);
+#endif
 
 	InitMcu();
 	InitBoard();	//Init Mcu ports & IO for PCB
@@ -102,9 +104,11 @@ void main(void){
 	}
 	*/
 
+
 	while(1){
 
 		LowAccelGyroAppDataProcessRead();
+		HighAccelGyroAppDataProcessRead();
 
 		/*
 		struct gecko_cmd_packet* evt;

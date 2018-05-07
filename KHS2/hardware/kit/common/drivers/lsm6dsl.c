@@ -15,7 +15,7 @@ static uint8_t i2cAddr = 0;
 
 //**************************   STATIC FUNCTION DEFINIITIONS   *****************
 
-static ReturnMsgLsm6dsl i2cWriteReadLsm6dsl(uint8_t command, uint8_t *data, uint8_t dataLength){
+static ReturnMsgLsm6dsl i2cWriteReadLsm6dsl(uint8_t command, uint8_t* data, uint8_t dataLength){
 	ReturnMsgLsm6dsl msg = MsgLsm6dslSuccess;
 
 	I2C_TransferSeq_TypeDef    seq;
@@ -157,10 +157,13 @@ ReturnMsgLsm6dsl InitLsm6dsl(void) {
 		msg = MsgLsm6dslFailure;
 	}
 
+	//Interrupt Configuration
+	/*
 	//Enable Gyroscope & Accelerometer Data Ready Interrupts
 	if(i2cWriteLsm6dsl(LSM6DSL_INT1_CTRL, INT1_DRDY_G | INT1_DRDY_XL) != MsgLsm6dslSuccess) {
 		msg = MsgLsm6dslFailure;
 	}
+	*/
 
 	//Enable Fifo In Continuous Modes
 	if(i2cWriteLsm6dsl(LSM6DSL_FIFO_CTRL_5, LSM6DSL_ODR_FIFO_208HZ | LSM6DSL_FIFO_MODE_CONTINOUS) != MsgLsm6dslSuccess) {
@@ -169,7 +172,9 @@ ReturnMsgLsm6dsl InitLsm6dsl(void) {
 
 
 	if(msg == MsgLsm6dslFailure) {
+	#if DEBUG_ENABLE
 		RETARGET_WriteString("Init Fail", 9);
+	#endif
 	}
 	else{
 		initializedFlag = true;
@@ -207,24 +212,12 @@ ReturnMsgLsm6dsl GetAccelGyroDataLsm6dsl(uint8_t* data){
 	return msg;
 }
 
-
-
-
-
-
-
 ReturnMsgLsm6dsl GetAccelDataLsm6dsl(uint8_t* data){
 	ReturnMsgLsm6dsl msg = MsgLsm6dslSuccess;
 
 	if(initializedFlag == true){
-		if(commMode == LSM6DSL_COMM_MODE_SPI){
-
-		}
-		else if(commMode == LSM6DSL_COMM_MODE_I2C){
-			//msg = i2cReadLsm6dsl(data);
-		}
-		else{
-			msg = MsgLsm6dslCommModeNotSetup;
+		if(i2cWriteReadLsm6dsl(LSM6DSL_OUTX_L_XL, data, 6) != MsgLsm6dslSuccess){
+			msg = MsgLsm6dslFailure;
 		}
 	}
 	else{
@@ -236,14 +229,8 @@ ReturnMsgLsm6dsl GetGyroDataLsm6dsl(uint8_t* data){
 	ReturnMsgLsm6dsl msg = MsgLsm6dslSuccess;
 
 	if(initializedFlag == true){
-		if(commMode == LSM6DSL_COMM_MODE_SPI){
-
-		}
-		else if(commMode == LSM6DSL_COMM_MODE_I2C){
-			//msg = i2cReadLsm6dsl(data);
-		}
-		else{
-			msg = MsgLsm6dslCommModeNotSetup;
+		if(i2cWriteReadLsm6dsl(LSM6DSL_OUTX_L_G, data, 6) != MsgLsm6dslSuccess){
+			msg = MsgLsm6dslFailure;
 		}
 	}
 	else{
@@ -255,14 +242,8 @@ ReturnMsgLsm6dsl GetTempDataLsm6dsl(uint8_t* data){
 	ReturnMsgLsm6dsl msg = MsgLsm6dslSuccess;
 
 	if(initializedFlag == true){
-		if(commMode == LSM6DSL_COMM_MODE_SPI){
-
-		}
-		else if(commMode == LSM6DSL_COMM_MODE_I2C){
-			//msg = i2cReadLsm6dsl(data);
-		}
-		else{
-			msg = MsgLsm6dslCommModeNotSetup;
+		if(i2cWriteReadLsm6dsl(LSM6DSL_OUT_TEMP_L, data, 2) != MsgLsm6dslSuccess){
+			msg = MsgLsm6dslFailure;
 		}
 	}
 	else{
