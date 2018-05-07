@@ -1,32 +1,5 @@
-/* BG stack headers */
-#include "bg_types.h"
-
-/* STK header files. */
-#if defined(HAL_CONFIG)
-#include "bsphalconfig.h"
-#else
-#include "bspconfig.h"
-#endif
-#include "bsp.h"
-
-/* Temp sensor and I2C*/
-#if defined(HAL_CONFIG)
-#include "i2cspmhalconfig.h"
-#else
-#include "i2cspmconfig.h"
-#endif
-#include "i2cspm.h"
-
-/* application specific headers */
-#include "advertisement.h"
-#include "app_ui.h"
-
-/* Own headers*/
-#include <app_timer.h>
+#include "app_timer.h"
 #include "app_extsignals.h"
-#include "app_hw.h"
-#include "app_ble.h"
-#include "wdog.h"
 
 #include "s23lc1024.h"
 #include "lsm6dsl.h"
@@ -47,6 +20,10 @@ static bool appHwInitSram(void){
 
 	if(Detect23lc1024() == Msg23lc1024Success){
 		result = true;
+		RETARGET_WriteString("23lc1024 Detected: false", 24);
+	}
+	else{
+		RETARGET_WriteString("23lc1024 Detected: false", 23);
 	}
 
 	return result;

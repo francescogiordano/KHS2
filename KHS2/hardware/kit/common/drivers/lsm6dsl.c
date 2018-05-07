@@ -137,8 +137,8 @@ ReturnMsgLsm6dsl InitLsm6dsl(void) {
 		msg = MsgLsm6dslFailure;
 	}
 
-	//Set 416Hz Gyroscope & Set To Scale 1000dps - 35 mdps/LSB
-	if(i2cWriteLsm6dsl(LSM6DSL_CTRL2_G, LSM6DSL_ODR_G_416HZ | LSM6DSL_FS_G_1000DPS) != MsgLsm6dslSuccess) {
+	//Set 208Hz Gyroscope & Set To Scale 1000dps - 35 mdps/LSB
+	if(i2cWriteLsm6dsl(LSM6DSL_CTRL2_G, LSM6DSL_ODR_G_208HZ | LSM6DSL_FS_G_1000DPS) != MsgLsm6dslSuccess) {
 		msg = MsgLsm6dslFailure;
 	}
 
@@ -147,8 +147,8 @@ ReturnMsgLsm6dsl InitLsm6dsl(void) {
 		msg = MsgLsm6dslFailure;
 	}
 
-	//Set 416Hz Accelerometer & Set To 4G Scale - .122 mg/LSB - Normal/Low power mode noise 2.0 mg
-	if(i2cWriteLsm6dsl(LSM6DSL_CTRL1_XL, LSM6DSL_ODR_XL_416HZ | LSM6DSL_FS_XL_4G | LSM6DSL_LPF1_BW_SEL) != MsgLsm6dslSuccess) {
+	//Set 208Hz Accelerometer & Set To 4G Scale - .122 mg/LSB - Normal/Low power mode noise 2.0 mg
+	if(i2cWriteLsm6dsl(LSM6DSL_CTRL1_XL, LSM6DSL_ODR_XL_208HZ | LSM6DSL_FS_XL_4G | LSM6DSL_LPF1_BW_SEL) != MsgLsm6dslSuccess) {
 		msg = MsgLsm6dslFailure;
 	}
 
@@ -157,8 +157,21 @@ ReturnMsgLsm6dsl InitLsm6dsl(void) {
 		msg = MsgLsm6dslFailure;
 	}
 
+	//Enable Gyroscope & Accelerometer Data Ready Interrupts
+	if(i2cWriteLsm6dsl(LSM6DSL_INT1_CTRL, INT1_DRDY_G | INT1_DRDY_XL) != MsgLsm6dslSuccess) {
+		msg = MsgLsm6dslFailure;
+	}
+
+	//Enable Fifo In Continuous Modes
+	if(i2cWriteLsm6dsl(LSM6DSL_FIFO_CTRL_5, LSM6DSL_ODR_FIFO_208HZ | LSM6DSL_FIFO_MODE_CONTINOUS) != MsgLsm6dslSuccess) {
+		msg = MsgLsm6dslFailure;
+	}
+
+
 	if(msg == MsgLsm6dslFailure) {
 		RETARGET_WriteString("Init Fail", 9);
+	}
+	else{
 		initializedFlag = true;
 	}
 
@@ -184,7 +197,7 @@ ReturnMsgLsm6dsl GetAccelGyroDataLsm6dsl(uint8_t* data){
 	ReturnMsgLsm6dsl msg = MsgLsm6dslSuccess;
 
 	if(initializedFlag == true){
-		if(i2cWriteReadLsm6dsl(LSM6DSL_OUTX_L_XL, data, 6) != MsgLsm6dslSuccess){
+		if(i2cWriteReadLsm6dsl(LSM6DSL_OUTX_L_G, data, 12) != MsgLsm6dslSuccess){
 			msg = MsgLsm6dslFailure;
 		}
 	}

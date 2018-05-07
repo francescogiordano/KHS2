@@ -33,13 +33,14 @@ static uint16_t getPayloadCounterHighAccel = 0;
 
 //**************************   STATIC FUNCTION DEFINITIONS   ******************
 
-static void lowAccelGyroAppDataInterrupt(uint8_t gpioPinNo){
+static void lowAccelGyroAppDataInterrupt(uint8_t pin){
 	if(indexLowAccelGyro == 0){
 		timeStampLowAccelGyro = GetLeCounter();
 	}
 	gecko_external_signal(APP_DATA_LOW_ACCEL_GYRO);
+
 }
-static void highAccelAppDataInterrupt(uint8_t gpioPinNo){
+static void highAccelAppDataInterrupt(uint8_t pin){
 	if(indexHighAccel == 0){
 		timeStampHighAccel = GetLeCounter();
 	}
@@ -51,8 +52,17 @@ static void highAccelAppDataInterrupt(uint8_t gpioPinNo){
 void InitAppData(void){
 
 #if HAL_I2C_ENABLE
-	GPIOINT_CallbackRegister(LSM6DSL_INT_1_PIN, lowAccelGyroAppDataInterrupt);
-	GPIOINT_CallbackRegister(H3LIS331DL_INT_PIN, highAccelAppDataInterrupt);
+
+	RETARGET_WriteString("Data Init", 9);
+
+	GPIO_PinModeSet(gpioPortA, 0, gpioModeInput, 0);
+	GPIO_IntConfig(gpioPortA, 0, true, false, true);
+
+	//GPIOINT_CallbackRegister(BSP_LSM6DSL_INT_1_PIN, lowAccelGyroAppDataInterrupt);
+	//GPIOINT_CallbackRegister(H3LIS331DL_INT_PIN, highAccelAppDataInterrupt);
+
+
+	GPIOINT_Init();
 #endif
 
 }

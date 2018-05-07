@@ -22,21 +22,11 @@ extern "C" {
 
 // Application timer enumeration
 typedef enum {
-  /** Application UI timer.
-   *  This is an auto-reload timer used for timing LED and Button events. */
-  UI_TIMER = 0,
   /** Advertisement timer.
    *  This is a single-shot timer used to wait some time with advertisement stopped until changes
    *  are registered in stack and we can advertise again with a different user defined advertising
    *  message. */
-  ADV_TIMER,
-  /** Temperature measurement timer.
-   *  This is an auto-reload timer used for timing temperature measurements. */
-  TEMP_TIMER,
-  /** Display Polarity Inversion Timer
-  * Timer for toggling the the EXTCOMIN signal, which prevents building up a DC bias
-     within the Sharp memory LCD panel */
-  DISP_POL_INV_TIMER,
+  ADV_TIMER = 0,
   HW_TIMER,
   KHS_DATA_CHAR_UPDATE_TIMER,
   SHUTDOWN_TIMER

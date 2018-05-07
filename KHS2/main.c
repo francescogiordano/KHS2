@@ -102,50 +102,15 @@ void main(void){
 	}
 	*/
 
-	int dataSize = 251;
-
-	uint8 writeAddress[] = {0x00, 0x00, 0x00};
-	uint8 readAddress[] = {0x00, 0x00, 0x05};
-	uint8 data[dataSize];
-	uint8 read[dataSize];
-
-	uint16_t* tempPayloadCounter;
-	PAYLOAD_BUFFER_Header_t header;
-
-
-	for(int i=0; i<5; i++){
-
-		for(int j=0; j<dataSize;j++){
-			data[j] = i;
-		}
-		PutPayloadBuffer(data, dataSize, i);
-	}
-
-	for(int i=0; i<6; i++){
-		if(GetPayloadBuffer(read, dataSize, tempPayloadCounter)){
-			/*
-			for(int j=0; j<dataSize; j++){
-				if(read[j] > 0x20 && read[j] < 0x7B){
-					RETARGET_WriteChar(read[j]);
-				}
-				else{
-					RETARGET_WriteChar('!');
-				}
-			}
-		    RETARGET_WriteChar('\n');
-		    */
-		}
-	}
-
-	uint8_t* dataTemp[6];
-
-	GetAccelGyroDataLsm6dsl(dataTemp);
-
 	while(1){
 
+		LowAccelGyroAppDataProcessRead();
+
+		/*
 		struct gecko_cmd_packet* evt;
 		evt = gecko_wait_event();	// Check for stack event
 		HandleEventsApp(evt);		// Run application and event handler.
+		 /**/
 
 	#if	HAL_WDOG_ENABLE
 		FeedWdog();

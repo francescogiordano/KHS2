@@ -12,7 +12,6 @@
 
 // application specific headers
 #include "app_hw.h"
-#include "app_ui.h"
 #include "payloadbuffer.h"
 #include "mstimer.h"
 #include "letimer.h"

@@ -23,23 +23,18 @@ static uint8_t getByte(void){
 
 static void rstio23lc1024(void){
 
-    // Chip select go low to start a flash command
     setCSLow();
 
     sendByte(INSTRUCTION_RSTIO);
 
-    // Chip select go high to end a flash command
     setCSHigh();
-    //RETARGET_WriteString("rstio Exit", 10);
 }
 static void rdmr23lc1024(void){
 
-    // Chip select go low to start a flash command
     setCSLow();
 
     sendByte(INSTRUCTION_RDMR);
 
-    // Chip select go high to end a flash command
     setCSHigh();
 }
 
@@ -77,8 +72,8 @@ void Set23lc1024(void){
    USART_Enable(SRAM23LC_USART, usartEnable);
 }
 void Init23lc1024(void){
-	rstio23lc1024();
-	rdmr23lc1024();
+	rstio23lc1024();		//Reset device
+	rdmr23lc1024();			//Set in Read Mode
 }
 bool Detect23lc1024(void){
 	bool result = false;

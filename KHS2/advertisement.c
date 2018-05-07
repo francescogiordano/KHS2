@@ -26,9 +26,6 @@
 #include "native_gecko.h"
 #include "infrastructure.h"
 
-/* application specific headers*/
-#include "app_ui.h"
-
 /* Own header */
 #include "advertisement.h"
 

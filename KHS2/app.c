@@ -16,23 +16,20 @@
 #include "app.h"
 #include "app_data.h"
 #include "app_ble.h"
-#include "app_ui.h"
 #include "app_hw.h"
 #include "advertisement.h"
 #include "board_features.h"
 
 #include "app_extsignals.h"
 
+#define APP_DEVNAME                  "BG%05u"
+#define APP_DEVNAME_DEFAULT          "BG00000"
+/* subtract 1 because of terminating NULL character */
+#define APP_DEVNAME_LEN              (sizeof(APP_DEVNAME_DEFAULT) - 1)
+
 
 //**************************   STATIC FUNCTION DECLARATIONS   *****************
-   #ifndef FEATURE_IOEXPANDER
-/* Periodically called Display Polarity Inverter Function for the LCD.
-   Toggles the the EXTCOMIN signal of the Sharp memory LCD panel, which prevents building up a DC
-   bias according to the LCD's data sheet */
-static void (*dispPolarityInvert)(void *);
-  #endif /* FEATURE_IOEXPANDER */
 
-// brief Function that initializes the device name, LEDs, buttons and services.
 void InitApp(void){
 
   // Unique device ID
@@ -42,7 +39,6 @@ void InitApp(void){
 
   /* Init device name */
   /* Get the unique device ID */
-
   // Create the device name based on the 16-bit device ID
 
   btAddr = gecko_cmd_system_get_bt_address();
@@ -50,14 +46,10 @@ void InitApp(void){
   //snprintf(devName, APP_DEVNAME_LEN + 1, APP_DEVNAME, devId);
   //gecko_cmd_gatt_server_write_attribute_value(gattdb_device_name, 0, strlen(devName), (uint8_t *)devName);
 
-  /**/
-  // Initialize LEDs, buttons, graphics.
-  //appUiInit(devId);		//This line effects peripherals, comment out!
 
   InitAppHw();
   InitAppData();
   InitAppBle();
-  /**/
 }
 
 void HandleEventsApp(struct gecko_cmd_packet *evt){
@@ -131,19 +123,9 @@ void HandleEventsApp(struct gecko_cmd_packet *evt){
     case gecko_evt_hardware_soft_timer_id:
 		/* Check which software timer handle is in question */
 		switch (evt->data.evt_hardware_soft_timer.handle) {
-			case UI_TIMER: /* App UI Timer (LEDs, Buttons) */
-			  appUiTick();
-			  break;
 			case ADV_TIMER: /* Advertisement Timer */
-			  advSetup();
-			  break;
-			#ifndef FEATURE_IOEXPANDER
-			case DISP_POL_INV_TIMER:
-			  /*Toggle the the EXTCOMIN signal, which prevents building up a DC bias  within the
-			   * Sharp memory LCD panel */
-			  dispPolarityInvert(0);
-			  break;
-			#endif /* FEATURE_IOEXPANDER */
+				advSetup();
+				break;
 			case HW_TIMER:
 				//appHwTick();
 				KhsHighAccelCharUpdate();
@@ -180,7 +162,7 @@ void HandleEventsApp(struct gecko_cmd_packet *evt){
 	case gecko_evt_system_external_signal_id:
     	switch(evt->data.evt_system_external_signal.extsignals){
     		case APP_DATA_LOW_ACCEL_GYRO:
-    			//LowAccelGyroAppDataProcessRead();
+    			LowAccelGyroAppDataProcessRead();
     			break;
 
     		case APP_DATA_HIGH_ACCEL:
@@ -195,28 +177,4 @@ void HandleEventsApp(struct gecko_cmd_packet *evt){
     default:
       break;
   }
-}
-
-/**************************************************************************//**
- * @brief   Register a callback function at the given frequency.
- *
- * @param[in] pFunction  Pointer to function that should be called at the
- *                       given frequency.
- * @param[in] argument   Argument to be given to the function.
- * @param[in] frequency  Frequency at which to call function at.
- *
- * @return  0 for successful or
- *         -1 if the requested frequency does not match the RTC frequency.
- *****************************************************************************/
-int rtcIntCallbackRegister(void (*pFunction)(void*), void* argument, unsigned int frequency){
-
-  #ifndef FEATURE_IOEXPANDER
-
-  dispPolarityInvert =  pFunction;
-  /* Start timer with required frequency */
-  gecko_cmd_hardware_set_soft_timer(TIMER_MS_2_TIMERTICK(1000 / frequency), DISP_POL_INV_TIMER, false);
-
-  #endif /* FEATURE_IOEXPANDER */
-
-  return 0;
 }
