@@ -98,23 +98,15 @@ void HandleEventsApp(struct gecko_cmd_packet *evt){
     // Indicates the changed value of CCC or received characteristic confirmation
 	case gecko_evt_gatt_server_characteristic_status_id:
 		// Check if changed client char config is for the temperature measurement
-		if((gattdb_LowAccelGyro == evt->data.evt_gatt_server_attribute_value.attribute)
+		if((gattdb_Data == evt->data.evt_gatt_server_attribute_value.attribute)
 		  && (evt->data.evt_gatt_server_characteristic_status.status_flags == gatt_server_client_config)) {
 		// Call LowAccelGyro characteristic status changed callback
 		KhsDataCharStatusChange(
 			evt->data.evt_gatt_server_characteristic_status.connection,
 			evt->data.evt_gatt_server_characteristic_status.client_config_flags);
 		}
-		else if((gattdb_HighAccel == evt->data.evt_gatt_server_attribute_value.attribute)
-		  && (evt->data.evt_gatt_server_characteristic_status.status_flags == gatt_server_client_config)) {
-		// Call HighAccel characteristic status changed callback
-		KhsHighAccelCharStatusChange(
-			evt->data.evt_gatt_server_characteristic_status.connection,
-			evt->data.evt_gatt_server_characteristic_status.client_config_flags);
-		}
-		else if((gattdb_LowAccelGyro == evt->data.evt_gatt_server_attribute_value.attribute) &&
+		else if((gattdb_Data == evt->data.evt_gatt_server_attribute_value.attribute) &&
 			  (evt->data.evt_gatt_server_characteristic_status.status_flags == gatt_server_confirmation)){
-
 			KhsDataCharUpdate();
 		}
 		break;

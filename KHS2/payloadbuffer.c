@@ -63,11 +63,15 @@ bool GetPayloadBuffer(uint8_t* data, uint8_t dataSize, uint16_t* payloadCounter)
 			result = true;
 		}
 		else{
+		#if DEBUG_ENABLE
 			RETARGET_WriteString("Error Tail", 10);
+		#endif
 		}
 	}
 	else{
+	#if DEBUG_ENABLE
 		RETARGET_WriteString("Error Empty", 11);
+	#endif
 	}
 	return result;
 }

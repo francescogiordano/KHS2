@@ -56,21 +56,14 @@
     <informativeText>Custom service</informativeText>
     
     <!--Data-->
-    <characteristic id="LowAccelGyro" name="Data" sourceId="custom.type" uuid="2100">
+    <characteristic id="Data" name="Data" sourceId="custom.type" uuid="2100">
       <informativeText>Custom characteristic</informativeText>
       <value length="251" type="hex" variable_length="false">0x00</value>
       <properties indicate="true" indicate_requirement="optional"/>
     </characteristic>
     
-    <!--HighAccel-->
-    <characteristic id="HighAccel" name="HighAccel" sourceId="custom.type" uuid="2200">
-      <informativeText>Custom characteristic</informativeText>
-      <value length="251" type="hex" variable_length="false">0x00</value>
-      <properties notify="true" notify_requirement="optional"/>
-    </characteristic>
-    
     <!--DiagInfo-->
-    <characteristic id="DiagInfo" name="DiagInfo" sourceId="custom.type" uuid="2300">
+    <characteristic id="DiagInfo" name="DiagInfo" sourceId="custom.type" uuid="2200">
       <informativeText>Custom characteristic</informativeText>
       <value length="3" type="hex" variable_length="false">0x00,0x00,0x00</value>
       <properties read="true" read_requirement="optional"/>

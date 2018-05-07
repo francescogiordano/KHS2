@@ -8,7 +8,6 @@ ALL OK
 
 Error/Warning output
 WARNING: 2100 length attribute is 251 but actual value length is 2. 251 will be used.
-WARNING: 2200 length attribute is 251 but actual value length is 2. 251 will be used.
-WARNING: 2300 length attribute is 3 but actual value length is 5. 3 will be used.
+WARNING: 2200 length attribute is 3 but actual value length is 5. 3 will be used.
 
 
