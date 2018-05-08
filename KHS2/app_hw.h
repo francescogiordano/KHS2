@@ -5,15 +5,16 @@
 extern "C" {
 #endif
 
-#include <stdbool.h>
+#include "bg_types.h"
+
+#define ERROR_FLAG_SRAM				0x80
+#define ERROR_FLAG_LOW_GYRO_ACCEL	0x40
+#define ERROR_FLAG_HIGH_ACCEL		0x20
 
 void InitAppHw(void);
 void AppHwTick(void);
 
-bool GetAppHwErrorFlag(void);
-bool GetAppHwInitSramErrorFlag(void);
-bool GetAppHwInitLowAccelSensErrorFlag(void);
-bool GetAppHwInitHighAccelSensErrorFlag(void);
+uint8_t GetAppHwErrorFlags(void);
 
 #ifdef __cplusplus
 };

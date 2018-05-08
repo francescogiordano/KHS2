@@ -73,12 +73,12 @@ static const gecko_configuration_t config = {
 	InitBoard();	//Init Mcu ports & IO for PCB
 	InitApp();		//Init ICs
 
-	/*
+
 	//gecko_init(&config);		// Initialize stack
 
 	//LeTimer must be after gecko_init()
-	//InitLeTimer();
-	//StartLeTimer();
+	InitLeTimer();
+	StartLeTimer();
 
 	/* Test Mode
 	if (nrf_gpio_pin_read(ENABLE_TEST_PIN)) {
@@ -107,10 +107,10 @@ static const gecko_configuration_t config = {
 
 	while(1){
 
-		LowAccelGyroAppDataProcessRead();
-		HighAccelGyroAppDataProcessRead();
+		//LowAccelGyroAppDataProcessRead();
+		//HighAccelGyroAppDataProcessRead();
 
-		/*
+		/**/
 		struct gecko_cmd_packet* evt;
 		evt = gecko_wait_event();	// Check for stack event
 		HandleEventsApp(evt);		// Run application and event handler.

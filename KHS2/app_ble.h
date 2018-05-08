@@ -14,6 +14,7 @@ void KhsDataCharUpdate(void);
 void KhsHighAccelCharUpdate(void);
 
 void KhsDiagInfoCharWrite(void);
+void KhsFirmVerCharWrite(void);
 
 #ifdef __cplusplus
 };

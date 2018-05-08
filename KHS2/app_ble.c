@@ -11,11 +11,13 @@
 #include "infrastructure.h"
 
 // application specific headers
+#include "app.h"
 #include "app_hw.h"
+#include "app_ble.h"
 #include "payloadbuffer.h"
 #include "mstimer.h"
 #include "letimer.h"
-#include "app_ble.h"
+#include "lsm6dsl.h"
 
 //**************************   DEFINES   **************************************
 
@@ -33,6 +35,9 @@ static uint16_t payloadCounter = 0;
 
 void InitAppBle(void){
 	bleClientConnection = BLE_NO_CONNECTION; // Initially no connection is set.
+
+	KhsDiagInfoCharWrite();
+	KhsFirmVerCharWrite();
 }
 void KhsDataCharStatusChange(uint8_t connection, uint16_t clientConfig){
   if (clientConfig) {
@@ -47,11 +52,20 @@ void KhsDataCharUpdate(void){
 	}
 
 	struct gecko_msg_gatt_server_send_characteristic_notification_rsp_t* responseTemp;
-	uint8_t tempData[KHS_DATA_CHAR_BYTE_LENGTH_MAX];
+	uint8_t tempPayloadBuffer[PAYLOAD_BUFFER_HEADER_SIZE + PAYLOAD_BUFFER_DATA_SIZE];
+	uint8_t* tempCharData;
 
+	//Make sure there is a payload available to send else come back in 100ms
 	if(IsEmptyPayloadBuffer() == false){
-		if(GetPayloadBuffer(tempData, KHS_DATA_CHAR_BYTE_LENGTH_MAX, &payloadCounter)){
-			responseTemp = gecko_cmd_gatt_server_send_characteristic_notification(bleClientConnection, gattdb_Data, KHS_DATA_CHAR_BYTE_LENGTH_MAX, tempData);
+		if(GetPayloadBuffer(tempPayloadBuffer, PAYLOAD_BUFFER_HEADER_SIZE + PAYLOAD_BUFFER_DATA_SIZE, &payloadCounter)){
+			//Reference tempCharData to beginning of Payload Buffer Data
+			tempCharData = tempPayloadBuffer + PAYLOAD_BUFFER_HEADER_SIZE;
+
+			//Make sure data is less or equal to BLE max char data length
+			if(PAYLOAD_BUFFER_DATA_SIZE <= KHS_DATA_CHAR_BYTE_LENGTH_MAX){
+				//Send tempCharData over BLE
+				responseTemp = gecko_cmd_gatt_server_send_characteristic_notification(bleClientConnection, gattdb_Data, PAYLOAD_BUFFER_DATA_SIZE, tempCharData);
+			}
 		}
 	}
 	else{
@@ -75,18 +89,19 @@ void KhsDataCharUpdate(void){
 }
 void KhsDiagInfoCharWrite(void){
   uint8_t value[3] = {0x00,0x00,0x00};
+  uint8_t tempData[2] = {0x00,0x00};
 
-  if(GetAppHwInitSramErrorFlag()){
-	  value[0] = 0x01;
-  }
-  if(GetAppHwInitLowAccelSensErrorFlag()){
-	  value[1] = 0x01;
-  }
-  if(GetAppHwInitHighAccelSensErrorFlag()){
-	  value[2] = 0x01;
-  }
+  value[0] = GetAppHwErrorFlags();
+
+  GetTempDataLsm6dsl(tempData); //tempData Data Order - TEMP_L,TEMP_H
+  value[1] = tempData[1];
+  value[2] = tempData[0];
 
   gecko_cmd_gatt_server_write_attribute_value(gattdb_DiagInfo, 0, sizeof(value), (uint8_t *)value);
+}
+void KhsFirmVerCharWrite(void){
+  uint8_t value[3] = {APP_FIRM_VER_MAJOR, APP_FIRM_VER_MINOR, APP_FIRM_VER_BUILD};
+  gecko_cmd_gatt_server_write_attribute_value(gattdb_FirmVer, 0, sizeof(value), (uint8_t *)value);
 }
 
 

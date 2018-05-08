@@ -68,5 +68,12 @@
       <value length="3" type="hex" variable_length="false">0x00,0x00,0x00</value>
       <properties read="true" read_requirement="optional"/>
     </characteristic>
+    
+    <!--FirmVer-->
+    <characteristic id="FirmVer" name="FirmVer" sourceId="custom.type" uuid="2300">
+      <informativeText>Custom characteristic</informativeText>
+      <value length="3" type="hex" variable_length="false">0x00,0x00,0x00</value>
+      <properties read="true" read_requirement="optional"/>
+    </characteristic>
   </service>
 </gatt>

@@ -30,9 +30,7 @@ void LETIMER_IRQHandler(void){
 		)
 		leCounter++;
 
-		if(leCounter%10 == 0){
-			RETARGET_WriteChar('F');
-		}
+		gecko_external_signal(APP_DATA_1_MS_TIMER);
 	}
 }
 

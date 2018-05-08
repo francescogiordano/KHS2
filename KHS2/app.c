@@ -22,42 +22,58 @@
 
 #include "app_extsignals.h"
 
-#define APP_DEVNAME                  "BG%05u"
-#define APP_DEVNAME_DEFAULT          "BG00000"
-/* subtract 1 because of terminating NULL character */
-#define APP_DEVNAME_LEN              (sizeof(APP_DEVNAME_DEFAULT) - 1)
-
-
 //**************************   STATIC FUNCTION DECLARATIONS   *****************
 
 void InitApp(void){
 
-  // Unique device ID
-  uint16_t devId;
-  struct gecko_msg_system_get_bt_address_rsp_t* btAddr;
-  char devName[APP_DEVNAME_LEN + 1];
+	// Unique device ID
+	uint16_t devId;
+	struct gecko_msg_system_get_bt_address_rsp_t* btAddr;
+	char devName[APP_DEVNAME_LEN + 1];
 
-  /* Init device name */
-  /* Get the unique device ID */
-  // Create the device name based on the 16-bit device ID
+	/* Init device name */
+	/* Get the unique device ID */
+	// Create the device name based on the 16-bit device ID
 
-  btAddr = gecko_cmd_system_get_bt_address();
-  devId = *((uint16*)(btAddr->address.addr));
-  //snprintf(devName, APP_DEVNAME_LEN + 1, APP_DEVNAME, devId);
-  //gecko_cmd_gatt_server_write_attribute_value(gattdb_device_name, 0, strlen(devName), (uint8_t *)devName);
+	btAddr = gecko_cmd_system_get_bt_address();
+	devId = *((uint16*)(btAddr->address.addr));
+	//snprintf(devName, APP_DEVNAME_LEN + 1, APP_DEVNAME, devId);
+	//gecko_cmd_gatt_server_write_attribute_value(gattdb_device_name, 0, strlen(devName), (uint8_t *)devName);
 
-
-  InitAppHw();
-  InitAppData();
-  InitAppBle();
+	InitAppHw();
+	InitAppData();
+	InitAppBle();
 }
-
 void HandleEventsApp(struct gecko_cmd_packet *evt){
 
   // Flag for indicating DFU Reset must be performed
   static uint8_t boot_to_dfu = 0;
 
   switch (BGLIB_MSG_ID(evt->header)) {
+
+	case gecko_evt_system_external_signal_id:
+		switch(evt->data.evt_system_external_signal.extsignals){
+			case APP_DATA_1_MS_TIMER:
+				HighAccelGyroAppDataProcessRead();
+
+				if(GetLeCounter()%5 == 0){
+					LowAccelGyroAppDataProcessRead();
+				}
+				break;
+
+			case APP_DATA_LOW_ACCEL_GYRO:
+				LowAccelGyroAppDataProcessRead();
+				break;
+
+			case APP_DATA_HIGH_ACCEL:
+				HighAccelGyroAppDataProcessRead();
+				break;
+
+			default:
+				break;
+		}
+		break;
+
     /* Boot event and connection closed event */
     case gecko_evt_system_boot_id:
     case gecko_evt_le_connection_closed_id:
@@ -120,13 +136,12 @@ void HandleEventsApp(struct gecko_cmd_packet *evt){
 				break;
 			case HW_TIMER:
 				//AppHwTick();
-				//KhsHighAccelCharUpdate();
 				break;
 			case KHS_DATA_CHAR_UPDATE_TIMER:
 				KhsDataCharUpdate();
 				break;
 			case SHUTDOWN_TIMER:
-				//KhsDataCharUpdate();
+				//Place MCU & Sensors shutdown code
 				break;
 			default:
 			  break;
@@ -140,6 +155,7 @@ void HandleEventsApp(struct gecko_cmd_packet *evt){
 		if (evt->data.evt_gatt_server_user_write_request.characteristic == gattdb_ota_control) {
 			/* Set flag to enter to OTA mode */
 			boot_to_dfu = 1;
+
 			/* Send response to Write Request */
 			gecko_cmd_gatt_server_send_user_write_response(
 			  evt->data.evt_gatt_server_user_write_request.connection,
@@ -151,20 +167,21 @@ void HandleEventsApp(struct gecko_cmd_packet *evt){
 		}
 		break;
 
-	case gecko_evt_system_external_signal_id:
-    	switch(evt->data.evt_system_external_signal.extsignals){
-    		case APP_DATA_LOW_ACCEL_GYRO:
-    			LowAccelGyroAppDataProcessRead();
-    			break;
+    case gecko_evt_gatt_server_user_read_request_id:
+		if (evt->data.evt_gatt_server_user_read_request.characteristic == gattdb_DiagInfo) {
 
-    		case APP_DATA_HIGH_ACCEL:
-    			//HighAccelGyroAppDataProcessRead();
-				break;
+			KhsDiagInfoCharWrite();
 
-    		default:
-    			break;
-    	}
-    	break;
+			/*
+			gecko_cmd_gatt_server_send_user_read_response(
+				evt->data.evt_gatt_server_user_read_request.connection,
+				evt->data.evt_gatt_server_user_read_request.characteristic,
+				0x00,	//Success Code
+				5,		//Length
+				gecko_cmd_gatt_server_read_attribute_value(gattdb_DiagInfo,0)->value);
+			*/
+		}
+		break;
 
     default:
       break;

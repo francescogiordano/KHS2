@@ -1,6 +1,7 @@
-app_hw.o: ../app_hw.c ../app_hw.h ../app_timer.h ../app_extsignals.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/s23lc1024.h \
+app_hw.o: ../app_hw.c ../app_hw.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h \
+ ../app_timer.h ../app_extsignals.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/s23lc1024.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_23lc1024.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/hal-config.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2/board_features.h \
@@ -63,13 +64,13 @@ app_hw.o: ../app_hw.c ../app_hw.h ../app_timer.h ../app_extsignals.h \
 
 ../app_hw.h:
 
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h:
+
 ../app_timer.h:
 
 ../app_extsignals.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/s23lc1024.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\protocol\bluetooth_2.6\ble_stack\inc\common/bg_types.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_23lc1024.h:
 
