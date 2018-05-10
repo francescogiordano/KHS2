@@ -1,7 +1,8 @@
+#include "letimer.h"
+
 #include "em_core.h"
 #include "em_cmu.h"
 #include "em_letimer.h"
-#include "letimer.h"
 #include "native_gecko.h"
 #include "app_extsignals.h"
 

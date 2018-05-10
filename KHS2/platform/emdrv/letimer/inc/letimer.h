@@ -1,7 +1,7 @@
-#ifndef __LETIMER_H
-#define __LETIMER_H
+#ifndef __LETIMER_H__
+#define __LETIMER_H__
 
-#include <stdint.h>
+#include "stdint.h"
 #include "ecode.h"
 #include "letimer_config.h"
 
@@ -14,8 +14,6 @@ extern "C" {
 Ecode_t InitLeTimer(void);
 Ecode_t StartLeTimer(void);
 uint64_t GetLeCounter(void);
-
-
 
 
 #ifdef __cplusplus

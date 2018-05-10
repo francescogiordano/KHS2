@@ -78,11 +78,10 @@ static void initMcu_clocks(void)
 	CMU_ClockSelectSet(cmuClock_HFPER, cmuSelect_HFCLKLE);
 /**/
 
-		CMU_HFRCOBandSet(CMU_HFRCO_MAX);
+	CMU_HFRCOBandSet(CMU_HFRCO_MAX);
 
-	  // Enabling HFBUSCLKLE clock for LE peripherals
-	  CMU_ClockEnable(cmuClock_HFLE, true);
-
+	// Enabling HFBUSCLKLE clock for LE peripherals
+	CMU_ClockEnable(cmuClock_HFLE, true);
 
 	CMU_ClockEnable(cmuClock_CORELE, true);
 	CMU_ClockSelectSet(cmuClock_LFA, cmuSelect_LFRCO);

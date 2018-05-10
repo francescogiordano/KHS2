@@ -4,96 +4,83 @@
 #include "em_device.h"
 #include "hal-config-types.h"
 
-#define BSP_BTL_BUTTON_PIN                            (6)
-#define BSP_BTL_BUTTON_PORT                           (gpioPortF)
-
-// $[BUTTON]
-#define BSP_BUTTON_PRESENT                            (1)
-
-#define BSP_BUTTON0_PIN                               (6)
-#define BSP_BUTTON0_PORT                              (gpioPortF)
-
-#define BSP_BUTTON1_PIN                               (7)
-#define BSP_BUTTON1_PORT                              (gpioPortF)
-
-#define BSP_BUTTON_COUNT                              (2)
-#define BSP_BUTTON_INIT                               { { BSP_BUTTON0_PORT, BSP_BUTTON0_PIN }, { BSP_BUTTON1_PORT, BSP_BUTTON1_PIN } }
-#define BSP_BUTTON_GPIO_DOUT                          (HAL_GPIO_DOUT_LOW)
-#define BSP_BUTTON_GPIO_MODE                          (HAL_GPIO_MODE_INPUT)
-// [BUTTON]$
+//$[DEBUG ENABLE]
+#define BSP_DEBUG_ENABLE_PORT						(gpioPortC)
+#define BSP_DEBUG_ENABLE_PIN                        (10)
+//[DEBUG ENABLE]$
 
 // $[CMU]
-#define BSP_CLK_LFXO_PRESENT                          (1)
-#define BSP_CLK_HFXO_PRESENT                          (1)
-#define BSP_CLK_LFXO_INIT                              CMU_LFXOINIT_DEFAULT
-#define BSP_CLK_LFXO_CTUNE                            (32)
-#define BSP_CLK_LFXO_FREQ                             (32768)
-#define BSP_CLK_HFXO_FREQ                             (38400000)
-#define BSP_CLK_HFXO_CTUNE                            (319)
-#define BSP_CLK_HFXO_INIT                              CMU_HFXOINIT_DEFAULT
-#define BSP_CLK_HFXO_CTUNE_TOKEN                      (0)
+#define BSP_CLK_LFXO_PRESENT                      	(1)
+#define BSP_CLK_HFXO_PRESENT                        (1)
+#define BSP_CLK_LFXO_INIT                           CMU_LFXOINIT_DEFAULT
+#define BSP_CLK_LFXO_CTUNE                       	(32)
+#define BSP_CLK_LFXO_FREQ                           (32768)
+#define BSP_CLK_HFXO_FREQ                           (38400000)
+#define BSP_CLK_HFXO_CTUNE                          (319)
+#define BSP_CLK_HFXO_INIT                           CMU_HFXOINIT_DEFAULT
+#define BSP_CLK_HFXO_CTUNE_TOKEN                    (0)
 // [CMU]$
 
 // $[DCDC]
-#define BSP_DCDC_PRESENT                              (1)
-#define BSP_DCDC_INIT                                  EMU_DCDCINIT_DEFAULT
+#define BSP_DCDC_PRESENT                            (1)
+#define BSP_DCDC_INIT                               EMU_DCDCINIT_DEFAULT
 // [DCDC]$
 
 // $[EXTSRAM]
-#define BSP_EXTSRAM_CS_PIN                           (3U)
-#define BSP_EXTSRAM_CS_PORT                          (gpioPortA)
-#define BSP_EXTSRAM_CS_LOC                           (0U)
+#define BSP_EXTSRAM_CS_PIN                    		(3U)
+#define BSP_EXTSRAM_CS_PORT                         (gpioPortA)
+#define BSP_EXTSRAM_CS_LOC                          (0U)
 
-#define BSP_EXTSRAM_USART                            (HAL_SPI_PORT_USART1)
-#define BSP_EXTSRAM_INTERNAL                         (0U)
+#define BSP_EXTSRAM_USART                           (HAL_SPI_PORT_USART1)
+#define BSP_EXTSRAM_INTERNAL                        (0U)
 
-#define BSP_EXTSRAM_CLK_PIN                          (11U)
-#define BSP_EXTSRAM_CLK_PORT                         (gpioPortB)
-#define BSP_EXTSRAM_CLK_LOC                          (4U)
+#define BSP_EXTSRAM_CLK_PIN                         (11U)
+#define BSP_EXTSRAM_CLK_PORT                        (gpioPortB)
+#define BSP_EXTSRAM_CLK_LOC                         (4U)
 
-#define BSP_EXTSRAM_MISO_PIN                         (4U)
-#define BSP_EXTSRAM_MISO_PORT                        (gpioPortA)
-#define BSP_EXTSRAM_MISO_LOC                         (3U)
+#define BSP_EXTSRAM_MISO_PIN                        (4U)
+#define BSP_EXTSRAM_MISO_PORT                       (gpioPortA)
+#define BSP_EXTSRAM_MISO_LOC                        (3U)
 
-#define BSP_EXTSRAM_MOSI_PIN                         (5U)
-#define BSP_EXTSRAM_MOSI_PORT                        (gpioPortA)
-#define BSP_EXTSRAM_MOSI_LOC                         (5U)
+#define BSP_EXTSRAM_MOSI_PIN                        (5U)
+#define BSP_EXTSRAM_MOSI_PORT                       (gpioPortA)
+#define BSP_EXTSRAM_MOSI_LOC                        (5U)
 // [EXTSRAM]$
 
 // $[GPIO]
-#define PORTIO_GPIO_SWV_PIN                           (2)
-#define PORTIO_GPIO_SWV_PORT                          (gpioPortF)
-#define PORTIO_GPIO_SWV_LOC                           (0)
+#define PORTIO_GPIO_SWV_PIN                         (2)
+#define PORTIO_GPIO_SWV_PORT                        (gpioPortF)
+#define PORTIO_GPIO_SWV_LOC                         (0)
 /*
 //For BGM11S DEMO board
-#define BSP_TRACE_SWO_PIN                             (2)
-#define BSP_TRACE_SWO_PORT                            (gpioPortF)
-#define BSP_TRACE_SWO_LOC                             (0)
+#define BSP_TRACE_SWO_PIN                           (2)
+#define BSP_TRACE_SWO_PORT                          (gpioPortF)
+#define BSP_TRACE_SWO_LOC                           (0)
 /**/
 /**/
 //For Prototype board
-#define BSP_TRACE_SWO_PIN                             (11)
-#define BSP_TRACE_SWO_PORT                            (gpioPortC)
-#define BSP_TRACE_SWO_LOC                             (3)
+#define BSP_TRACE_SWO_PIN                           (11)
+#define BSP_TRACE_SWO_PORT                          (gpioPortC)
+#define BSP_TRACE_SWO_LOC                           (3)
 /**/
 // [GPIO]$
 
 // $[I2C0].
-#define PORTIO_I2C0_SCL_PIN                           (10)
-#define PORTIO_I2C0_SCL_PORT                          (gpioPortC)
-#define PORTIO_I2C0_SCL_LOC                           (14)
+#define PORTIO_I2C0_SCL_PIN                         (10)
+#define PORTIO_I2C0_SCL_PORT                        (gpioPortC)
+#define PORTIO_I2C0_SCL_LOC                         (14)
 
-#define PORTIO_I2C0_SDA_PIN                           (11)
-#define PORTIO_I2C0_SDA_PORT                          (gpioPortC)
-#define PORTIO_I2C0_SDA_LOC                           (16)
+#define PORTIO_I2C0_SDA_PIN                         (11)
+#define PORTIO_I2C0_SDA_PORT                        (gpioPortC)
+#define PORTIO_I2C0_SDA_LOC                         (16)
 
-#define BSP_I2C0_SDA_PIN                              (11)
-#define BSP_I2C0_SDA_PORT                             (gpioPortC)
-#define BSP_I2C0_SDA_LOC                              (16)
+#define BSP_I2C0_SDA_PIN                            (11)
+#define BSP_I2C0_SDA_PORT                           (gpioPortC)
+#define BSP_I2C0_SDA_LOC                            (16)
 
-#define BSP_I2C0_SCL_PIN                              (10)
-#define BSP_I2C0_SCL_PORT                             (gpioPortC)
-#define BSP_I2C0_SCL_LOC                              (14)
+#define BSP_I2C0_SCL_PIN                            (10)
+#define BSP_I2C0_SCL_PORT                           (gpioPortC)
+#define BSP_I2C0_SCL_LOC                            (14)
 // [I2C0]$
 
 /*
@@ -293,4 +280,4 @@
 #define BSP_VCOM_ENABLE_PORT                          (gpioPortA)
 // [VCOM]$
 
-#endif /* HAL_CONFIG_BOARD_H */
+#endif // HAL_CONFIG_BOARD_H

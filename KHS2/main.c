@@ -31,8 +31,10 @@
 #include "udelay.h"
 
 #include "retargetswo.h"
-
 #include "payloadbuffer.h"
+
+#include "adc.h"
+#include "app_data.h"
 
 #ifndef MAX_CONNECTIONS
 #define MAX_CONNECTIONS 4
@@ -57,7 +59,7 @@ static const gecko_configuration_t config = {
 #endif // (HAL_PA_ENABLE) && defined(FEATURE_PA_HIGH_POWER)
 };
 
-	void main(void){
+void main(void){
 
 #if	HAL_WDOG_ENABLE
 	InitWdog();
@@ -77,8 +79,8 @@ static const gecko_configuration_t config = {
 	//gecko_init(&config);		// Initialize stack
 
 	//LeTimer must be after gecko_init()
-	InitLeTimer();
-	StartLeTimer();
+	//InitLeTimer();
+	//StartLeTimer();
 
 	/* Test Mode
 	if (nrf_gpio_pin_read(ENABLE_TEST_PIN)) {
@@ -104,13 +106,19 @@ static const gecko_configuration_t config = {
 	}
 	*/
 
+	static uint32_t tempADC = 0;
+
+
 
 	while(1){
 
-		//LowAccelGyroAppDataProcessRead();
-		//HighAccelGyroAppDataProcessRead();
+		tempADC = GetSingleAdc();
 
-		/**/
+		LowAccelGyroAppDataProcessRead();
+		HighAccelGyroAppDataProcessRead();
+
+		//EMU_EnterEM2(true);
+		/*
 		struct gecko_cmd_packet* evt;
 		evt = gecko_wait_event();	// Check for stack event
 		HandleEventsApp(evt);		// Run application and event handler.
