@@ -13,7 +13,7 @@ extern "C" {
 #define ECODE_EMDRV_ADC_OK ( ECODE_OK ) // Success return value
 
 Ecode_t InitAdc(void);
-uint32_t GetSingleAdc(void);
+void GetSingleAdc(uint8_t* data);
 
 
 #ifdef __cplusplus

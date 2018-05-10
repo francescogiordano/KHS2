@@ -26,8 +26,9 @@ void ADC_IRQHandler(void){
 
 Ecode_t InitAdc(void){
 
-	ADC_InitSingle_TypeDef singleInit = ADC_INITSINGLE_DEFAULT;
 	CMU_ClockEnable(ADC_CLK, true);
+
+	ADC_InitSingle_TypeDef singleInit = ADC_INITSINGLE_DEFAULT;
 
 	singleInit.acqTime = adcAcqTime256;
 	singleInit.reference = adcRef5V;
@@ -40,12 +41,13 @@ Ecode_t InitAdc(void){
 
 	return ECODE_EMDRV_ADC_OK;
 }
-uint32_t GetSingleAdc(void){
+void GetSingleAdc(uint8_t* data){
 
 	ADC_Start(ADC, adcStartSingle);
 	while(ADC->STATUS & ADC_STATUS_SINGLEACT);
 
-	return ADC_DataSingleGet(ADC);
+	data[0] = ADC_DataSingleGet(ADC) >> 8;
+	data[1] = ADC_DataSingleGet(ADC);
 }
 
 

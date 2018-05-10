@@ -17,6 +17,8 @@ void InitBoard(void){
 	// Enable GPIO clock source
 	CMU_ClockEnable(cmuClock_GPIO, true);
 
+	InitAdc();
+
 #if	HAL_SPI_ENABLE
   Set23lc1024();
 #endif
@@ -25,5 +27,4 @@ void InitBoard(void){
   SetI2CLsm6dsl();
   SetI2CH3lis331dl();
 #endif
-
 }

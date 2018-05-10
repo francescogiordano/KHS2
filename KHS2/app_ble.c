@@ -17,6 +17,7 @@
 #include "payloadbuffer.h"
 #include "mstimer.h"
 #include "letimer.h"
+#include "adc.h"
 #include "lsm6dsl.h"
 
 //**************************   DEFINES   **************************************
@@ -88,14 +89,19 @@ void KhsDataCharUpdate(void){
 	*/
 }
 void KhsDiagInfoCharWrite(void){
-  uint8_t value[3] = {0x00,0x00,0x00};
+  uint8_t value[5] = {0x00,0x00,0x00, 0x00, 0x00};
   uint8_t tempData[2] = {0x00,0x00};
+  uint32_t tempAdc = 0;
 
   value[0] = GetAppHwErrorFlags();
 
   GetTempDataLsm6dsl(tempData); //tempData Data Order - TEMP_L,TEMP_H
   value[1] = tempData[1];
   value[2] = tempData[0];
+
+  GetSingleAdc(tempData);		//tempData Data Order - ADC_H,ADC_L
+  value[3] = tempData[0];
+  value[4] = tempData[1];
 
   gecko_cmd_gatt_server_write_attribute_value(gattdb_DiagInfo, 0, sizeof(value), (uint8_t *)value);
 }

@@ -106,13 +106,11 @@ void main(void){
 	}
 	*/
 
-	static uint32_t tempADC = 0;
-
-
+	static uint8_t tempData[2];
 
 	while(1){
 
-		tempADC = GetSingleAdc();
+		GetSingleAdc(tempData);
 
 		LowAccelGyroAppDataProcessRead();
 		HighAccelGyroAppDataProcessRead();

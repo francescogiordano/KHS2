@@ -68,6 +68,8 @@ app_ble.o: ../app_ble.c \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\mstimer\config/mstimer_config.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\letimer\inc/letimer.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\letimer\config/letimer_config.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\adc\inc/adc.h \
+ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\adc\config/adc_config.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/lsm6dsl.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\halconfig/halconfig_lsm6dsl.h
 
@@ -214,6 +216,10 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\mstimer\config/mstime
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\letimer\inc/letimer.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\letimer\config/letimer_config.h:
+
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\adc\inc/adc.h:
+
+G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\adc\config/adc_config.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/lsm6dsl.h:
 
