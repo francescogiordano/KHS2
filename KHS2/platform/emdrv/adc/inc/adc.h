@@ -9,12 +9,10 @@
 extern "C" {
 #endif
 
-
 #define ECODE_EMDRV_ADC_OK ( ECODE_OK ) // Success return value
 
 Ecode_t InitAdc(void);
 void GetSingleAdc(uint8_t* data);
-
 
 #ifdef __cplusplus
 }

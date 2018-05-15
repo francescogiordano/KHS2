@@ -77,7 +77,7 @@ main.o: ../main.c ../boards.h ../ble-configuration.h ../board_features.h \
  ../payloadbuffer.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\adc\inc/adc.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\adc\config/adc_config.h \
- ../app_data.h
+ ../app_hw.h ../app_data.h
 
 ../boards.h:
 
@@ -240,5 +240,7 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/retarget
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\adc\inc/adc.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\adc\config/adc_config.h:
+
+../app_hw.h:
 
 ../app_data.h:

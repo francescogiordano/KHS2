@@ -53,46 +53,14 @@ Discarded input sections
  .text          0x00000000        0x0 ./advertisement.o
  .data          0x00000000        0x0 ./advertisement.o
  .bss           0x00000000        0x0 ./advertisement.o
- .text.advSetup
-                0x00000000       0x38 ./advertisement.o
  .text.advSwitchAdvMessage
                 0x00000000       0x44 ./advertisement.o
- .text.advConnectionStarted
-                0x00000000        0xc ./advertisement.o
- .data.advConnectableMode
-                0x00000000        0x1 ./advertisement.o
- .bss.advIsConnected
-                0x00000000        0x1 ./advertisement.o
- .debug_info    0x00000000     0x37ca ./advertisement.o
- .debug_abbrev  0x00000000      0x1da ./advertisement.o
- .debug_loc     0x00000000       0x74 ./advertisement.o
- .debug_aranges
-                0x00000000       0x30 ./advertisement.o
- .debug_ranges  0x00000000       0x48 ./advertisement.o
- .debug_line    0x00000000      0x2c6 ./advertisement.o
- .debug_str     0x00000000     0x49b6 ./advertisement.o
- .comment       0x00000000       0x71 ./advertisement.o
- .debug_frame   0x00000000       0x54 ./advertisement.o
- .ARM.attributes
-                0x00000000       0x39 ./advertisement.o
  .text          0x00000000        0x0 ./app.o
  .data          0x00000000        0x0 ./app.o
  .bss           0x00000000        0x0 ./app.o
- .text.HandleEventsApp
-                0x00000000      0x1a4 ./app.o
- .bss.boot_to_dfu.8784
-                0x00000000        0x1 ./app.o
  .text          0x00000000        0x0 ./app_ble.o
  .data          0x00000000        0x0 ./app_ble.o
  .bss           0x00000000        0x0 ./app_ble.o
- .text.KhsDataCharUpdate.part.1
-                0x00000000       0x80 ./app_ble.o
- .text.KhsDataCharStatusChange
-                0x00000000       0x14 ./app_ble.o
- .text.KhsDataCharUpdate
-                0x00000000       0x14 ./app_ble.o
- .bss.payloadCounter
-                0x00000000        0x2 ./app_ble.o
  .text          0x00000000        0x0 ./app_data.o
  .data          0x00000000        0x0 ./app_data.o
  .bss           0x00000000        0x0 ./app_data.o
@@ -100,8 +68,7 @@ Discarded input sections
  .data          0x00000000        0x0 ./app_hw.o
  .bss           0x00000000        0x0 ./app_hw.o
  .text.AppHwTick
-                0x00000000       0x10 ./app_hw.o
- .bss.counter   0x00000000        0x4 ./app_hw.o
+                0x00000000        0x4 ./app_hw.o
  .text          0x00000000        0x0 ./application_properties.o
  .data          0x00000000        0x0 ./application_properties.o
  .bss           0x00000000        0x0 ./application_properties.o
@@ -148,16 +115,16 @@ Discarded input sections
  .text          0x00000000        0x0 ./init_mcu.o
  .data          0x00000000        0x0 ./init_mcu.o
  .bss           0x00000000        0x0 ./init_mcu.o
- .text.initMcu  0x00000000      0x12c ./init_mcu.o
- .rodata        0x00000000       0x38 ./init_mcu.o
- .debug_info    0x00000000     0x15d5 ./init_mcu.o
+ .text.initMcu  0x00000000      0x164 ./init_mcu.o
+ .rodata        0x00000000       0x50 ./init_mcu.o
+ .debug_info    0x00000000     0x175f ./init_mcu.o
  .debug_abbrev  0x00000000      0x22a ./init_mcu.o
  .debug_loc     0x00000000      0x10d ./init_mcu.o
  .debug_aranges
                 0x00000000       0x20 ./init_mcu.o
- .debug_ranges  0x00000000       0x98 ./init_mcu.o
- .debug_line    0x00000000      0x342 ./init_mcu.o
- .debug_str     0x00000000     0x1059 ./init_mcu.o
+ .debug_ranges  0x00000000       0xa0 ./init_mcu.o
+ .debug_line    0x00000000      0x367 ./init_mcu.o
+ .debug_str     0x00000000     0x1281 ./init_mcu.o
  .comment       0x00000000       0x71 ./init_mcu.o
  .debug_frame   0x00000000       0x38 ./init_mcu.o
  .ARM.attributes
@@ -172,12 +139,6 @@ Discarded input sections
  .text          0x00000000        0x0 ./payloadbuffer.o
  .data          0x00000000        0x0 ./payloadbuffer.o
  .bss           0x00000000        0x0 ./payloadbuffer.o
- .text.GetPayloadBuffer
-                0x00000000       0x84 ./payloadbuffer.o
- .text.IsEmptyPayloadBuffer
-                0x00000000       0x1c ./payloadbuffer.o
- .rodata.str1.4
-                0x00000000       0x18 ./payloadbuffer.o
  .text          0x00000000        0x0 ./pti.o
  .data          0x00000000        0x0 ./pti.o
  .bss           0x00000000        0x0 ./pti.o
@@ -257,8 +218,6 @@ Discarded input sections
  .text          0x00000000        0x0 ./hardware/kit/common/drivers/s23lc1024.o
  .data          0x00000000        0x0 ./hardware/kit/common/drivers/s23lc1024.o
  .bss           0x00000000        0x0 ./hardware/kit/common/drivers/s23lc1024.o
- .text.ReadPayload23lc1024
-                0x00000000       0x84 ./hardware/kit/common/drivers/s23lc1024.o
  .text          0x00000000        0x0 ./hardware/kit/common/drivers/udelay.o
  .data          0x00000000        0x0 ./hardware/kit/common/drivers/udelay.o
  .bss           0x00000000        0x0 ./hardware/kit/common/drivers/udelay.o
@@ -339,10 +298,6 @@ Discarded input sections
  .text          0x00000000        0x0 ./platform/emdrv/letimer/src/letimer.o
  .data          0x00000000        0x0 ./platform/emdrv/letimer/src/letimer.o
  .bss           0x00000000        0x0 ./platform/emdrv/letimer/src/letimer.o
- .text.InitLeTimer
-                0x00000000       0x5c ./platform/emdrv/letimer/src/letimer.o
- .text.StartLeTimer
-                0x00000000       0x30 ./platform/emdrv/letimer/src/letimer.o
  .text          0x00000000        0x0 ./platform/emdrv/mstimer/src/mstimer.o
  .data          0x00000000        0x0 ./platform/emdrv/mstimer/src/mstimer.o
  .bss           0x00000000        0x0 ./platform/emdrv/mstimer/src/mstimer.o
@@ -619,8 +574,6 @@ Discarded input sections
                 0x00000000       0x14 ./platform/emlib/src/em_letimer.o
  .text.LETIMER_Enable
                 0x00000000       0x10 ./platform/emlib/src/em_letimer.o
- .text.LETIMER_Init
-                0x00000000       0x60 ./platform/emlib/src/em_letimer.o
  .text.LETIMER_RepeatGet
                 0x00000000       0x14 ./platform/emlib/src/em_letimer.o
  .text.LETIMER_RepeatSet
@@ -1126,11 +1079,8 @@ Discarded input sections
  .text          0x00000000        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-init.o)
  .data          0x00000000        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-init.o)
  .bss           0x00000000        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-init.o)
- .text          0x00000000      0x134 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memcpy.o)
  .data          0x00000000        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memcpy.o)
  .bss           0x00000000        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memcpy.o)
- .ARM.attributes
-                0x00000000       0x20 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memcpy.o)
  .text          0x00000000        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memset.o)
  .data          0x00000000        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memset.o)
  .bss           0x00000000        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memset.o)
@@ -1264,7 +1214,7 @@ LOAD c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/
  *fill*         0x000216c1      0x13f 
                 0x00021800                __text_start__ = .
 
-.text_app       0x00021800     0x2820
+.text_app       0x00021800     0x2eec
  *(.AAT)
  .AAT           0x00021800       0x80 ./main.o
                 0x00021800                AppAddressTable
@@ -1319,270 +1269,307 @@ LOAD c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/
  .text          0x00021c78       0x74 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/crt0.o
                 0x00021c78                _start
                 0x00021c78                _mainCRTStartup
- .text.InitApp  0x00021cec       0x28 ./app.o
-                0x00021cec                InitApp
+ .text.advSetup
+                0x00021cec       0x38 ./advertisement.o
+                0x00021cec                advSetup
+ .text.advConnectionStarted
+                0x00021d24        0xc ./advertisement.o
+                0x00021d24                advConnectionStarted
+ .text.InitApp  0x00021d30       0x14 ./app.o
+                0x00021d30                InitApp
+ .text.HandleEventsApp
+                0x00021d44      0x1a4 ./app.o
+                0x00021d44                HandleEventsApp
+ .text.KhsDataCharUpdate.part.1
+                0x00021ee8       0x80 ./app_ble.o
+ .text.KhsDataCharStatusChange
+                0x00021f68       0x14 ./app_ble.o
+                0x00021f68                KhsDataCharStatusChange
+ .text.KhsDataCharUpdate
+                0x00021f7c       0x14 ./app_ble.o
+                0x00021f7c                KhsDataCharUpdate
  .text.KhsDiagInfoCharWrite
-                0x00021d14       0x68 ./app_ble.o
-                0x00021d14                KhsDiagInfoCharWrite
+                0x00021f90       0x68 ./app_ble.o
+                0x00021f90                KhsDiagInfoCharWrite
  .text.KhsFirmVerCharWrite
-                0x00021d7c       0x30 ./app_ble.o
-                0x00021d7c                KhsFirmVerCharWrite
+                0x00021ff8       0x30 ./app_ble.o
+                0x00021ff8                KhsFirmVerCharWrite
  .text.InitAppBle
-                0x00021dac       0x18 ./app_ble.o
-                0x00021dac                InitAppBle
+                0x00022028       0x18 ./app_ble.o
+                0x00022028                InitAppBle
  .text.InitAppData
-                0x00021dc4        0xc ./app_data.o
-                0x00021dc4                InitAppData
+                0x00022040       0x20 ./app_data.o
+                0x00022040                InitAppData
  .text.LowAccelGyroAppDataProcessRead
-                0x00021dd0       0xd0 ./app_data.o
-                0x00021dd0                LowAccelGyroAppDataProcessRead
+                0x00022060       0xd0 ./app_data.o
+                0x00022060                LowAccelGyroAppDataProcessRead
  .text.HighAccelGyroAppDataProcessRead
-                0x00021ea0       0x9c ./app_data.o
-                0x00021ea0                HighAccelGyroAppDataProcessRead
+                0x00022130       0x9c ./app_data.o
+                0x00022130                HighAccelGyroAppDataProcessRead
  .text.InitAppHw
-                0x00021f3c       0xa4 ./app_hw.o
-                0x00021f3c                InitAppHw
+                0x000221cc       0xa4 ./app_hw.o
+                0x000221cc                InitAppHw
  .text.GetAppHwErrorFlags
-                0x00021fe0        0xc ./app_hw.o
-                0x00021fe0                GetAppHwErrorFlags
+                0x00022270        0xc ./app_hw.o
+                0x00022270                GetAppHwErrorFlags
  .text.InitBoard
-                0x00021fec       0x24 ./board.o
-                0x00021fec                InitBoard
+                0x0002227c       0x24 ./board.o
+                0x0002227c                InitBoard
  .text.startup.main
-                0x00022010       0x28 ./main.o
-                0x00022010                main
- .text.InitMcu  0x00022038       0xe4 ./mcu.o
-                0x00022038                InitMcu
+                0x000222a0       0xb8 ./main.o
+                0x000222a0                main
+ .text.InitMcu  0x00022358       0xe4 ./mcu.o
+                0x00022358                InitMcu
  .text.PutPayloadBuffer
-                0x0002211c       0x60 ./payloadbuffer.o
-                0x0002211c                PutPayloadBuffer
+                0x0002243c       0x60 ./payloadbuffer.o
+                0x0002243c                PutPayloadBuffer
+ .text.GetPayloadBuffer
+                0x0002249c       0x84 ./payloadbuffer.o
+                0x0002249c                GetPayloadBuffer
+ .text.IsEmptyPayloadBuffer
+                0x00022520       0x1c ./payloadbuffer.o
+                0x00022520                IsEmptyPayloadBuffer
  .text.BSP_TraceSwoSetup
-                0x0002217c       0xd0 ./hardware/kit/common/bsp/bsp_trace.o
-                0x0002217c                BSP_TraceSwoSetup
+                0x0002253c       0xd0 ./hardware/kit/common/bsp/bsp_trace.o
+                0x0002253c                BSP_TraceSwoSetup
  .text.i2cWriteH3lis331dl.part.0
-                0x0002224c       0x44 ./hardware/kit/common/drivers/h3lis331dl.o
+                0x0002260c       0x44 ./hardware/kit/common/drivers/h3lis331dl.o
  .text.i2cWriteReadH3lis331dl.part.1
-                0x00022290       0x48 ./hardware/kit/common/drivers/h3lis331dl.o
+                0x00022650       0x48 ./hardware/kit/common/drivers/h3lis331dl.o
  .text.SetI2CH3lis331dl
-                0x000222d8       0xa0 ./hardware/kit/common/drivers/h3lis331dl.o
-                0x000222d8                SetI2CH3lis331dl
+                0x00022698       0xa0 ./hardware/kit/common/drivers/h3lis331dl.o
+                0x00022698                SetI2CH3lis331dl
  .text.InitH3lis331dl
-                0x00022378       0x64 ./hardware/kit/common/drivers/h3lis331dl.o
-                0x00022378                InitH3lis331dl
+                0x00022738       0x64 ./hardware/kit/common/drivers/h3lis331dl.o
+                0x00022738                InitH3lis331dl
  .text.DetectH3lis331dl
-                0x000223dc       0x34 ./hardware/kit/common/drivers/h3lis331dl.o
-                0x000223dc                DetectH3lis331dl
+                0x0002279c       0x34 ./hardware/kit/common/drivers/h3lis331dl.o
+                0x0002279c                DetectH3lis331dl
  .text.GetAccelDataH3lis331dl
-                0x00022410       0x30 ./hardware/kit/common/drivers/h3lis331dl.o
-                0x00022410                GetAccelDataH3lis331dl
+                0x000227d0       0x30 ./hardware/kit/common/drivers/h3lis331dl.o
+                0x000227d0                GetAccelDataH3lis331dl
  .text.I2CSPM_Transfer
-                0x00022440       0x24 ./hardware/kit/common/drivers/i2cspm.o
-                0x00022440                I2CSPM_Transfer
+                0x00022800       0x24 ./hardware/kit/common/drivers/i2cspm.o
+                0x00022800                I2CSPM_Transfer
  .text.i2cWriteLsm6dsl.part.0
-                0x00022464       0x44 ./hardware/kit/common/drivers/lsm6dsl.o
+                0x00022824       0x44 ./hardware/kit/common/drivers/lsm6dsl.o
  .text.i2cWriteReadLsm6dsl.part.1
-                0x000224a8       0x48 ./hardware/kit/common/drivers/lsm6dsl.o
+                0x00022868       0x48 ./hardware/kit/common/drivers/lsm6dsl.o
  .text.SetI2CLsm6dsl
-                0x000224f0       0xac ./hardware/kit/common/drivers/lsm6dsl.o
-                0x000224f0                SetI2CLsm6dsl
+                0x000228b0       0xac ./hardware/kit/common/drivers/lsm6dsl.o
+                0x000228b0                SetI2CLsm6dsl
  .text.InitLsm6dsl
-                0x0002259c       0xd8 ./hardware/kit/common/drivers/lsm6dsl.o
-                0x0002259c                InitLsm6dsl
+                0x0002295c       0xd8 ./hardware/kit/common/drivers/lsm6dsl.o
+                0x0002295c                InitLsm6dsl
  .text.DetectLsm6dsl
-                0x00022674       0x34 ./hardware/kit/common/drivers/lsm6dsl.o
-                0x00022674                DetectLsm6dsl
+                0x00022a34       0x34 ./hardware/kit/common/drivers/lsm6dsl.o
+                0x00022a34                DetectLsm6dsl
  .text.GetAccelGyroDataLsm6dsl
-                0x000226a8       0x30 ./hardware/kit/common/drivers/lsm6dsl.o
-                0x000226a8                GetAccelGyroDataLsm6dsl
+                0x00022a68       0x30 ./hardware/kit/common/drivers/lsm6dsl.o
+                0x00022a68                GetAccelGyroDataLsm6dsl
  .text.GetTempDataLsm6dsl
-                0x000226d8       0x30 ./hardware/kit/common/drivers/lsm6dsl.o
-                0x000226d8                GetTempDataLsm6dsl
+                0x00022a98       0x30 ./hardware/kit/common/drivers/lsm6dsl.o
+                0x00022a98                GetTempDataLsm6dsl
  .text.RETARGET_WriteString
-                0x00022708       0x60 ./hardware/kit/common/drivers/retargetswo.o
-                0x00022708                RETARGET_WriteString
+                0x00022ac8       0x60 ./hardware/kit/common/drivers/retargetswo.o
+                0x00022ac8                RETARGET_WriteString
  .text.RETARGET_SwoInit
-                0x00022768        0x4 ./hardware/kit/common/drivers/retargetswo.o
-                0x00022768                RETARGET_SwoInit
+                0x00022b28        0x4 ./hardware/kit/common/drivers/retargetswo.o
+                0x00022b28                RETARGET_SwoInit
  .text.Set23lc1024
-                0x0002276c       0x90 ./hardware/kit/common/drivers/s23lc1024.o
-                0x0002276c                Set23lc1024
+                0x00022b2c       0x90 ./hardware/kit/common/drivers/s23lc1024.o
+                0x00022b2c                Set23lc1024
  .text.Init23lc1024
-                0x000227fc       0x30 ./hardware/kit/common/drivers/s23lc1024.o
-                0x000227fc                Init23lc1024
+                0x00022bbc       0x30 ./hardware/kit/common/drivers/s23lc1024.o
+                0x00022bbc                Init23lc1024
  .text.WritePayload23lc1024
-                0x0002282c       0x88 ./hardware/kit/common/drivers/s23lc1024.o
-                0x0002282c                WritePayload23lc1024
+                0x00022bec       0x88 ./hardware/kit/common/drivers/s23lc1024.o
+                0x00022bec                WritePayload23lc1024
+ .text.ReadPayload23lc1024
+                0x00022c74       0x84 ./hardware/kit/common/drivers/s23lc1024.o
+                0x00022c74                ReadPayload23lc1024
  .text.WriteBytes23lc1024
-                0x000228b4       0x54 ./hardware/kit/common/drivers/s23lc1024.o
-                0x000228b4                WriteBytes23lc1024
+                0x00022cf8       0x54 ./hardware/kit/common/drivers/s23lc1024.o
+                0x00022cf8                WriteBytes23lc1024
  .text.ReadBytes23lc1024
-                0x00022908       0x54 ./hardware/kit/common/drivers/s23lc1024.o
-                0x00022908                ReadBytes23lc1024
+                0x00022d4c       0x54 ./hardware/kit/common/drivers/s23lc1024.o
+                0x00022d4c                ReadBytes23lc1024
  .text.Detect23lc1024
-                0x0002295c       0x80 ./hardware/kit/common/drivers/s23lc1024.o
-                0x0002295c                Detect23lc1024
+                0x00022da0       0x80 ./hardware/kit/common/drivers/s23lc1024.o
+                0x00022da0                Detect23lc1024
  .text.Default_Handler
-                0x000229dc        0x4 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
-                0x000229dc                DebugMon_Handler
-                0x000229dc                USART0_TX_IRQHandler
-                0x000229dc                I2C0_IRQHandler
-                0x000229dc                HardFault_Handler
-                0x000229dc                SysTick_Handler
-                0x000229dc                USART1_RX_IRQHandler
-                0x000229dc                PendSV_Handler
-                0x000229dc                NMI_Handler
-                0x000229dc                SYNTH_IRQHandler
-                0x000229dc                WDOG0_IRQHandler
-                0x000229dc                USART1_TX_IRQHandler
-                0x000229dc                MSC_IRQHandler
-                0x000229dc                ADC0_IRQHandler
-                0x000229dc                UsageFault_Handler
-                0x000229dc                LEUART0_IRQHandler
-                0x000229dc                FPUEH_IRQHandler
-                0x000229dc                TIMER1_IRQHandler
-                0x000229dc                RFSENSE_IRQHandler
-                0x000229dc                BUFC_IRQHandler
-                0x000229dc                MODEM_IRQHandler
-                0x000229dc                Default_Handler
-                0x000229dc                RAC_SEQ_IRQHandler
-                0x000229dc                FRC_PRI_IRQHandler
-                0x000229dc                FRC_IRQHandler
-                0x000229dc                CRYOTIMER_IRQHandler
-                0x000229dc                PCNT0_IRQHandler
-                0x000229dc                AGC_IRQHandler
-                0x000229dc                ACMP0_IRQHandler
-                0x000229dc                USART0_RX_IRQHandler
-                0x000229dc                MemManage_Handler
-                0x000229dc                SVC_Handler
-                0x000229dc                RTCC_IRQHandler
-                0x000229dc                CRYPTO_IRQHandler
-                0x000229dc                CMU_IRQHandler
-                0x000229dc                RAC_RSM_IRQHandler
-                0x000229dc                PROTIMER_IRQHandler
-                0x000229dc                BusFault_Handler
-                0x000229dc                IDAC0_IRQHandler
+                0x00022e20        0x4 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
+                0x00022e20                DebugMon_Handler
+                0x00022e20                USART0_TX_IRQHandler
+                0x00022e20                I2C0_IRQHandler
+                0x00022e20                HardFault_Handler
+                0x00022e20                SysTick_Handler
+                0x00022e20                USART1_RX_IRQHandler
+                0x00022e20                PendSV_Handler
+                0x00022e20                NMI_Handler
+                0x00022e20                SYNTH_IRQHandler
+                0x00022e20                WDOG0_IRQHandler
+                0x00022e20                USART1_TX_IRQHandler
+                0x00022e20                MSC_IRQHandler
+                0x00022e20                ADC0_IRQHandler
+                0x00022e20                UsageFault_Handler
+                0x00022e20                LEUART0_IRQHandler
+                0x00022e20                FPUEH_IRQHandler
+                0x00022e20                TIMER1_IRQHandler
+                0x00022e20                RFSENSE_IRQHandler
+                0x00022e20                BUFC_IRQHandler
+                0x00022e20                MODEM_IRQHandler
+                0x00022e20                Default_Handler
+                0x00022e20                RAC_SEQ_IRQHandler
+                0x00022e20                FRC_PRI_IRQHandler
+                0x00022e20                FRC_IRQHandler
+                0x00022e20                CRYOTIMER_IRQHandler
+                0x00022e20                PCNT0_IRQHandler
+                0x00022e20                AGC_IRQHandler
+                0x00022e20                ACMP0_IRQHandler
+                0x00022e20                USART0_RX_IRQHandler
+                0x00022e20                MemManage_Handler
+                0x00022e20                SVC_Handler
+                0x00022e20                RTCC_IRQHandler
+                0x00022e20                CRYPTO_IRQHandler
+                0x00022e20                CMU_IRQHandler
+                0x00022e20                RAC_RSM_IRQHandler
+                0x00022e20                PROTIMER_IRQHandler
+                0x00022e20                BusFault_Handler
+                0x00022e20                IDAC0_IRQHandler
  .text.Reset_Handler
-                0x000229e0       0x34 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
-                0x000229e0                Reset_Handler
- .text.InitAdc  0x00022a14       0x50 ./platform/emdrv/adc/src/adc.o
-                0x00022a14                InitAdc
+                0x00022e24       0x34 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
+                0x00022e24                Reset_Handler
+ .text.InitAdc  0x00022e58       0x50 ./platform/emdrv/adc/src/adc.o
+                0x00022e58                InitAdc
  .text.GetSingleAdc
-                0x00022a64       0x20 ./platform/emdrv/adc/src/adc.o
-                0x00022a64                GetSingleAdc
+                0x00022ea8       0x20 ./platform/emdrv/adc/src/adc.o
+                0x00022ea8                GetSingleAdc
  .text.LDMA_IRQHandler
-                0x00022a84       0x7c ./platform/emdrv/dmadrv/src/dmadrv.o
-                0x00022a84                LDMA_IRQHandler
+                0x00022ec8       0x7c ./platform/emdrv/dmadrv/src/dmadrv.o
+                0x00022ec8                LDMA_IRQHandler
  .text.GPIOINT_IRQDispatcher
-                0x00022b00       0x2c ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
+                0x00022f44       0x2c ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
  .text.GPIO_EVEN_IRQHandler
-                0x00022b2c       0x20 ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
-                0x00022b2c                GPIO_EVEN_IRQHandler
+                0x00022f70       0x20 ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
+                0x00022f70                GPIO_EVEN_IRQHandler
  .text.GPIO_ODD_IRQHandler
-                0x00022b4c       0x20 ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
-                0x00022b4c                GPIO_ODD_IRQHandler
+                0x00022f90       0x20 ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
+                0x00022f90                GPIO_ODD_IRQHandler
  .text.LETIMER0_IRQHandler
-                0x00022b6c       0x4c ./platform/emdrv/letimer/src/letimer.o
-                0x00022b6c                LETIMER0_IRQHandler
+                0x00022fb0       0x4c ./platform/emdrv/letimer/src/letimer.o
+                0x00022fb0                LETIMER0_IRQHandler
+ .text.InitLeTimer
+                0x00022ffc       0x5c ./platform/emdrv/letimer/src/letimer.o
+                0x00022ffc                InitLeTimer
+ .text.StartLeTimer
+                0x00023058       0x30 ./platform/emdrv/letimer/src/letimer.o
+                0x00023058                StartLeTimer
  .text.GetLeCounter
-                0x00022bb8        0xc ./platform/emdrv/letimer/src/letimer.o
-                0x00022bb8                GetLeCounter
+                0x00023088        0xc ./platform/emdrv/letimer/src/letimer.o
+                0x00023088                GetLeCounter
  .text.TIMER0_IRQHandler
-                0x00022bc4       0x38 ./platform/emdrv/mstimer/src/mstimer.o
-                0x00022bc4                TIMER0_IRQHandler
+                0x00023094       0x38 ./platform/emdrv/mstimer/src/mstimer.o
+                0x00023094                TIMER0_IRQHandler
  .text.ADC_LoadDevinfoCal
-                0x00022bfc       0xb8 ./platform/emlib/src/em_adc.o
+                0x000230cc       0xb8 ./platform/emlib/src/em_adc.o
  .text.ADC_InitSingle
-                0x00022cb4       0xb8 ./platform/emlib/src/em_adc.o
-                0x00022cb4                ADC_InitSingle
+                0x00023184       0xb8 ./platform/emlib/src/em_adc.o
+                0x00023184                ADC_InitSingle
  .text.flashWaitStateControl.isra.0
-                0x00022d6c       0x48 ./platform/emlib/src/em_cmu.o
+                0x0002323c       0x48 ./platform/emlib/src/em_cmu.o
  .text.CMU_OscillatorTuningSet.part.3
-                0x00022db4       0x3c ./platform/emlib/src/em_cmu.o
+                0x00023284       0x3c ./platform/emlib/src/em_cmu.o
  .text.CMU_ClockEnable
-                0x00022df0       0x8c ./platform/emlib/src/em_cmu.o
-                0x00022df0                CMU_ClockEnable
+                0x000232c0       0x8c ./platform/emlib/src/em_cmu.o
+                0x000232c0                CMU_ClockEnable
  .text.CMU_ClockSelectGet
-                0x00022e7c       0xcc ./platform/emlib/src/em_cmu.o
-                0x00022e7c                CMU_ClockSelectGet
+                0x0002334c       0xcc ./platform/emlib/src/em_cmu.o
+                0x0002334c                CMU_ClockSelectGet
  .text.lfClkGet
-                0x00022f48       0x94 ./platform/emlib/src/em_cmu.o
+                0x00023418       0x94 ./platform/emlib/src/em_cmu.o
  .text.CMU_ClockFreqGet
-                0x00022fdc      0x160 ./platform/emlib/src/em_cmu.o
-                0x00022fdc                CMU_ClockFreqGet
+                0x000234ac      0x160 ./platform/emlib/src/em_cmu.o
+                0x000234ac                CMU_ClockFreqGet
  .text.CMU_HFRCOBandSet
-                0x0002313c      0x1b4 ./platform/emlib/src/em_cmu.o
-                0x0002313c                CMU_HFRCOBandSet
+                0x0002360c      0x1b4 ./platform/emlib/src/em_cmu.o
+                0x0002360c                CMU_HFRCOBandSet
  .text.CMU_OscillatorTuningWait
-                0x000232f0       0x5c ./platform/emlib/src/em_cmu.o
-                0x000232f0                CMU_OscillatorTuningWait
+                0x000237c0       0x5c ./platform/emlib/src/em_cmu.o
+                0x000237c0                CMU_OscillatorTuningWait
  .text.CMU_OscillatorEnable
-                0x0002334c      0x110 ./platform/emlib/src/em_cmu.o
-                0x0002334c                CMU_OscillatorEnable
+                0x0002381c      0x110 ./platform/emlib/src/em_cmu.o
+                0x0002381c                CMU_OscillatorEnable
  .text.CMU_ClockSelectSet
-                0x0002345c      0x200 ./platform/emlib/src/em_cmu.o
-                0x0002345c                CMU_ClockSelectSet
+                0x0002392c      0x200 ./platform/emlib/src/em_cmu.o
+                0x0002392c                CMU_ClockSelectSet
  .text.GPIO_PinModeSet
-                0x0002365c       0x84 ./platform/emlib/src/em_gpio.o
-                0x0002365c                GPIO_PinModeSet
+                0x00023b2c       0x84 ./platform/emlib/src/em_gpio.o
+                0x00023b2c                GPIO_PinModeSet
  .text.I2C_BusFreqSet.part.0
-                0x000236e0       0x60 ./platform/emlib/src/em_i2c.o
+                0x00023bb0       0x60 ./platform/emlib/src/em_i2c.o
  .text.I2C_Init
-                0x00023740       0x3c ./platform/emlib/src/em_i2c.o
-                0x00023740                I2C_Init
+                0x00023c10       0x3c ./platform/emlib/src/em_i2c.o
+                0x00023c10                I2C_Init
  .text.I2C_Transfer
-                0x0002377c      0x284 ./platform/emlib/src/em_i2c.o
-                0x0002377c                I2C_Transfer
+                0x00023c4c      0x284 ./platform/emlib/src/em_i2c.o
+                0x00023c4c                I2C_Transfer
  .text.I2C_TransferInit
-                0x00023a00       0x70 ./platform/emlib/src/em_i2c.o
-                0x00023a00                I2C_TransferInit
+                0x00023ed0       0x70 ./platform/emlib/src/em_i2c.o
+                0x00023ed0                I2C_TransferInit
  .text.LETIMER_CompareSet
-                0x00023a70       0x14 ./platform/emlib/src/em_letimer.o
-                0x00023a70                LETIMER_CompareSet
+                0x00023f40       0x14 ./platform/emlib/src/em_letimer.o
+                0x00023f40                LETIMER_CompareSet
+ .text.LETIMER_Init
+                0x00023f54       0x60 ./platform/emlib/src/em_letimer.o
+                0x00023f54                LETIMER_Init
  .text.SYSTEM_ChipRevisionGet
-                0x00023a84       0x34 ./platform/emlib/src/em_system.o
-                0x00023a84                SYSTEM_ChipRevisionGet
+                0x00023fb4       0x34 ./platform/emlib/src/em_system.o
+                0x00023fb4                SYSTEM_ChipRevisionGet
  .text.USART_BaudrateSyncSet
-                0x00023ab8       0x24 ./platform/emlib/src/em_usart.o
-                0x00023ab8                USART_BaudrateSyncSet
+                0x00023fe8       0x24 ./platform/emlib/src/em_usart.o
+                0x00023fe8                USART_BaudrateSyncSet
  .text.USART_Enable
-                0x00023adc       0x10 ./platform/emlib/src/em_usart.o
-                0x00023adc                USART_Enable
+                0x0002400c       0x10 ./platform/emlib/src/em_usart.o
+                0x0002400c                USART_Enable
  .text.USART_InitSync
-                0x00023aec       0xcc ./platform/emlib/src/em_usart.o
-                0x00023aec                USART_InitSync
+                0x0002401c       0xcc ./platform/emlib/src/em_usart.o
+                0x0002401c                USART_InitSync
  .text.USART_SpiTransfer
-                0x00023bb8       0x14 ./platform/emlib/src/em_usart.o
-                0x00023bb8                USART_SpiTransfer
- .text.exit     0x00023bcc       0x20 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-exit.o)
-                0x00023bcc                exit
+                0x000240e8       0x14 ./platform/emlib/src/em_usart.o
+                0x000240e8                USART_SpiTransfer
+ .text.exit     0x000240fc       0x20 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-exit.o)
+                0x000240fc                exit
  .text.__libc_init_array
-                0x00023bec       0x50 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-init.o)
-                0x00023bec                __libc_init_array
- .text.memset   0x00023c3c       0x9c c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memset.o)
-                0x00023c3c                memset
+                0x0002411c       0x50 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-init.o)
+                0x0002411c                __libc_init_array
+ .text          0x0002416c      0x134 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memcpy.o)
+                0x0002416c                memcpy
+ .text.memset   0x000242a0       0x9c c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memset.o)
+                0x000242a0                memset
  .text.startup.register_fini
-                0x00023cd8       0x14 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__call_atexit.o)
+                0x0002433c       0x14 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__call_atexit.o)
  .text.__call_exitprocs
-                0x00023cec       0xd4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__call_atexit.o)
-                0x00023cec                __call_exitprocs
- .text.atexit   0x00023dc0        0xc c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-atexit.o)
-                0x00023dc0                atexit
+                0x00024350       0xd4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__call_atexit.o)
+                0x00024350                __call_exitprocs
+ .text.atexit   0x00024424        0xc c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-atexit.o)
+                0x00024424                atexit
  .text.__libc_fini_array
-                0x00023dcc       0x2c c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-fini.o)
-                0x00023dcc                __libc_fini_array
+                0x00024430       0x2c c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-fini.o)
+                0x00024430                __libc_fini_array
  .text.__register_exitproc
-                0x00023df8       0xa4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__atexit.o)
-                0x00023df8                __register_exitproc
- .text._exit    0x00023e9c        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libnosys.a(_exit.o)
-                0x00023e9c                _exit
+                0x0002445c       0xa4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__atexit.o)
+                0x0002445c                __register_exitproc
+ .text._exit    0x00024500        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libnosys.a(_exit.o)
+                0x00024500                _exit
  *(.init)
- .init          0x00023ea0        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crti.o
-                0x00023ea0                _init
- .init          0x00023ea4        0x8 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtn.o
+ .init          0x00024504        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crti.o
+                0x00024504                _init
+ .init          0x00024508        0x8 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtn.o
  *(.fini)
- .fini          0x00023eac        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crti.o
-                0x00023eac                _fini
- .fini          0x00023eb0        0x8 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtn.o
+ .fini          0x00024510        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crti.o
+                0x00024510                _fini
+ .fini          0x00024514        0x8 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtn.o
  *crtbegin.o(.ctors)
  *crtbegin?.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o *crtend?.o) .ctors)
@@ -1595,80 +1582,87 @@ LOAD c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/
  *(.dtors)
  *(.rodata*)
  .rodata.str1.4
-                0x00023eb8        0xa ./app_data.o
- *fill*         0x00023ec2        0x2 
+                0x0002451c        0xa ./app_data.o
+ *fill*         0x00024526        0x2 
  .rodata.str1.4
-                0x00023ec4       0x9b ./app_hw.o
- *fill*         0x00023f5f        0x1 
- .rodata        0x00023f60       0x1c ./mcu.o
- .rodata        0x00023f7c       0x10 ./hardware/kit/common/drivers/h3lis331dl.o
+                0x00024528       0x9a ./app_hw.o
+ *fill*         0x000245c2        0x2 
  .rodata.str1.4
-                0x00023f8c        0xa ./hardware/kit/common/drivers/h3lis331dl.o
- *fill*         0x00023f96        0x2 
- .rodata        0x00023f98       0x10 ./hardware/kit/common/drivers/lsm6dsl.o
+                0x000245c4       0x4e ./main.o
+ *fill*         0x00024612        0x2 
+ .rodata        0x00024614       0x1c ./mcu.o
+ .rodata.str1.4
+                0x00024630       0x18 ./payloadbuffer.o
+ .rodata        0x00024648       0x10 ./hardware/kit/common/drivers/h3lis331dl.o
+ .rodata.str1.4
+                0x00024658        0xa ./hardware/kit/common/drivers/h3lis331dl.o
+ *fill*         0x00024662        0x2 
+ .rodata        0x00024664       0x10 ./hardware/kit/common/drivers/lsm6dsl.o
  .rodata.str1.4
                 0x00000000        0xa ./hardware/kit/common/drivers/lsm6dsl.o
- .rodata        0x00023fa8       0x2c ./hardware/kit/common/drivers/s23lc1024.o
+ .rodata        0x00024674       0x2c ./hardware/kit/common/drivers/s23lc1024.o
  .rodata.CSWTCH.45
-                0x00023fd4        0xc ./platform/emlib/src/em_cmu.o
+                0x000246a0        0xc ./platform/emlib/src/em_cmu.o
  .rodata.CSWTCH.46
-                0x00023fe0       0x10 ./platform/emlib/src/em_cmu.o
+                0x000246ac       0x10 ./platform/emlib/src/em_cmu.o
  .rodata.CSWTCH.47
-                0x00023ff0       0x10 ./platform/emlib/src/em_cmu.o
+                0x000246bc       0x10 ./platform/emlib/src/em_cmu.o
  .rodata.CSWTCH.48
-                0x00024000       0x10 ./platform/emlib/src/em_cmu.o
+                0x000246cc       0x10 ./platform/emlib/src/em_cmu.o
  .rodata.i2cNSum
-                0x00024010        0x4 ./platform/emlib/src/em_i2c.o
+                0x000246dc        0x4 ./platform/emlib/src/em_i2c.o
  .rodata.str1.4
-                0x00024014        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-impure.o)
+                0x000246e0        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-impure.o)
                                   0x2 (size before relaxing)
  .rodata._global_impure_ptr
-                0x00024018        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-impure.o)
-                0x00024018                _global_impure_ptr
+                0x000246e4        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-impure.o)
+                0x000246e4                _global_impure_ptr
  *(.eh_frame*)
- .eh_frame      0x0002401c        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
- .eh_frame      0x0002401c        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtend.o
-                0x00024020                . = ALIGN (0x4)
+ .eh_frame      0x000246e8        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
+ .eh_frame      0x000246e8        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtend.o
+                0x000246ec                . = ALIGN (0x4)
 
-.glue_7         0x00024020        0x0
+.glue_7         0x000246ec        0x0
  .glue_7        0x00000000        0x0 linker stubs
 
-.glue_7t        0x00024020        0x0
+.glue_7t        0x000246ec        0x0
  .glue_7t       0x00000000        0x0 linker stubs
 
-.vfp11_veneer   0x00024020        0x0
+.vfp11_veneer   0x000246ec        0x0
  .vfp11_veneer  0x00000000        0x0 linker stubs
 
-.v4_bx          0x00024020        0x0
+.v4_bx          0x000246ec        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.iplt           0x00024020        0x0
+.iplt           0x000246ec        0x0
  .iplt          0x00000000        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
 
-.igot.plt       0x00024020        0x0
+.igot.plt       0x000246ec        0x0
  .igot.plt      0x00000000        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
 
 .text_app_ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x00024020                __exidx_start = .
+                0x000246ec                __exidx_start = .
 
 .text_app_ARM.exidx
-                0x00024020        0x8
+                0x000246ec        0x8
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
- .ARM.exidx     0x00024020        0x8 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/crt0.o
-                0x00024028                __exidx_end = .
-                0x00024028                __etext = .
+ .ARM.exidx     0x000246ec        0x8 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/crt0.o
+                0x000246f4                __exidx_end = .
+                0x000246f4                __etext = .
 
-.rel.dyn        0x00024028        0x0
+.rel.dyn        0x000246f4        0x0
  .rel.iplt      0x00000000        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
 
-.text_app_data  0x20003000      0x440 load address 0x00024028
+.text_app_data  0x20003000      0x440 load address 0x000246f4
                 0x20003000                __data_start__ = .
  *(vtable)
  *(.data*)
+ .data.advConnectableMode
+                0x20003000        0x1 ./advertisement.o
  .data.bleClientConnection
-                0x20003000        0x1 ./app_ble.o
- *fill*         0x20003001        0x3 
+                0x20003001        0x1 ./app_ble.o
+ *fill*         0x20003002        0x2 
  .data.auxHfrcoFreq
                 0x20003004        0x4 ./platform/emlib/src/em_cmu.o
  .data.impure_data
@@ -1699,96 +1693,100 @@ LOAD c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/
                 0x20003440                . = ALIGN (0x4)
                 0x20003440                __data_end__ = .
 
-.bss            0x20003440      0x558 load address 0x00024468
+.bss            0x20003440      0x560 load address 0x00024b38
                 0x20003440                . = ALIGN (0x4)
                 0x20003440                __bss_start__ = .
  *(.bss*)
  .bss           0x20003440       0x1c c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
+ .bss.advIsConnected
+                0x2000345c        0x1 ./advertisement.o
+ .bss.boot_to_dfu.8781
+                0x2000345d        0x1 ./app.o
+ .bss.payloadCounter
+                0x2000345e        0x2 ./app_ble.o
  .bss.lowAccelGyroBuffer
-                0x2000345c       0xfb ./app_data.o
- *fill*         0x20003557        0x1 
+                0x20003460       0xfb ./app_data.o
+ *fill*         0x2000355b        0x5 
  .bss.timeStampLowAccelGyro
-                0x20003558        0x8 ./app_data.o
+                0x20003560        0x8 ./app_data.o
  .bss.putPayloadCounterHighAccel
-                0x20003560        0x2 ./app_data.o
- *fill*         0x20003562        0x2 
+                0x20003568        0x2 ./app_data.o
+ *fill*         0x2000356a        0x2 
  .bss.highAccelBuffer
-                0x20003564       0xfb ./app_data.o
+                0x2000356c       0xfb ./app_data.o
  .bss.indexHighAccel
-                0x2000365f        0x1 ./app_data.o
+                0x20003667        0x1 ./app_data.o
  .bss.indexLowAccelGyro
-                0x20003660        0x1 ./app_data.o
- *fill*         0x20003661        0x1 
+                0x20003668        0x1 ./app_data.o
+ *fill*         0x20003669        0x1 
  .bss.putPayloadCounterLowAccelGyro
-                0x20003662        0x2 ./app_data.o
- *fill*         0x20003664        0x4 
+                0x2000366a        0x2 ./app_data.o
+ *fill*         0x2000366c        0x4 
  .bss.timeStampHighAccel
-                0x20003668        0x8 ./app_data.o
+                0x20003670        0x8 ./app_data.o
  .bss.errorFlags
-                0x20003670        0x1 ./app_hw.o
- *fill*         0x20003671        0x3 
+                0x20003678        0x1 ./app_hw.o
+ *fill*         0x20003679        0x3 
  .bss.bg_gattdb_data_attribute_field_22_data
-                0x20003674        0x3 ./gatt_db.o
-                0x20003674                bg_gattdb_data_attribute_field_22_data
- *fill*         0x20003677        0x1 
- .bss.bg_gattdb_data_attribute_field_2_data
-                0x20003678        0x4 ./gatt_db.o
-                0x20003678                bg_gattdb_data_attribute_field_2_data
- .bss.bg_gattdb_data_attribute_field_24_data
                 0x2000367c        0x3 ./gatt_db.o
-                0x2000367c                bg_gattdb_data_attribute_field_24_data
+                0x2000367c                bg_gattdb_data_attribute_field_22_data
  *fill*         0x2000367f        0x1 
+ .bss.bg_gattdb_data_attribute_field_2_data
+                0x20003680        0x4 ./gatt_db.o
+                0x20003680                bg_gattdb_data_attribute_field_2_data
+ .bss.bg_gattdb_data_attribute_field_24_data
+                0x20003684        0x3 ./gatt_db.o
+                0x20003684                bg_gattdb_data_attribute_field_24_data
+ *fill*         0x20003687        0x1 
  .bss.bg_gattdb_data_attribute_field_19_data
-                0x20003680       0xfb ./gatt_db.o
-                0x20003680                bg_gattdb_data_attribute_field_19_data
- *fill*         0x2000377b        0x1 
- .bss.tempData.8809
-                0x2000377c        0x2 ./main.o
- .bss.head      0x2000377e        0x2 ./payloadbuffer.o
- .bss.tail      0x20003780        0x2 ./payloadbuffer.o
- .bss.initializedFlag
-                0x20003782        0x1 ./hardware/kit/common/drivers/h3lis331dl.o
+                0x20003688       0xfb ./gatt_db.o
+                0x20003688                bg_gattdb_data_attribute_field_19_data
  *fill*         0x20003783        0x1 
- .bss.i2cPort   0x20003784        0x4 ./hardware/kit/common/drivers/h3lis331dl.o
- .bss.portSetupFlag
-                0x20003788        0x1 ./hardware/kit/common/drivers/h3lis331dl.o
- .bss.i2cAddr   0x20003789        0x1 ./hardware/kit/common/drivers/h3lis331dl.o
+ .bss.head      0x20003784        0x2 ./payloadbuffer.o
+ .bss.tail      0x20003786        0x2 ./payloadbuffer.o
  .bss.initializedFlag
-                0x2000378a        0x1 ./hardware/kit/common/drivers/lsm6dsl.o
- *fill*         0x2000378b        0x1 
- .bss.i2cPort   0x2000378c        0x4 ./hardware/kit/common/drivers/lsm6dsl.o
+                0x20003788        0x1 ./hardware/kit/common/drivers/h3lis331dl.o
+ *fill*         0x20003789        0x3 
+ .bss.i2cPort   0x2000378c        0x4 ./hardware/kit/common/drivers/h3lis331dl.o
  .bss.portSetupFlag
-                0x20003790        0x1 ./hardware/kit/common/drivers/lsm6dsl.o
- .bss.i2cAddr   0x20003791        0x1 ./hardware/kit/common/drivers/lsm6dsl.o
- .bss.commMode  0x20003792        0x1 ./hardware/kit/common/drivers/lsm6dsl.o
+                0x20003790        0x1 ./hardware/kit/common/drivers/h3lis331dl.o
+ .bss.i2cAddr   0x20003791        0x1 ./hardware/kit/common/drivers/h3lis331dl.o
+ .bss.initializedFlag
+                0x20003792        0x1 ./hardware/kit/common/drivers/lsm6dsl.o
  *fill*         0x20003793        0x1 
- .bss.chTable   0x20003794       0xa0 ./platform/emdrv/dmadrv/src/dmadrv.o
- .bss.dmaXfer   0x20003834      0x100 ./platform/emdrv/dmadrv/src/dmadrv.o
+ .bss.i2cPort   0x20003794        0x4 ./hardware/kit/common/drivers/lsm6dsl.o
+ .bss.portSetupFlag
+                0x20003798        0x1 ./hardware/kit/common/drivers/lsm6dsl.o
+ .bss.i2cAddr   0x20003799        0x1 ./hardware/kit/common/drivers/lsm6dsl.o
+ .bss.commMode  0x2000379a        0x1 ./hardware/kit/common/drivers/lsm6dsl.o
+ *fill*         0x2000379b        0x1 
+ .bss.chTable   0x2000379c       0xa0 ./platform/emdrv/dmadrv/src/dmadrv.o
+ .bss.dmaXfer   0x2000383c      0x100 ./platform/emdrv/dmadrv/src/dmadrv.o
  .bss.gpioCallbacks
-                0x20003934       0x40 ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
- *fill*         0x20003974        0x4 
+                0x2000393c       0x40 ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
+ *fill*         0x2000397c        0x4 
  .bss.leCounter
-                0x20003978        0x8 ./platform/emdrv/letimer/src/letimer.o
+                0x20003980        0x8 ./platform/emdrv/letimer/src/letimer.o
  .bss.msCounter
-                0x20003980        0x8 ./platform/emdrv/mstimer/src/mstimer.o
+                0x20003988        0x8 ./platform/emdrv/mstimer/src/mstimer.o
  .bss.i2cTransfer
-                0x20003988       0x10 ./platform/emlib/src/em_i2c.o
+                0x20003990       0x10 ./platform/emlib/src/em_i2c.o
  *(COMMON)
-                0x20003998                . = ALIGN (0x4)
-                0x20003998                __bss_end__ = .
+                0x200039a0                . = ALIGN (0x4)
+                0x200039a0                __bss_end__ = .
 
-.heap           0x20003998      0xc00
-                0x20003998                __HeapBase = .
-                0x20003998                __end__ = .
-                0x20003998                end = __end__
-                0x20003998                _end = __end__
+.heap           0x200039a0      0xc00
+                0x200039a0                __HeapBase = .
+                0x200039a0                __end__ = .
+                0x200039a0                end = __end__
+                0x200039a0                _end = __end__
  *(.heap*)
- .heap          0x20003998      0xc00 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
-                0x20004598                __HeapLimit = .
+ .heap          0x200039a0      0xc00 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
+                0x200045a0                __HeapLimit = .
 
-.stack_dummy    0x20004598      0x400
+.stack_dummy    0x200045a0      0x400
  *(.stack*)
- .stack         0x20004598      0x400 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
+ .stack         0x200045a0      0x400 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
                 0x20007bfc                __StackTop = (ORIGIN (RAM) + 0x4bfc)
                 0x200077fc                __StackLimit = (__StackTop - SIZEOF (.stack_dummy))
                 0x20007bfc                PROVIDE (__stack, __StackTop)
@@ -1805,93 +1803,98 @@ OUTPUT(KHS2.axf elf32-littlearm)
  .ARM.attributes
                 0x00000056       0x20 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/crt0.o
  .ARM.attributes
-                0x00000076       0x39 ./app.o
+                0x00000076       0x39 ./advertisement.o
  .ARM.attributes
-                0x000000af       0x39 ./app_ble.o
+                0x000000af       0x39 ./app.o
  .ARM.attributes
-                0x000000e8       0x39 ./app_data.o
+                0x000000e8       0x39 ./app_ble.o
  .ARM.attributes
-                0x00000121       0x39 ./app_hw.o
+                0x00000121       0x39 ./app_data.o
  .ARM.attributes
-                0x0000015a       0x39 ./application_properties.o
+                0x0000015a       0x39 ./app_hw.o
  .ARM.attributes
-                0x00000193       0x39 ./board.o
+                0x00000193       0x39 ./application_properties.o
  .ARM.attributes
-                0x000001cc       0x39 ./gatt_db.o
+                0x000001cc       0x39 ./board.o
  .ARM.attributes
-                0x00000205       0x39 ./main.o
+                0x00000205       0x39 ./gatt_db.o
  .ARM.attributes
-                0x0000023e       0x39 ./mcu.o
+                0x0000023e       0x39 ./main.o
  .ARM.attributes
-                0x00000277       0x39 ./payloadbuffer.o
+                0x00000277       0x39 ./mcu.o
  .ARM.attributes
-                0x000002b0       0x39 ./hardware/kit/common/bsp/bsp_trace.o
+                0x000002b0       0x39 ./payloadbuffer.o
  .ARM.attributes
-                0x000002e9       0x39 ./hardware/kit/common/drivers/h3lis331dl.o
+                0x000002e9       0x39 ./hardware/kit/common/bsp/bsp_trace.o
  .ARM.attributes
-                0x00000322       0x39 ./hardware/kit/common/drivers/i2cspm.o
+                0x00000322       0x39 ./hardware/kit/common/drivers/h3lis331dl.o
  .ARM.attributes
-                0x0000035b       0x39 ./hardware/kit/common/drivers/lsm6dsl.o
+                0x0000035b       0x39 ./hardware/kit/common/drivers/i2cspm.o
  .ARM.attributes
-                0x00000394       0x39 ./hardware/kit/common/drivers/retargetswo.o
+                0x00000394       0x39 ./hardware/kit/common/drivers/lsm6dsl.o
  .ARM.attributes
-                0x000003cd       0x39 ./hardware/kit/common/drivers/s23lc1024.o
+                0x000003cd       0x39 ./hardware/kit/common/drivers/retargetswo.o
  .ARM.attributes
-                0x00000406       0x39 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
+                0x00000406       0x39 ./hardware/kit/common/drivers/s23lc1024.o
  .ARM.attributes
-                0x0000043f       0x39 ./platform/emdrv/adc/src/adc.o
+                0x0000043f       0x39 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
  .ARM.attributes
-                0x00000478       0x39 ./platform/emdrv/dmadrv/src/dmadrv.o
+                0x00000478       0x39 ./platform/emdrv/adc/src/adc.o
  .ARM.attributes
-                0x000004b1       0x39 ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
+                0x000004b1       0x39 ./platform/emdrv/dmadrv/src/dmadrv.o
  .ARM.attributes
-                0x000004ea       0x39 ./platform/emdrv/letimer/src/letimer.o
+                0x000004ea       0x39 ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
  .ARM.attributes
-                0x00000523       0x39 ./platform/emdrv/mstimer/src/mstimer.o
+                0x00000523       0x39 ./platform/emdrv/letimer/src/letimer.o
  .ARM.attributes
-                0x0000055c       0x39 ./platform/emlib/src/em_adc.o
+                0x0000055c       0x39 ./platform/emdrv/mstimer/src/mstimer.o
  .ARM.attributes
-                0x00000595       0x39 ./platform/emlib/src/em_cmu.o
+                0x00000595       0x39 ./platform/emlib/src/em_adc.o
  .ARM.attributes
-                0x000005ce       0x39 ./platform/emlib/src/em_gpio.o
+                0x000005ce       0x39 ./platform/emlib/src/em_cmu.o
  .ARM.attributes
-                0x00000607       0x39 ./platform/emlib/src/em_i2c.o
+                0x00000607       0x39 ./platform/emlib/src/em_gpio.o
  .ARM.attributes
-                0x00000640       0x39 ./platform/emlib/src/em_letimer.o
+                0x00000640       0x39 ./platform/emlib/src/em_i2c.o
  .ARM.attributes
-                0x00000679       0x39 ./platform/emlib/src/em_system.o
+                0x00000679       0x39 ./platform/emlib/src/em_letimer.o
  .ARM.attributes
-                0x000006b2       0x39 ./platform/emlib/src/em_usart.o
+                0x000006b2       0x39 ./platform/emlib/src/em_system.o
  .ARM.attributes
-                0x000006eb       0x1c G:\My Drive\R&D\Firmware Design\KHS2\KHS2\protocol\bluetooth_2.6\lib\EFR32BG1B\EABI\binbootloader.o
+                0x000006eb       0x39 ./platform/emlib/src/em_usart.o
  .ARM.attributes
-                0x00000707       0x1c G:\My Drive\R&D\Firmware Design\KHS2\KHS2\protocol\bluetooth_2.6\lib\EFR32BG1B\EABI\binstack.o
+                0x00000724       0x1c G:\My Drive\R&D\Firmware Design\KHS2\KHS2\protocol\bluetooth_2.6\lib\EFR32BG1B\EABI\binbootloader.o
  .ARM.attributes
-                0x00000723       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-exit.o)
+                0x00000740       0x1c G:\My Drive\R&D\Firmware Design\KHS2\KHS2\protocol\bluetooth_2.6\lib\EFR32BG1B\EABI\binstack.o
  .ARM.attributes
-                0x00000757       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-impure.o)
+                0x0000075c       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-exit.o)
  .ARM.attributes
-                0x0000078b       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-init.o)
+                0x00000790       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-impure.o)
  .ARM.attributes
-                0x000007bf       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memset.o)
+                0x000007c4       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-init.o)
  .ARM.attributes
-                0x000007f3       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__call_atexit.o)
+                0x000007f8       0x20 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memcpy.o)
  .ARM.attributes
-                0x00000827       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-atexit.o)
+                0x00000818       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memset.o)
  .ARM.attributes
-                0x0000085b       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-fini.o)
+                0x0000084c       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__call_atexit.o)
  .ARM.attributes
-                0x0000088f       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__atexit.o)
+                0x00000880       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-atexit.o)
  .ARM.attributes
-                0x000008c3       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libnosys.a(_exit.o)
+                0x000008b4       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-fini.o)
  .ARM.attributes
-                0x000008f7       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtend.o
+                0x000008e8       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__atexit.o)
  .ARM.attributes
-                0x0000092b       0x22 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtn.o
+                0x0000091c       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libnosys.a(_exit.o)
+ .ARM.attributes
+                0x00000950       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtend.o
+ .ARM.attributes
+                0x00000984       0x22 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtn.o
 
 .comment        0x00000000       0x70
- .comment       0x00000000       0x70 ./app.o
+ .comment       0x00000000       0x70 ./advertisement.o
                                  0x71 (size before relaxing)
+ .comment       0x00000000       0x71 ./app.o
  .comment       0x00000000       0x71 ./app_ble.o
  .comment       0x00000000       0x71 ./app_data.o
  .comment       0x00000000       0x71 ./app_hw.o
@@ -1921,310 +1924,320 @@ OUTPUT(KHS2.axf elf32-littlearm)
  .comment       0x00000000       0x71 ./platform/emlib/src/em_system.o
  .comment       0x00000000       0x71 ./platform/emlib/src/em_usart.o
 
-.debug_info     0x00000000    0x2716d
- .debug_info    0x00000000     0x3e24 ./app.o
- .debug_info    0x00003e24     0x3fef ./app_ble.o
- .debug_info    0x00007e13     0x38e7 ./app_data.o
- .debug_info    0x0000b6fa      0x461 ./app_hw.o
- .debug_info    0x0000bb5b      0x168 ./application_properties.o
- .debug_info    0x0000bcc3      0x276 ./board.o
- .debug_info    0x0000bf39      0x61c ./gatt_db.o
- .debug_info    0x0000c555     0x3dab ./main.o
- .debug_info    0x00010300     0x139e ./mcu.o
- .debug_info    0x0001169e      0x394 ./payloadbuffer.o
- .debug_info    0x00011a32     0x100d ./hardware/kit/common/bsp/bsp_trace.o
- .debug_info    0x00012a3f      0xe95 ./hardware/kit/common/drivers/h3lis331dl.o
- .debug_info    0x000138d4      0xb39 ./hardware/kit/common/drivers/i2cspm.o
- .debug_info    0x0001440d     0x11ed ./hardware/kit/common/drivers/lsm6dsl.o
- .debug_info    0x000155fa      0x4f1 ./hardware/kit/common/drivers/retargetswo.o
- .debug_info    0x00015aeb     0x184f ./hardware/kit/common/drivers/s23lc1024.o
- .debug_info    0x0001733a      0x1c4 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
- .debug_info    0x000174fe     0x109f ./platform/emdrv/adc/src/adc.o
- .debug_info    0x0001859d     0x1851 ./platform/emdrv/dmadrv/src/dmadrv.o
- .debug_info    0x00019dee      0x8ae ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
- .debug_info    0x0001a69c     0x3fc2 ./platform/emdrv/letimer/src/letimer.o
- .debug_info    0x0001e65e      0xe7c ./platform/emdrv/mstimer/src/mstimer.o
- .debug_info    0x0001f4da     0x1cbe ./platform/emlib/src/em_adc.o
- .debug_info    0x00021198     0x2de1 ./platform/emlib/src/em_cmu.o
- .debug_info    0x00023f79      0xe6e ./platform/emlib/src/em_gpio.o
- .debug_info    0x00024de7      0xb31 ./platform/emlib/src/em_i2c.o
- .debug_info    0x00025918      0x501 ./platform/emlib/src/em_letimer.o
- .debug_info    0x00025e19      0x277 ./platform/emlib/src/em_system.o
- .debug_info    0x00026090     0x10dd ./platform/emlib/src/em_usart.o
+.debug_info     0x00000000    0x2ae50
+ .debug_info    0x00000000     0x37ca ./advertisement.o
+ .debug_info    0x000037ca     0x3db9 ./app.o
+ .debug_info    0x00007583     0x3fe3 ./app_ble.o
+ .debug_info    0x0000b566     0x39d8 ./app_data.o
+ .debug_info    0x0000ef3e      0x450 ./app_hw.o
+ .debug_info    0x0000f38e      0x168 ./application_properties.o
+ .debug_info    0x0000f4f6      0x27f ./board.o
+ .debug_info    0x0000f775      0x61c ./gatt_db.o
+ .debug_info    0x0000fd91     0x425e ./main.o
+ .debug_info    0x00013fef     0x139e ./mcu.o
+ .debug_info    0x0001538d      0x394 ./payloadbuffer.o
+ .debug_info    0x00015721     0x100d ./hardware/kit/common/bsp/bsp_trace.o
+ .debug_info    0x0001672e      0xe89 ./hardware/kit/common/drivers/h3lis331dl.o
+ .debug_info    0x000175b7      0xb39 ./hardware/kit/common/drivers/i2cspm.o
+ .debug_info    0x000180f0     0x11ed ./hardware/kit/common/drivers/lsm6dsl.o
+ .debug_info    0x000192dd      0x4f1 ./hardware/kit/common/drivers/retargetswo.o
+ .debug_info    0x000197ce     0x184f ./hardware/kit/common/drivers/s23lc1024.o
+ .debug_info    0x0001b01d      0x1c4 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
+ .debug_info    0x0001b1e1     0x109f ./platform/emdrv/adc/src/adc.o
+ .debug_info    0x0001c280     0x1851 ./platform/emdrv/dmadrv/src/dmadrv.o
+ .debug_info    0x0001dad1      0x8ae ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
+ .debug_info    0x0001e37f     0x3fc2 ./platform/emdrv/letimer/src/letimer.o
+ .debug_info    0x00022341      0xe7c ./platform/emdrv/mstimer/src/mstimer.o
+ .debug_info    0x000231bd     0x1cbe ./platform/emlib/src/em_adc.o
+ .debug_info    0x00024e7b     0x2de1 ./platform/emlib/src/em_cmu.o
+ .debug_info    0x00027c5c      0xe6e ./platform/emlib/src/em_gpio.o
+ .debug_info    0x00028aca      0xb31 ./platform/emlib/src/em_i2c.o
+ .debug_info    0x000295fb      0x501 ./platform/emlib/src/em_letimer.o
+ .debug_info    0x00029afc      0x277 ./platform/emlib/src/em_system.o
+ .debug_info    0x00029d73     0x10dd ./platform/emlib/src/em_usart.o
 
-.debug_abbrev   0x00000000     0x43b1
- .debug_abbrev  0x00000000      0x269 ./app.o
- .debug_abbrev  0x00000269      0x355 ./app_ble.o
- .debug_abbrev  0x000005be      0x217 ./app_data.o
- .debug_abbrev  0x000007d5      0x1cc ./app_hw.o
- .debug_abbrev  0x000009a1       0x97 ./application_properties.o
- .debug_abbrev  0x00000a38      0x114 ./board.o
- .debug_abbrev  0x00000b4c       0xbd ./gatt_db.o
- .debug_abbrev  0x00000c09      0x20c ./main.o
- .debug_abbrev  0x00000e15      0x237 ./mcu.o
- .debug_abbrev  0x0000104c      0x182 ./payloadbuffer.o
- .debug_abbrev  0x000011ce      0x1e8 ./hardware/kit/common/bsp/bsp_trace.o
- .debug_abbrev  0x000013b6      0x332 ./hardware/kit/common/drivers/h3lis331dl.o
- .debug_abbrev  0x000016e8      0x294 ./hardware/kit/common/drivers/i2cspm.o
- .debug_abbrev  0x0000197c      0x32b ./hardware/kit/common/drivers/lsm6dsl.o
- .debug_abbrev  0x00001ca7      0x214 ./hardware/kit/common/drivers/retargetswo.o
- .debug_abbrev  0x00001ebb      0x2ee ./hardware/kit/common/drivers/s23lc1024.o
- .debug_abbrev  0x000021a9      0x106 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
- .debug_abbrev  0x000022af      0x1ee ./platform/emdrv/adc/src/adc.o
- .debug_abbrev  0x0000249d      0x382 ./platform/emdrv/dmadrv/src/dmadrv.o
- .debug_abbrev  0x0000281f      0x2ad ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
- .debug_abbrev  0x00002acc      0x2c3 ./platform/emdrv/letimer/src/letimer.o
- .debug_abbrev  0x00002d8f      0x288 ./platform/emdrv/mstimer/src/mstimer.o
- .debug_abbrev  0x00003017      0x308 ./platform/emlib/src/em_adc.o
- .debug_abbrev  0x0000331f      0x454 ./platform/emlib/src/em_cmu.o
- .debug_abbrev  0x00003773      0x2d8 ./platform/emlib/src/em_gpio.o
- .debug_abbrev  0x00003a4b      0x38a ./platform/emlib/src/em_i2c.o
- .debug_abbrev  0x00003dd5      0x1c1 ./platform/emlib/src/em_letimer.o
- .debug_abbrev  0x00003f96      0x118 ./platform/emlib/src/em_system.o
- .debug_abbrev  0x000040ae      0x303 ./platform/emlib/src/em_usart.o
+.debug_abbrev   0x00000000     0x4664
+ .debug_abbrev  0x00000000      0x1da ./advertisement.o
+ .debug_abbrev  0x000001da      0x24d ./app.o
+ .debug_abbrev  0x00000427      0x346 ./app_ble.o
+ .debug_abbrev  0x0000076d      0x210 ./app_data.o
+ .debug_abbrev  0x0000097d      0x1cc ./app_hw.o
+ .debug_abbrev  0x00000b49       0x97 ./application_properties.o
+ .debug_abbrev  0x00000be0      0x10f ./board.o
+ .debug_abbrev  0x00000cef       0xbd ./gatt_db.o
+ .debug_abbrev  0x00000dac      0x32b ./main.o
+ .debug_abbrev  0x000010d7      0x237 ./mcu.o
+ .debug_abbrev  0x0000130e      0x182 ./payloadbuffer.o
+ .debug_abbrev  0x00001490      0x1e8 ./hardware/kit/common/bsp/bsp_trace.o
+ .debug_abbrev  0x00001678      0x323 ./hardware/kit/common/drivers/h3lis331dl.o
+ .debug_abbrev  0x0000199b      0x294 ./hardware/kit/common/drivers/i2cspm.o
+ .debug_abbrev  0x00001c2f      0x32b ./hardware/kit/common/drivers/lsm6dsl.o
+ .debug_abbrev  0x00001f5a      0x214 ./hardware/kit/common/drivers/retargetswo.o
+ .debug_abbrev  0x0000216e      0x2ee ./hardware/kit/common/drivers/s23lc1024.o
+ .debug_abbrev  0x0000245c      0x106 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
+ .debug_abbrev  0x00002562      0x1ee ./platform/emdrv/adc/src/adc.o
+ .debug_abbrev  0x00002750      0x382 ./platform/emdrv/dmadrv/src/dmadrv.o
+ .debug_abbrev  0x00002ad2      0x2ad ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
+ .debug_abbrev  0x00002d7f      0x2c3 ./platform/emdrv/letimer/src/letimer.o
+ .debug_abbrev  0x00003042      0x288 ./platform/emdrv/mstimer/src/mstimer.o
+ .debug_abbrev  0x000032ca      0x308 ./platform/emlib/src/em_adc.o
+ .debug_abbrev  0x000035d2      0x454 ./platform/emlib/src/em_cmu.o
+ .debug_abbrev  0x00003a26      0x2d8 ./platform/emlib/src/em_gpio.o
+ .debug_abbrev  0x00003cfe      0x38a ./platform/emlib/src/em_i2c.o
+ .debug_abbrev  0x00004088      0x1c1 ./platform/emlib/src/em_letimer.o
+ .debug_abbrev  0x00004249      0x118 ./platform/emlib/src/em_system.o
+ .debug_abbrev  0x00004361      0x303 ./platform/emlib/src/em_usart.o
 
-.debug_loc      0x00000000     0x8377
- .debug_loc     0x00000000      0x344 ./app.o
- .debug_loc     0x00000344      0x2aa ./app_ble.o
- .debug_loc     0x000005ee       0x88 ./app_data.o
- .debug_loc     0x00000676       0x44 ./app_hw.o
- .debug_loc     0x000006ba       0x2c ./board.o
- .debug_loc     0x000006e6       0x20 ./main.o
- .debug_loc     0x00000706      0x10b ./mcu.o
- .debug_loc     0x00000811      0x2d5 ./payloadbuffer.o
- .debug_loc     0x00000ae6       0xc6 ./hardware/kit/common/bsp/bsp_trace.o
- .debug_loc     0x00000bac      0x4f8 ./hardware/kit/common/drivers/h3lis331dl.o
- .debug_loc     0x000010a4      0x280 ./hardware/kit/common/drivers/i2cspm.o
- .debug_loc     0x00001324      0xa6f ./hardware/kit/common/drivers/lsm6dsl.o
- .debug_loc     0x00001d93       0xe6 ./hardware/kit/common/drivers/retargetswo.o
- .debug_loc     0x00001e79      0x679 ./hardware/kit/common/drivers/s23lc1024.o
- .debug_loc     0x000024f2       0x4b ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
- .debug_loc     0x0000253d       0x38 ./platform/emdrv/adc/src/adc.o
- .debug_loc     0x00002575     0x10da ./platform/emdrv/dmadrv/src/dmadrv.o
- .debug_loc     0x0000364f      0x14f ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
- .debug_loc     0x0000379e       0xc0 ./platform/emdrv/letimer/src/letimer.o
- .debug_loc     0x0000385e      0x135 ./platform/emdrv/mstimer/src/mstimer.o
- .debug_loc     0x00003993      0xc10 ./platform/emlib/src/em_adc.o
- .debug_loc     0x000045a3     0x24af ./platform/emlib/src/em_cmu.o
- .debug_loc     0x00006a52      0x636 ./platform/emlib/src/em_gpio.o
- .debug_loc     0x00007088      0x859 ./platform/emlib/src/em_i2c.o
- .debug_loc     0x000078e1      0x2ab ./platform/emlib/src/em_letimer.o
- .debug_loc     0x00007b8c       0x9c ./platform/emlib/src/em_system.o
- .debug_loc     0x00007c28      0x74f ./platform/emlib/src/em_usart.o
+.debug_loc      0x00000000     0x843d
+ .debug_loc     0x00000000       0x74 ./advertisement.o
+ .debug_loc     0x00000074      0x344 ./app.o
+ .debug_loc     0x000003b8      0x2aa ./app_ble.o
+ .debug_loc     0x00000662       0xb4 ./app_data.o
+ .debug_loc     0x00000716       0x44 ./app_hw.o
+ .debug_loc     0x0000075a       0x2c ./board.o
+ .debug_loc     0x00000786       0x46 ./main.o
+ .debug_loc     0x000007cc      0x10b ./mcu.o
+ .debug_loc     0x000008d7      0x2d5 ./payloadbuffer.o
+ .debug_loc     0x00000bac       0xc6 ./hardware/kit/common/bsp/bsp_trace.o
+ .debug_loc     0x00000c72      0x4f8 ./hardware/kit/common/drivers/h3lis331dl.o
+ .debug_loc     0x0000116a      0x280 ./hardware/kit/common/drivers/i2cspm.o
+ .debug_loc     0x000013ea      0xa6f ./hardware/kit/common/drivers/lsm6dsl.o
+ .debug_loc     0x00001e59       0xe6 ./hardware/kit/common/drivers/retargetswo.o
+ .debug_loc     0x00001f3f      0x679 ./hardware/kit/common/drivers/s23lc1024.o
+ .debug_loc     0x000025b8       0x4b ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
+ .debug_loc     0x00002603       0x38 ./platform/emdrv/adc/src/adc.o
+ .debug_loc     0x0000263b     0x10da ./platform/emdrv/dmadrv/src/dmadrv.o
+ .debug_loc     0x00003715      0x14f ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
+ .debug_loc     0x00003864       0xc0 ./platform/emdrv/letimer/src/letimer.o
+ .debug_loc     0x00003924      0x135 ./platform/emdrv/mstimer/src/mstimer.o
+ .debug_loc     0x00003a59      0xc10 ./platform/emlib/src/em_adc.o
+ .debug_loc     0x00004669     0x24af ./platform/emlib/src/em_cmu.o
+ .debug_loc     0x00006b18      0x636 ./platform/emlib/src/em_gpio.o
+ .debug_loc     0x0000714e      0x859 ./platform/emlib/src/em_i2c.o
+ .debug_loc     0x000079a7      0x2ab ./platform/emlib/src/em_letimer.o
+ .debug_loc     0x00007c52       0x9c ./platform/emlib/src/em_system.o
+ .debug_loc     0x00007cee      0x74f ./platform/emlib/src/em_usart.o
 
-.debug_aranges  0x00000000      0x808
+.debug_aranges  0x00000000      0x838
  .debug_aranges
-                0x00000000       0x28 ./app.o
+                0x00000000       0x30 ./advertisement.o
  .debug_aranges
-                0x00000028       0x48 ./app_ble.o
+                0x00000030       0x28 ./app.o
  .debug_aranges
-                0x00000070       0x30 ./app_data.o
+                0x00000058       0x48 ./app_ble.o
  .debug_aranges
-                0x000000a0       0x30 ./app_hw.o
+                0x000000a0       0x30 ./app_data.o
  .debug_aranges
-                0x000000d0       0x18 ./application_properties.o
+                0x000000d0       0x30 ./app_hw.o
  .debug_aranges
-                0x000000e8       0x20 ./board.o
+                0x00000100       0x18 ./application_properties.o
  .debug_aranges
-                0x00000108       0x18 ./gatt_db.o
+                0x00000118       0x20 ./board.o
  .debug_aranges
-                0x00000120       0x20 ./main.o
+                0x00000138       0x18 ./gatt_db.o
  .debug_aranges
-                0x00000140       0x20 ./mcu.o
+                0x00000150       0x20 ./main.o
  .debug_aranges
-                0x00000160       0x30 ./payloadbuffer.o
+                0x00000170       0x20 ./mcu.o
  .debug_aranges
-                0x00000190       0x28 ./hardware/kit/common/bsp/bsp_trace.o
+                0x00000190       0x30 ./payloadbuffer.o
  .debug_aranges
-                0x000001b8       0x48 ./hardware/kit/common/drivers/h3lis331dl.o
+                0x000001c0       0x28 ./hardware/kit/common/bsp/bsp_trace.o
  .debug_aranges
-                0x00000200       0x28 ./hardware/kit/common/drivers/i2cspm.o
+                0x000001e8       0x48 ./hardware/kit/common/drivers/h3lis331dl.o
  .debug_aranges
-                0x00000228       0x60 ./hardware/kit/common/drivers/lsm6dsl.o
+                0x00000230       0x28 ./hardware/kit/common/drivers/i2cspm.o
  .debug_aranges
-                0x00000288       0x38 ./hardware/kit/common/drivers/retargetswo.o
+                0x00000258       0x60 ./hardware/kit/common/drivers/lsm6dsl.o
  .debug_aranges
-                0x000002c0       0x50 ./hardware/kit/common/drivers/s23lc1024.o
+                0x000002b8       0x38 ./hardware/kit/common/drivers/retargetswo.o
  .debug_aranges
-                0x00000310       0x28 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
+                0x000002f0       0x50 ./hardware/kit/common/drivers/s23lc1024.o
  .debug_aranges
-                0x00000338       0x28 ./platform/emdrv/adc/src/adc.o
+                0x00000340       0x28 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
  .debug_aranges
-                0x00000360       0xa0 ./platform/emdrv/dmadrv/src/dmadrv.o
+                0x00000368       0x28 ./platform/emdrv/adc/src/adc.o
  .debug_aranges
-                0x00000400       0x40 ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
+                0x00000390       0xa0 ./platform/emdrv/dmadrv/src/dmadrv.o
  .debug_aranges
-                0x00000440       0x38 ./platform/emdrv/letimer/src/letimer.o
+                0x00000430       0x40 ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
  .debug_aranges
-                0x00000478       0x38 ./platform/emdrv/mstimer/src/mstimer.o
+                0x00000470       0x38 ./platform/emdrv/letimer/src/letimer.o
  .debug_aranges
-                0x000004b0       0x70 ./platform/emlib/src/em_adc.o
+                0x000004a8       0x38 ./platform/emdrv/mstimer/src/mstimer.o
  .debug_aranges
-                0x00000520      0x118 ./platform/emlib/src/em_cmu.o
+                0x000004e0       0x70 ./platform/emlib/src/em_adc.o
  .debug_aranges
-                0x00000638       0x48 ./platform/emlib/src/em_gpio.o
+                0x00000550      0x118 ./platform/emlib/src/em_cmu.o
  .debug_aranges
-                0x00000680       0x58 ./platform/emlib/src/em_i2c.o
+                0x00000668       0x48 ./platform/emlib/src/em_gpio.o
  .debug_aranges
-                0x000006d8       0x50 ./platform/emlib/src/em_letimer.o
+                0x000006b0       0x58 ./platform/emlib/src/em_i2c.o
  .debug_aranges
-                0x00000728       0x28 ./platform/emlib/src/em_system.o
+                0x00000708       0x50 ./platform/emlib/src/em_letimer.o
  .debug_aranges
-                0x00000750       0xb8 ./platform/emlib/src/em_usart.o
+                0x00000758       0x28 ./platform/emlib/src/em_system.o
+ .debug_aranges
+                0x00000780       0xb8 ./platform/emlib/src/em_usart.o
 
-.debug_ranges   0x00000000     0x15e8
- .debug_ranges  0x00000000       0x78 ./app.o
- .debug_ranges  0x00000078       0xa8 ./app_ble.o
- .debug_ranges  0x00000120       0x20 ./app_data.o
- .debug_ranges  0x00000140       0xc8 ./app_hw.o
- .debug_ranges  0x00000208       0x10 ./board.o
- .debug_ranges  0x00000218       0x10 ./main.o
- .debug_ranges  0x00000228       0x80 ./mcu.o
- .debug_ranges  0x000002a8       0xc8 ./payloadbuffer.o
- .debug_ranges  0x00000370       0x18 ./hardware/kit/common/bsp/bsp_trace.o
- .debug_ranges  0x00000388       0xf0 ./hardware/kit/common/drivers/h3lis331dl.o
- .debug_ranges  0x00000478       0x48 ./hardware/kit/common/drivers/i2cspm.o
- .debug_ranges  0x000004c0      0x168 ./hardware/kit/common/drivers/lsm6dsl.o
- .debug_ranges  0x00000628       0x88 ./hardware/kit/common/drivers/retargetswo.o
- .debug_ranges  0x000006b0      0x180 ./hardware/kit/common/drivers/s23lc1024.o
- .debug_ranges  0x00000830       0x18 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
- .debug_ranges  0x00000848       0x18 ./platform/emdrv/adc/src/adc.o
- .debug_ranges  0x00000860       0xa8 ./platform/emdrv/dmadrv/src/dmadrv.o
- .debug_ranges  0x00000908       0xa8 ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
- .debug_ranges  0x000009b0       0xa8 ./platform/emdrv/letimer/src/letimer.o
- .debug_ranges  0x00000a58       0xb0 ./platform/emdrv/mstimer/src/mstimer.o
- .debug_ranges  0x00000b08      0x128 ./platform/emlib/src/em_adc.o
- .debug_ranges  0x00000c30      0x5c0 ./platform/emlib/src/em_cmu.o
- .debug_ranges  0x000011f0      0x1a8 ./platform/emlib/src/em_gpio.o
- .debug_ranges  0x00001398      0x100 ./platform/emlib/src/em_i2c.o
- .debug_ranges  0x00001498       0x40 ./platform/emlib/src/em_letimer.o
- .debug_ranges  0x000014d8       0x18 ./platform/emlib/src/em_system.o
- .debug_ranges  0x000014f0       0xf8 ./platform/emlib/src/em_usart.o
+.debug_ranges   0x00000000     0x1630
+ .debug_ranges  0x00000000       0x48 ./advertisement.o
+ .debug_ranges  0x00000048       0x78 ./app.o
+ .debug_ranges  0x000000c0       0xa8 ./app_ble.o
+ .debug_ranges  0x00000168       0x20 ./app_data.o
+ .debug_ranges  0x00000188       0xc8 ./app_hw.o
+ .debug_ranges  0x00000250       0x10 ./board.o
+ .debug_ranges  0x00000260       0x10 ./main.o
+ .debug_ranges  0x00000270       0x80 ./mcu.o
+ .debug_ranges  0x000002f0       0xc8 ./payloadbuffer.o
+ .debug_ranges  0x000003b8       0x18 ./hardware/kit/common/bsp/bsp_trace.o
+ .debug_ranges  0x000003d0       0xf0 ./hardware/kit/common/drivers/h3lis331dl.o
+ .debug_ranges  0x000004c0       0x48 ./hardware/kit/common/drivers/i2cspm.o
+ .debug_ranges  0x00000508      0x168 ./hardware/kit/common/drivers/lsm6dsl.o
+ .debug_ranges  0x00000670       0x88 ./hardware/kit/common/drivers/retargetswo.o
+ .debug_ranges  0x000006f8      0x180 ./hardware/kit/common/drivers/s23lc1024.o
+ .debug_ranges  0x00000878       0x18 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
+ .debug_ranges  0x00000890       0x18 ./platform/emdrv/adc/src/adc.o
+ .debug_ranges  0x000008a8       0xa8 ./platform/emdrv/dmadrv/src/dmadrv.o
+ .debug_ranges  0x00000950       0xa8 ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
+ .debug_ranges  0x000009f8       0xa8 ./platform/emdrv/letimer/src/letimer.o
+ .debug_ranges  0x00000aa0       0xb0 ./platform/emdrv/mstimer/src/mstimer.o
+ .debug_ranges  0x00000b50      0x128 ./platform/emlib/src/em_adc.o
+ .debug_ranges  0x00000c78      0x5c0 ./platform/emlib/src/em_cmu.o
+ .debug_ranges  0x00001238      0x1a8 ./platform/emlib/src/em_gpio.o
+ .debug_ranges  0x000013e0      0x100 ./platform/emlib/src/em_i2c.o
+ .debug_ranges  0x000014e0       0x40 ./platform/emlib/src/em_letimer.o
+ .debug_ranges  0x00001520       0x18 ./platform/emlib/src/em_system.o
+ .debug_ranges  0x00001538       0xf8 ./platform/emlib/src/em_usart.o
 
-.debug_line     0x00000000     0x6d89
- .debug_line    0x00000000      0x3ea ./app.o
- .debug_line    0x000003ea      0x448 ./app_ble.o
- .debug_line    0x00000832      0x3bf ./app_data.o
- .debug_line    0x00000bf1      0x23d ./app_hw.o
- .debug_line    0x00000e2e      0x189 ./application_properties.o
- .debug_line    0x00000fb7      0x239 ./board.o
- .debug_line    0x000011f0      0x185 ./gatt_db.o
- .debug_line    0x00001375      0x37f ./main.o
- .debug_line    0x000016f4      0x30e ./mcu.o
- .debug_line    0x00001a02      0x2a0 ./payloadbuffer.o
- .debug_line    0x00001ca2      0x2cb ./hardware/kit/common/bsp/bsp_trace.o
- .debug_line    0x00001f6d      0x3d6 ./hardware/kit/common/drivers/h3lis331dl.o
- .debug_line    0x00002343      0x339 ./hardware/kit/common/drivers/i2cspm.o
- .debug_line    0x0000267c      0x460 ./hardware/kit/common/drivers/lsm6dsl.o
- .debug_line    0x00002adc      0x2a4 ./hardware/kit/common/drivers/retargetswo.o
- .debug_line    0x00002d80      0x504 ./hardware/kit/common/drivers/s23lc1024.o
- .debug_line    0x00003284      0x184 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
- .debug_line    0x00003408      0x2e4 ./platform/emdrv/adc/src/adc.o
- .debug_line    0x000036ec      0x597 ./platform/emdrv/dmadrv/src/dmadrv.o
- .debug_line    0x00003c83      0x3c7 ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
- .debug_line    0x0000404a      0x4b7 ./platform/emdrv/letimer/src/letimer.o
- .debug_line    0x00004501      0x3cb ./platform/emdrv/mstimer/src/mstimer.o
- .debug_line    0x000048cc      0x4c9 ./platform/emlib/src/em_adc.o
- .debug_line    0x00004d95      0xc94 ./platform/emlib/src/em_cmu.o
- .debug_line    0x00005a29      0x3f9 ./platform/emlib/src/em_gpio.o
- .debug_line    0x00005e22      0x49b ./platform/emlib/src/em_i2c.o
- .debug_line    0x000062bd      0x31c ./platform/emlib/src/em_letimer.o
- .debug_line    0x000065d9      0x26d ./platform/emlib/src/em_system.o
- .debug_line    0x00006846      0x543 ./platform/emlib/src/em_usart.o
+.debug_line     0x00000000     0x7286
+ .debug_line    0x00000000      0x2c6 ./advertisement.o
+ .debug_line    0x000002c6      0x3e0 ./app.o
+ .debug_line    0x000006a6      0x448 ./app_ble.o
+ .debug_line    0x00000aee      0x40e ./app_data.o
+ .debug_line    0x00000efc      0x23c ./app_hw.o
+ .debug_line    0x00001138      0x189 ./application_properties.o
+ .debug_line    0x000012c1      0x2d2 ./board.o
+ .debug_line    0x00001593      0x185 ./gatt_db.o
+ .debug_line    0x00001718      0x4d8 ./main.o
+ .debug_line    0x00001bf0      0x30e ./mcu.o
+ .debug_line    0x00001efe      0x2a0 ./payloadbuffer.o
+ .debug_line    0x0000219e      0x2cb ./hardware/kit/common/bsp/bsp_trace.o
+ .debug_line    0x00002469      0x3d6 ./hardware/kit/common/drivers/h3lis331dl.o
+ .debug_line    0x0000283f      0x339 ./hardware/kit/common/drivers/i2cspm.o
+ .debug_line    0x00002b78      0x460 ./hardware/kit/common/drivers/lsm6dsl.o
+ .debug_line    0x00002fd8      0x2a4 ./hardware/kit/common/drivers/retargetswo.o
+ .debug_line    0x0000327c      0x505 ./hardware/kit/common/drivers/s23lc1024.o
+ .debug_line    0x00003781      0x184 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
+ .debug_line    0x00003905      0x2e4 ./platform/emdrv/adc/src/adc.o
+ .debug_line    0x00003be9      0x597 ./platform/emdrv/dmadrv/src/dmadrv.o
+ .debug_line    0x00004180      0x3c7 ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
+ .debug_line    0x00004547      0x4b7 ./platform/emdrv/letimer/src/letimer.o
+ .debug_line    0x000049fe      0x3cb ./platform/emdrv/mstimer/src/mstimer.o
+ .debug_line    0x00004dc9      0x4c9 ./platform/emlib/src/em_adc.o
+ .debug_line    0x00005292      0xc94 ./platform/emlib/src/em_cmu.o
+ .debug_line    0x00005f26      0x3f9 ./platform/emlib/src/em_gpio.o
+ .debug_line    0x0000631f      0x49b ./platform/emlib/src/em_i2c.o
+ .debug_line    0x000067ba      0x31c ./platform/emlib/src/em_letimer.o
+ .debug_line    0x00006ad6      0x26d ./platform/emlib/src/em_system.o
+ .debug_line    0x00006d43      0x543 ./platform/emlib/src/em_usart.o
 
-.debug_str      0x00000000     0xd771
- .debug_str     0x00000000     0x5a63 ./app.o
-                               0x5cff (size before relaxing)
- .debug_str     0x00005a63      0x2c7 ./app_ble.o
-                               0x5da4 (size before relaxing)
- .debug_str     0x00005d2a      0x1fb ./app_data.o
-                               0x4a9b (size before relaxing)
- .debug_str     0x00005f25      0x1d7 ./app_hw.o
-                                0x545 (size before relaxing)
- .debug_str     0x000060fc       0xaa ./application_properties.o
+.debug_str      0x00000000     0xd8b7
+ .debug_str     0x00000000     0x4706 ./advertisement.o
+                               0x49b6 (size before relaxing)
+ .debug_str     0x00004706     0x1532 ./app.o
+                               0x5cca (size before relaxing)
+ .debug_str     0x00005c38      0x219 ./app_ble.o
+                               0x5d9c (size before relaxing)
+ .debug_str     0x00005e51      0x3d9 ./app_data.o
+                               0x4c79 (size before relaxing)
+ .debug_str     0x0000622a      0x1d7 ./app_hw.o
+                                0x53d (size before relaxing)
+ .debug_str     0x00006401       0xaa ./application_properties.o
                                 0x2a0 (size before relaxing)
- .debug_str     0x000061a6      0x236 ./board.o
-                                0x411 (size before relaxing)
- .debug_str     0x000063dc      0x647 ./gatt_db.o
+ .debug_str     0x000064ab      0x23e ./board.o
+                                0x42d (size before relaxing)
+ .debug_str     0x000066e9      0x647 ./gatt_db.o
                                 0x849 (size before relaxing)
- .debug_str     0x00006a23      0x307 ./main.o
-                               0x4d0f (size before relaxing)
- .debug_str     0x00006d2a      0xa58 ./mcu.o
+ .debug_str     0x00006d30      0x42b ./main.o
+                               0x4f1c (size before relaxing)
+ .debug_str     0x0000715b      0x97b ./mcu.o
                                 0xf0a (size before relaxing)
- .debug_str     0x00007782       0xa9 ./payloadbuffer.o
+ .debug_str     0x00007ad6       0xa9 ./payloadbuffer.o
                                 0x31d (size before relaxing)
- .debug_str     0x0000782b      0x3ce ./hardware/kit/common/bsp/bsp_trace.o
+ .debug_str     0x00007b7f      0x1f0 ./hardware/kit/common/bsp/bsp_trace.o
                                 0xb10 (size before relaxing)
- .debug_str     0x00007bf9      0x295 ./hardware/kit/common/drivers/h3lis331dl.o
-                                0xa9f (size before relaxing)
- .debug_str     0x00007e8e       0xd3 ./hardware/kit/common/drivers/i2cspm.o
+ .debug_str     0x00007d6f      0x28c ./hardware/kit/common/drivers/h3lis331dl.o
+                                0xa96 (size before relaxing)
+ .debug_str     0x00007ffb       0xd3 ./hardware/kit/common/drivers/i2cspm.o
                                 0x9b2 (size before relaxing)
- .debug_str     0x00007f61       0x74 ./hardware/kit/common/drivers/lsm6dsl.o
+ .debug_str     0x000080ce       0x7d ./hardware/kit/common/drivers/lsm6dsl.o
                                 0xab3 (size before relaxing)
- .debug_str     0x00007fd5       0x65 ./hardware/kit/common/drivers/retargetswo.o
+ .debug_str     0x0000814b       0x65 ./hardware/kit/common/drivers/retargetswo.o
                                 0x349 (size before relaxing)
- .debug_str     0x0000803a      0x440 ./hardware/kit/common/drivers/s23lc1024.o
+ .debug_str     0x000081b0      0x440 ./hardware/kit/common/drivers/s23lc1024.o
                                 0xd20 (size before relaxing)
- .debug_str     0x0000847a       0xa8 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
+ .debug_str     0x000085f0       0xa8 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
                                 0x2a5 (size before relaxing)
- .debug_str     0x00008522     0x1f48 ./platform/emdrv/adc/src/adc.o
+ .debug_str     0x00008698     0x1f40 ./platform/emdrv/adc/src/adc.o
                                0x237b (size before relaxing)
- .debug_str     0x0000a46a      0xed1 ./platform/emdrv/dmadrv/src/dmadrv.o
+ .debug_str     0x0000a5d8      0xed1 ./platform/emdrv/dmadrv/src/dmadrv.o
                                0x1167 (size before relaxing)
- .debug_str     0x0000b33b      0x30b ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
+ .debug_str     0x0000b4a9      0x30b ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
                                 0x663 (size before relaxing)
- .debug_str     0x0000b646      0x237 ./platform/emdrv/letimer/src/letimer.o
+ .debug_str     0x0000b7b4      0x21e ./platform/emdrv/letimer/src/letimer.o
                                0x4ee8 (size before relaxing)
- .debug_str     0x0000b87d      0x5b3 ./platform/emdrv/mstimer/src/mstimer.o
+ .debug_str     0x0000b9d2      0x5b3 ./platform/emdrv/mstimer/src/mstimer.o
                                 0xd35 (size before relaxing)
- .debug_str     0x0000be30      0x51f ./platform/emlib/src/em_adc.o
+ .debug_str     0x0000bf85      0x51f ./platform/emlib/src/em_adc.o
                                0x2aa2 (size before relaxing)
- .debug_str     0x0000c34f      0x95e ./platform/emlib/src/em_cmu.o
+ .debug_str     0x0000c4a4      0x94f ./platform/emlib/src/em_cmu.o
                                0x1463 (size before relaxing)
- .debug_str     0x0000ccad      0x18f ./platform/emlib/src/em_gpio.o
+ .debug_str     0x0000cdf3      0x18f ./platform/emlib/src/em_gpio.o
                                 0x82b (size before relaxing)
- .debug_str     0x0000ce3c      0x19f ./platform/emlib/src/em_i2c.o
+ .debug_str     0x0000cf82      0x19f ./platform/emlib/src/em_i2c.o
                                 0x806 (size before relaxing)
- .debug_str     0x0000cfdb       0x8b ./platform/emlib/src/em_letimer.o
+ .debug_str     0x0000d121       0x8b ./platform/emlib/src/em_letimer.o
                                 0x44e (size before relaxing)
- .debug_str     0x0000d066       0x7c ./platform/emlib/src/em_system.o
+ .debug_str     0x0000d1ac       0x7c ./platform/emlib/src/em_system.o
                                 0x2f8 (size before relaxing)
- .debug_str     0x0000d0e2      0x68f ./platform/emlib/src/em_usart.o
+ .debug_str     0x0000d228      0x68f ./platform/emlib/src/em_usart.o
                                 0xea5 (size before relaxing)
 
-.debug_frame    0x00000000     0x1514
- .debug_frame   0x00000000       0xa0 ./app.o
- .debug_frame   0x000000a0       0xc0 ./app_ble.o
- .debug_frame   0x00000160       0x78 ./app_data.o
- .debug_frame   0x000001d8       0x54 ./app_hw.o
- .debug_frame   0x0000022c       0x2c ./board.o
- .debug_frame   0x00000258       0x28 ./main.o
- .debug_frame   0x00000280       0x38 ./mcu.o
- .debug_frame   0x000002b8       0x7c ./payloadbuffer.o
- .debug_frame   0x00000334       0x44 ./hardware/kit/common/bsp/bsp_trace.o
- .debug_frame   0x00000378       0xc4 ./hardware/kit/common/drivers/h3lis331dl.o
- .debug_frame   0x0000043c       0x50 ./hardware/kit/common/drivers/i2cspm.o
- .debug_frame   0x0000048c      0x110 ./hardware/kit/common/drivers/lsm6dsl.o
- .debug_frame   0x0000059c       0x60 ./hardware/kit/common/drivers/retargetswo.o
- .debug_frame   0x000005fc       0xfc ./hardware/kit/common/drivers/s23lc1024.o
- .debug_frame   0x000006f8       0x38 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
- .debug_frame   0x00000730       0x44 ./platform/emdrv/adc/src/adc.o
- .debug_frame   0x00000774      0x22c ./platform/emdrv/dmadrv/src/dmadrv.o
- .debug_frame   0x000009a0       0x80 ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
- .debug_frame   0x00000a20       0x80 ./platform/emdrv/letimer/src/letimer.o
- .debug_frame   0x00000aa0       0x70 ./platform/emdrv/mstimer/src/mstimer.o
- .debug_frame   0x00000b10      0x148 ./platform/emlib/src/em_adc.o
- .debug_frame   0x00000c58      0x314 ./platform/emlib/src/em_cmu.o
- .debug_frame   0x00000f6c       0xa0 ./platform/emlib/src/em_gpio.o
- .debug_frame   0x0000100c       0xec ./platform/emlib/src/em_i2c.o
- .debug_frame   0x000010f8       0x90 ./platform/emlib/src/em_letimer.o
- .debug_frame   0x00001188       0x30 ./platform/emlib/src/em_system.o
- .debug_frame   0x000011b8      0x1dc ./platform/emlib/src/em_usart.o
- .debug_frame   0x00001394       0x28 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-exit.o)
- .debug_frame   0x000013bc       0x2c c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-init.o)
- .debug_frame   0x000013e8       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memset.o)
- .debug_frame   0x0000141c       0x50 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__call_atexit.o)
- .debug_frame   0x0000146c       0x20 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-atexit.o)
- .debug_frame   0x0000148c       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-fini.o)
- .debug_frame   0x000014c0       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__atexit.o)
- .debug_frame   0x000014f4       0x20 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libnosys.a(_exit.o)
+.debug_frame    0x00000000     0x1574
+ .debug_frame   0x00000000       0x54 ./advertisement.o
+ .debug_frame   0x00000054       0xa0 ./app.o
+ .debug_frame   0x000000f4       0xc0 ./app_ble.o
+ .debug_frame   0x000001b4       0x84 ./app_data.o
+ .debug_frame   0x00000238       0x54 ./app_hw.o
+ .debug_frame   0x0000028c       0x2c ./board.o
+ .debug_frame   0x000002b8       0x28 ./main.o
+ .debug_frame   0x000002e0       0x38 ./mcu.o
+ .debug_frame   0x00000318       0x7c ./payloadbuffer.o
+ .debug_frame   0x00000394       0x44 ./hardware/kit/common/bsp/bsp_trace.o
+ .debug_frame   0x000003d8       0xc4 ./hardware/kit/common/drivers/h3lis331dl.o
+ .debug_frame   0x0000049c       0x50 ./hardware/kit/common/drivers/i2cspm.o
+ .debug_frame   0x000004ec      0x110 ./hardware/kit/common/drivers/lsm6dsl.o
+ .debug_frame   0x000005fc       0x60 ./hardware/kit/common/drivers/retargetswo.o
+ .debug_frame   0x0000065c       0xfc ./hardware/kit/common/drivers/s23lc1024.o
+ .debug_frame   0x00000758       0x38 ./platform/Device/SiliconLabs/EFR32BG1B/Source/GCC/startup_efr32bg1b.o
+ .debug_frame   0x00000790       0x44 ./platform/emdrv/adc/src/adc.o
+ .debug_frame   0x000007d4      0x22c ./platform/emdrv/dmadrv/src/dmadrv.o
+ .debug_frame   0x00000a00       0x80 ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
+ .debug_frame   0x00000a80       0x80 ./platform/emdrv/letimer/src/letimer.o
+ .debug_frame   0x00000b00       0x70 ./platform/emdrv/mstimer/src/mstimer.o
+ .debug_frame   0x00000b70      0x148 ./platform/emlib/src/em_adc.o
+ .debug_frame   0x00000cb8      0x314 ./platform/emlib/src/em_cmu.o
+ .debug_frame   0x00000fcc       0xa0 ./platform/emlib/src/em_gpio.o
+ .debug_frame   0x0000106c       0xec ./platform/emlib/src/em_i2c.o
+ .debug_frame   0x00001158       0x90 ./platform/emlib/src/em_letimer.o
+ .debug_frame   0x000011e8       0x30 ./platform/emlib/src/em_system.o
+ .debug_frame   0x00001218      0x1dc ./platform/emlib/src/em_usart.o
+ .debug_frame   0x000013f4       0x28 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-exit.o)
+ .debug_frame   0x0000141c       0x2c c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-init.o)
+ .debug_frame   0x00001448       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memset.o)
+ .debug_frame   0x0000147c       0x50 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__call_atexit.o)
+ .debug_frame   0x000014cc       0x20 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-atexit.o)
+ .debug_frame   0x000014ec       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-fini.o)
+ .debug_frame   0x00001520       0x34 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__atexit.o)
+ .debug_frame   0x00001554       0x20 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libnosys.a(_exit.o)

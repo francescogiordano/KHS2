@@ -43,7 +43,7 @@ void InitAppBle(void){
 void KhsDataCharStatusChange(uint8_t connection, uint16_t clientConfig){
   if (clientConfig) {
 	  bleClientConnection = connection; // Save connection ID
-	  KhsDataCharUpdate(); // Make initial transfer
+	  KhsDataCharUpdate(); 				// Make initial transfer
   }
 }
 void KhsDataCharUpdate(void){
@@ -89,9 +89,8 @@ void KhsDataCharUpdate(void){
 	*/
 }
 void KhsDiagInfoCharWrite(void){
-  uint8_t value[5] = {0x00,0x00,0x00, 0x00, 0x00};
+  uint8_t value[5] = {0x00,0x00,0x00,0x00,0x00};
   uint8_t tempData[2] = {0x00,0x00};
-  uint32_t tempAdc = 0;
 
   value[0] = GetAppHwErrorFlags();
 

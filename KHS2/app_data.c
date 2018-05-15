@@ -75,6 +75,7 @@ void InitAppData(void){
 	*/
 #endif
 
+	GPIO_PinModeSet(BSP_TEST_ENABLE_PORT, BSP_TEST_ENABLE_PIN, gpioModeInputPull, 0);
 }
 
 void LowAccelGyroAppDataProcessRead(void){

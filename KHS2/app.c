@@ -26,19 +26,22 @@
 
 void InitApp(void){
 
+	/*	Silabs - Update Unique Device ID
+
 	// Unique device ID
 	uint16_t devId;
 	struct gecko_msg_system_get_bt_address_rsp_t* btAddr;
 	char devName[APP_DEVNAME_LEN + 1];
 
-	/* Init device name */
-	/* Get the unique device ID */
+	// Init device name
+	// Get the unique device ID
 	// Create the device name based on the 16-bit device ID
 
 	btAddr = gecko_cmd_system_get_bt_address();
 	devId = *((uint16*)(btAddr->address.addr));
 	//snprintf(devName, APP_DEVNAME_LEN + 1, APP_DEVNAME, devId);
 	//gecko_cmd_gatt_server_write_attribute_value(gattdb_device_name, 0, strlen(devName), (uint8_t *)devName);
+	*/
 
 	InitAppHw();
 	InitAppData();
@@ -83,10 +86,10 @@ void HandleEventsApp(struct gecko_cmd_packet *evt){
 
 		/* Enter to DFU OTA mode if needed */
 		if (boot_to_dfu) {
-		gecko_cmd_system_reset(2);
+		gecko_cmd_system_reset(2);	//API reference manual says to boot to DFU value should be 1
 		}
 
-		//Potentially shutdown the MCU/Sensors if there is no ble connection
+		//Potentially Shutdown the MCU/Sensors if there is no ble connection
 		//gecko_cmd_hardware_set_soft_timer(TIMER_MS_2_TIMERTICK(SHUTDOWN_TIMER_PERIOD), SHUTDOWN_TIMER, true);
 
 		break;

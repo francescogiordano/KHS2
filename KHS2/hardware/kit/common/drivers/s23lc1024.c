@@ -38,10 +38,6 @@ static void rdmr23lc1024(void){
     setCSHigh();
 }
 
-static void initial_Spi(void){
-	rstio23lc1024();
-}
-
 //**************************   PUBLIC FUNCTION DEFINIITIONS   *****************
 
 void Set23lc1024(void){
@@ -147,7 +143,6 @@ void ReadPayload23lc1024(PAYLOAD_BUFFER_Header_t header, uint8_t* dataBytes, int
     // Chip select go high to end a flash command
     setCSHigh();
 }
-
 
 void WriteBytes23lc1024(uint8_t* addressBytes3, uint8_t* dataBytes, int dataSize){
     // Chip select go low to start a flash command

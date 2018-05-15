@@ -34,6 +34,7 @@
 #include "payloadbuffer.h"
 
 #include "adc.h"
+#include "app_hw.h"
 #include "app_data.h"
 
 #ifndef MAX_CONNECTIONS
@@ -79,44 +80,56 @@ void main(void){
 	//gecko_init(&config);		// Initialize stack
 
 	//LeTimer must be after gecko_init()
-	//InitLeTimer();
-	//StartLeTimer();
+	InitLeTimer();
+	StartLeTimer();
 
-	/* Test Mode
-	if (nrf_gpio_pin_read(ENABLE_TEST_PIN)) {
-		printUSART0("Entered Test Mode\n", 0);
-		while (nrf_gpio_pin_read(ENABLE_TEST_PIN)) {
-			if (readCharUSART0() == 0x61) {
+	//Enter Test Mode
+	if(GPIO_PinInGet(BSP_TEST_ENABLE_PORT, BSP_TEST_ENABLE_PIN)){
+		RETARGET_SwoInit();
+		RETARGET_WriteString("Test Mode", 9);
 
-				//Test Mag & Accel IC
-				initSensors();
+		//while(GPIO_PinInGet(BSP_TEST_ENABLE_PORT, BSP_TEST_ENABLE_PIN)) {
+			//if(readCharUSART0() == 0x61){
+				//Get Sensor Error Flags
+				uint8_t errorFlags = GetAppHwErrorFlags();
 
-				//Test ADC
-				uint32_t value = GetAdcValue();
-				if (value >= 156 && value <= 163) {
-					printUSART0("R7 ADC [OK]\n", 0);
+				if((errorFlags & ERROR_FLAG_SRAM) == ERROR_FLAG_SRAM){
+					RETARGET_WriteString("U3: ERROR", 9);
 				}
-				else {
-					//printUSART0("R7 ADC [FAIL][%d]\n", &value);
-					printUSART0("R7 ADC [FAIL]\n", 0);
+				else{
+					RETARGET_WriteString("U3: OK", 6);
 				}
-			}
-			tickleWDT();
-		}
+				if((errorFlags & ERROR_FLAG_LOW_GYRO_ACCEL) == ERROR_FLAG_LOW_GYRO_ACCEL){
+					RETARGET_WriteString("U4: ERROR", 9);
+				}
+				else{
+					RETARGET_WriteString("U4: OK", 6);
+				}
+				if((errorFlags & ERROR_FLAG_HIGH_ACCEL) == ERROR_FLAG_HIGH_ACCEL){
+					RETARGET_WriteString("U6: ERROR", 9);
+				}
+				else{
+					RETARGET_WriteString("U6: OK", 6);
+				}
+
+			//}
+		#if	HAL_WDOG_ENABLE
+			FeedWdog();
+		#endif
+		//}
+
+		//When Test Mode Complete Reboot device
+		gecko_cmd_system_reset(0);	//0:Normal Reset,1:DFU Reset
+		RETARGET_WriteString("Reset", 5);
 	}
-	*/
-
-	static uint8_t tempData[2];
 
 	while(1){
 
-		GetSingleAdc(tempData);
-
-		LowAccelGyroAppDataProcessRead();
-		HighAccelGyroAppDataProcessRead();
+		//LowAccelGyroAppDataProcessRead();
+		//HighAccelGyroAppDataProcessRead();
 
 		//EMU_EnterEM2(true);
-		/*
+		/**/
 		struct gecko_cmd_packet* evt;
 		evt = gecko_wait_event();	// Check for stack event
 		HandleEventsApp(evt);		// Run application and event handler.

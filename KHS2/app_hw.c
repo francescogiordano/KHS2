@@ -10,54 +10,48 @@
 //**************************   STATIC VARIABLES   *****************************
 
 static uint8_t errorFlags = 0x00;
-static int counter = 0;
 
 //**************************   STATIC FUNCTION DEFINIITIONS   *****************
 
-static void appHwInitHighAccelSens(void){
-
-
-}
-
 static void updateAppHwInitSramErrorFlag(void){
 
-	if(Detect23lc1024() == Msg23lc1024Success){
+	if(Detect23lc1024() != Msg23lc1024Success){
 		errorFlags ^= ERROR_FLAG_SRAM;
 	#if DEBUG_ENABLE
-		RETARGET_WriteString("23lc1024 Detected: true", 23);
+		RETARGET_WriteString("23lc1024 Detected: false", 24);
 	#endif
 	}
 #if DEBUG_ENABLE
 	else{
-		RETARGET_WriteString("23lc1024 Detected: false", 24);
+		RETARGET_WriteString("23lc1024 Detected: true", 23);
 	}
 #endif
 }
 static void updateAppHwInitLowAccelSensErrorFlag(void){
 
-	if(DetectLsm6dsl() == MsgLsm6dslSuccess){
+	if(DetectLsm6dsl() != MsgLsm6dslSuccess){
 		errorFlags ^= ERROR_FLAG_LOW_GYRO_ACCEL;
 	#if DEBUG_ENABLE
-		RETARGET_WriteString("Lsm6dsl Detected: true", 22);
+		RETARGET_WriteString("Lsm6dsl Detected: false", 23);
 	#endif
 	}
 #if DEBUG_ENABLE
 	else{
-		RETARGET_WriteString("Lsm6dsl Detected: false", 23);
+		RETARGET_WriteString("Lsm6dsl Detected: true", 22);
 	}
 #endif
 }
 static void updateAppHwInitHighAccelSensErrorFlag(void){
 
-	if(DetectH3lis331dl() == MsgH3lis331dlSuccess){
+	if(DetectH3lis331dl() != MsgH3lis331dlSuccess){
 		errorFlags ^= ERROR_FLAG_HIGH_ACCEL;
 	#if DEBUG_ENABLE
-		RETARGET_WriteString("H3lis331dl Detected: true", 25);
+		RETARGET_WriteString("H3lis331dl Detected: false", 26);
 	#endif
 	}
 #if DEBUG_ENABLE
 	else{
-		RETARGET_WriteString("H3lis331dl Detected: false", 26);
+		RETARGET_WriteString("H3lis331dl Detected: true", 25);
 	}
 #endif
 }
@@ -91,9 +85,14 @@ void InitAppHw(void){
 	updateAppHwErrorFlags();
 }
 void AppHwTick(void){
+	//AppHwTick - Used to process a periodic hardware routine
 
+	/*
 	//static int secs = 0;
 	//char str[10];
+
+	//static int counter = 0;
+
 	counter++;
 
 	if (counter%10 == 0){
@@ -104,6 +103,7 @@ void AppHwTick(void){
 	  }
 
 	//gecko_cmd_hardware_set_soft_timer(TIMER_MS_2_TIMERTICK(HWTIMER_PERIOD), HW_TIMER, false);
+	*/
 }
 
 uint8_t GetAppHwErrorFlags(void){

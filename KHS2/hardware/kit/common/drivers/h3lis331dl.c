@@ -10,7 +10,6 @@
 
 //**************************   STATIC VARIABLES   ******************************
 
-static uint8_t commMode = 0;
 static bool portSetupFlag = false;
 static bool initializedFlag = false;
 static I2C_TypeDef *i2cPort = 0;

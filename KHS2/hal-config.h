@@ -33,6 +33,9 @@
 #define HAL_WDOG_ENABLE    		          				(0)
 #define DEBUG_ENABLE    		          				(1)
 
+#define BSP_TEST_ENABLE_PORT							(gpioPortC)
+#define BSP_TEST_ENABLE_PIN								(10)	//PC10
+
 #if HAL_I2C_ENABLE
 #define BSP_LSM6DSL_INT_1_PORT							(gpioPortA)
 #define BSP_LSM6DSL_INT_1_PIN							(0)		//PA0
