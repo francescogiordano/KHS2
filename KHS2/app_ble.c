@@ -53,19 +53,16 @@ void KhsDataCharUpdate(void){
 	}
 
 	struct gecko_msg_gatt_server_send_characteristic_notification_rsp_t* responseTemp;
-	uint8_t tempPayloadBuffer[PAYLOAD_BUFFER_HEADER_SIZE + PAYLOAD_BUFFER_DATA_SIZE];
-	uint8_t* tempCharData;
+	uint8_t tempPayloadBufferData[PAYLOAD_BUFFER_HEADER_SIZE + PAYLOAD_BUFFER_DATA_SIZE];
 
 	//Make sure there is a payload available to send else come back in 100ms
 	if(IsEmptyPayloadBuffer() == false){
-		if(GetPayloadBuffer(tempPayloadBuffer, PAYLOAD_BUFFER_HEADER_SIZE + PAYLOAD_BUFFER_DATA_SIZE, &payloadCounter)){
-			//Reference tempCharData to beginning of Payload Buffer Data
-			tempCharData = tempPayloadBuffer + PAYLOAD_BUFFER_HEADER_SIZE;
+		if(GetPayloadBufferData(tempPayloadBufferData, PAYLOAD_BUFFER_DATA_SIZE, &payloadCounter)){
 
 			//Make sure data is less or equal to BLE max char data length
 			if(PAYLOAD_BUFFER_DATA_SIZE <= KHS_DATA_CHAR_BYTE_LENGTH_MAX){
 				//Send tempCharData over BLE
-				responseTemp = gecko_cmd_gatt_server_send_characteristic_notification(bleClientConnection, gattdb_Data, PAYLOAD_BUFFER_DATA_SIZE, tempCharData);
+				responseTemp = gecko_cmd_gatt_server_send_characteristic_notification(bleClientConnection, gattdb_Data, PAYLOAD_BUFFER_DATA_SIZE, tempPayloadBufferData);
 			}
 		}
 	}

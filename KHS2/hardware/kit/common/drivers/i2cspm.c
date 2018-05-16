@@ -122,7 +122,7 @@ void I2CSPM_Init(I2CSPM_Init_TypeDef *init)
  ******************************************************************************/
 I2C_TransferReturn_TypeDef I2CSPM_Transfer(I2C_TypeDef *i2c, I2C_TransferSeq_TypeDef *seq)
 {
-  I2C_TransferReturn_TypeDef ret;
+  static I2C_TransferReturn_TypeDef ret;
   uint32_t timeout = I2CSPM_TRANSFER_TIMEOUT;
   /* Do a polled transfer */
   ret = I2C_TransferInit(i2c, seq);

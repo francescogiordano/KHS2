@@ -72,7 +72,6 @@ main.o: ../main.c ../boards.h ../ble-configuration.h ../board_features.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\letimer\inc/letimer.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\common\inc/ecode.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\letimer\config/letimer_config.h \
- G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/udelay.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/retargetswo.h \
  ../payloadbuffer.h \
  G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\adc\inc/adc.h \
@@ -230,8 +229,6 @@ G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\letimer\inc/letimer.h
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\common\inc/ecode.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\platform\emdrv\letimer\config/letimer_config.h:
-
-G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/udelay.h:
 
 G:\My\ Drive\R&D\Firmware\ Design\KHS2\KHS2\hardware\kit\common\drivers/retargetswo.h:
 

@@ -22,7 +22,7 @@ static void incrementTail(void){
 
 //**************************   FUNCTION DEFINITIONS   *************************
 
-bool PutPayloadBuffer(uint8_t* data, uint8_t dataSize, uint16_t payloadCounter){
+bool PutPayloadBufferData(uint8_t* data, uint8_t dataSize, uint16_t payloadCounter){
 	bool result = false;
 
 	if(dataSize <= PAYLOAD_BUFFER_DATA_SIZE){
@@ -46,7 +46,7 @@ bool PutPayloadBuffer(uint8_t* data, uint8_t dataSize, uint16_t payloadCounter){
 	}
 	return result;
 }
-bool GetPayloadBuffer(uint8_t* data, uint8_t dataSize, uint16_t* payloadCounter){
+bool GetPayloadBufferData(uint8_t* data, uint8_t dataSize, uint16_t* payloadCounter){
 	bool result = false;
 
 	//Verify If Buffer Not empty

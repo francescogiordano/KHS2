@@ -12,8 +12,8 @@
 
 static bool portSetupFlag = false;
 static bool initializedFlag = false;
-static I2C_TypeDef *i2cPort = 0;
-static uint8_t i2cAddr = 0;
+static I2C_TypeDef *i2cPortH3lis331dl = 0;
+static uint8_t i2cAddrH3lis331dl = 0;
 
 //**************************   STATIC FUNCTION DEFINIITIONS   *****************
 
@@ -21,11 +21,11 @@ static ReturnMsgH3lis331dl i2cWriteReadH3lis331dl(uint8_t command, uint8_t* data
 	ReturnMsgH3lis331dl msg = MsgH3lis331dlSuccess;
 
 	I2C_TransferSeq_TypeDef    seq;
-	I2C_TransferReturn_TypeDef ret;
+	static I2C_TransferReturn_TypeDef ret;
 	uint8_t                    i2c_write_data[1];
 
 	if(portSetupFlag){
-		seq.addr  = i2cAddr;
+		seq.addr  = i2cAddrH3lis331dl;
 		seq.flags = I2C_FLAG_WRITE_READ;
 
 		/* Select command to issue */
@@ -37,7 +37,7 @@ static ReturnMsgH3lis331dl i2cWriteReadH3lis331dl(uint8_t command, uint8_t* data
 		seq.buf[1].data = data;
 		seq.buf[1].len  = dataLength;
 
-		ret = I2CSPM_Transfer(i2cPort, &seq);
+		ret = I2CSPM_Transfer(i2cPortH3lis331dl, &seq);
 
 		if (ret != i2cTransferDone) {
 			*data = 0;
@@ -58,7 +58,7 @@ static ReturnMsgH3lis331dl i2cWriteH3lis331dl(uint8_t command, uint8_t data){
 		I2C_TransferReturn_TypeDef ret;
 		uint8_t                    i2c_write_data[2];
 
-		seq.addr  = i2cAddr;
+		seq.addr  = i2cAddrH3lis331dl;
 		seq.flags = I2C_FLAG_WRITE;
 		/* Select command to issue */
 		i2c_write_data[0] = command;
@@ -66,7 +66,7 @@ static ReturnMsgH3lis331dl i2cWriteH3lis331dl(uint8_t command, uint8_t data){
 		seq.buf[0].data   = i2c_write_data;
 		seq.buf[0].len    = 2;
 
-		ret = I2CSPM_Transfer(i2cPort, &seq);
+		ret = I2CSPM_Transfer(i2cPortH3lis331dl, &seq);
 
 		if (ret != i2cTransferDone){
 			msg = MsgH3lis331dlFailure;
@@ -92,8 +92,8 @@ void SetI2CH3lis331dl(void){
 	init.freq = H3LIS331DL_FREQUENCY;
 	init.clhr = i2cClockHLRStandard;
 
-	i2cPort = H3LIS331DL_I2C_PORT;
-	i2cAddr = H3LIS331DL_DEVICE_ADDR;
+	i2cPortH3lis331dl = H3LIS331DL_I2C_PORT;
+	i2cAddrH3lis331dl = H3LIS331DL_DEVICE_ADDR;
 
 	I2C_Init(H3LIS331DL_I2C_PORT, &init);
 
@@ -187,7 +187,7 @@ ReturnMsgH3lis331dl GetAccelDataH3lis331dl(uint8_t* data){
 	ReturnMsgH3lis331dl msg = MsgH3lis331dlSuccess;
 
 	if(initializedFlag == true){
-		if(i2cWriteReadH3lis331dl(H3LIS331DL_OUT_X_L, data, 6) != MsgH3lis331dlSuccess){
+		if(i2cWriteReadH3lis331dl(H3LIS331DL_OUT_X_L_AUTO_INCREMENT, data, 6) != MsgH3lis331dlSuccess){
 			msg = MsgH3lis331dlFailure;
 		}
 	}

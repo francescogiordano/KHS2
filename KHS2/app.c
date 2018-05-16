@@ -21,6 +21,7 @@
 #include "board_features.h"
 
 #include "app_extsignals.h"
+#include "letimer.h"
 
 //**************************   STATIC FUNCTION DECLARATIONS   *****************
 
@@ -60,7 +61,7 @@ void HandleEventsApp(struct gecko_cmd_packet *evt){
 				HighAccelGyroAppDataProcessRead();
 
 				if(GetLeCounter()%5 == 0){
-					LowAccelGyroAppDataProcessRead();
+					//LowAccelGyroAppDataProcessRead();
 				}
 				break;
 

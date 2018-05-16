@@ -29,8 +29,8 @@ typedef struct {
 
 //**************************   FUNCTION DECLARATIONS   ************************
 
-bool PutPayloadBuffer(uint8_t* data, uint8_t dataSize, uint16_t payloadCounter);
-bool GetPayloadBuffer(uint8_t* data, uint8_t dataSize, uint16_t* payloadCounter);
+bool PutPayloadBufferData(uint8_t* data, uint8_t dataSize, uint16_t payloadCounter);
+bool GetPayloadBufferData(uint8_t* data, uint8_t dataSize, uint16_t* payloadCounter);
 bool IsEmptyPayloadBuffer(void);
 
 #ifdef __cplusplus

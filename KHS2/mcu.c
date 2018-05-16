@@ -19,13 +19,13 @@
 #include "lsm6dsl.h"
 #include "h3lis331dl.h"
 
-#include "udelay.h"
+#include "em_rtcc.h"
 
 //**************************   STATIC FUNCTION DEFINIITIONS   *****************
 
-static void initMcu_clocks(void)
-{
-/*
+static void initMcu_clocks(void){
+
+/**/
   // Initialize HFXO
   CMU_HFXOInit_TypeDef hfxoInit = BSP_CLK_HFXO_INIT;
 #if defined(BSP_CLK_HFXO_CTUNE) && BSP_CLK_HFXO_CTUNE > -1
@@ -76,7 +76,7 @@ static void initMcu_clocks(void)
 
 	CMU_ClockSelectSet(cmuClock_HF, cmuSelect_HFCLKLE);
 	CMU_ClockSelectSet(cmuClock_HFPER, cmuSelect_HFCLKLE);
-/**/
+/*
 
 	CMU_HFRCOBandSet(CMU_HFRCO_MAX);
 
@@ -89,13 +89,6 @@ static void initMcu_clocks(void)
 	CMU_ClockSelectSet(cmuClock_LFE, cmuSelect_LFRCO);
 
 /**/
-}
-static void initMcu_ports(void){
-
-	#if HAL_VCOM_ENABLE
-	  // Enable VCOM if requested
-	  GPIO_PinModeSet(BSP_VCOM_ENABLE_PORT, BSP_VCOM_ENABLE_PIN, gpioModePushPull, HAL_VCOM_ENABLE);
-	#endif // HAL_VCOM_ENABLE
 }
 
 //**************************   FUNCTION DEFINIITIONS   *****************
@@ -127,8 +120,5 @@ void InitMcu(void){
   em23init.vScaleEM23Voltage = emuVScaleEM23_LowPower;
   EMU_EM23Init(&em23init);
 #endif //_EMU_CTRL_EM23VSCALE_MASK
-
-  initMcu_ports();
-
 }
 

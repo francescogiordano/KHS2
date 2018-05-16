@@ -15,6 +15,9 @@ extern "C" {
 // I2C device address for H3lis331dl
 #define H3LIS331DL_DEVICE_ADDR				0x32
 
+// Allow auto-increment read
+#define H3LIS331DL_DEVICE_ADDR				0x80
+
 
 //************************   H3LIS331DL - ACCELEROMETER   *********************
 
@@ -32,6 +35,7 @@ extern "C" {
 #define H3LIS331DL_REFERENCE				0x26
 #define H3LIS331DL_STATUS_REG				0x27
 
+#define H3LIS331DL_OUT_X_L_AUTO_INCREMENT	0xA8	//Bit 7 must be 1 to allow address auto-increment
 #define H3LIS331DL_OUT_X_L					0x28
 #define H3LIS331DL_OUT_X_H					0x29
 #define H3LIS331DL_OUT_Y_L					0x2A

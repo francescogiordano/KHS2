@@ -34,22 +34,19 @@ static uint16_t getPayloadCounterHighAccel = 0;
 
 //**************************   STATIC FUNCTION DEFINITIONS   ******************
 
+/*
 static void lowAccelGyroAppDataInterrupt(uint8_t pin){
 
 	gecko_external_signal(APP_DATA_LOW_ACCEL_GYRO);
 
-	//Test
-	//LowAccelGyroAppDataProcessRead();
 }
 static void highAccelAppDataInterrupt(uint8_t pin){
 	if(indexHighAccel == 0){
 		timeStampHighAccel = GetLeCounter();
 	}
 	gecko_external_signal(APP_DATA_HIGH_ACCEL);
-
-	//Test
-	//HighAccelGyroAppDataProcessRead();
 }
+*/
 
 //**************************   FUNCTION DEFINITIONS   *************************
 
@@ -115,7 +112,7 @@ void LowAccelGyroAppDataProcessRead(void){
 
 	//End of buffer - Place buffer in memory, reset buffer
 	if(indexLowAccelGyro > APP_DATA_LENGTH_BLE_MAX - APP_DATA_LENGTH_LOW_ACCEL_GYRO){
-		PutPayloadBuffer(lowAccelGyroBuffer, APP_DATA_LENGTH_BLE_MAX, putPayloadCounterLowAccelGyro);
+		PutPayloadBufferData(lowAccelGyroBuffer, APP_DATA_LENGTH_BLE_MAX, putPayloadCounterLowAccelGyro);
 		putPayloadCounterLowAccelGyro++;
 		indexLowAccelGyro = 0;
 	}
@@ -137,7 +134,7 @@ void HighAccelGyroAppDataProcessRead(void){
 		indexHighAccel = APP_DATA_LENGTH_BLE_HEADER;
 	}
 
-	GetAccelDataH3lis331dl(tempData);	//tempData Data Order - X_L,X_H,Y_L,Y_H,Z_L,Z_H
+ 	GetAccelDataH3lis331dl(tempData);	//tempData Data Order - X_L,X_H,Y_L,Y_H,Z_L,Z_H
 
 	//Middle of buffer - Load & Rearrange Data - X_H,X_L,Y_H,Y_L,etc
 	highAccelBuffer[indexHighAccel + 0] = tempData[1];
@@ -151,7 +148,7 @@ void HighAccelGyroAppDataProcessRead(void){
 
 	//End of buffer - Place buffer in memory, reset buffer
 	if(indexHighAccel > APP_DATA_LENGTH_BLE_MAX - APP_DATA_LENGTH_HIGH_ACCEL){
-		PutPayloadBuffer(highAccelBuffer, APP_DATA_LENGTH_BLE_MAX, putPayloadCounterHighAccel);
+		PutPayloadBufferData(highAccelBuffer, APP_DATA_LENGTH_BLE_MAX, putPayloadCounterHighAccel);
 		putPayloadCounterHighAccel++;
 		indexHighAccel = 0;
 	}

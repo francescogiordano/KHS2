@@ -28,7 +28,6 @@
 
 #include "wdog.h"
 #include "letimer.h"
-#include "udelay.h"
 
 #include "retargetswo.h"
 #include "payloadbuffer.h"
@@ -45,7 +44,8 @@ uint8_t bluetooth_stack_heap[DEFAULT_BLUETOOTH_HEAP(MAX_CONNECTIONS)];
 // Gecko configuration parameters (see gecko_configuration.h)
 static const gecko_configuration_t config = {
   .config_flags = 0,
-  .sleep.flags = SLEEP_FLAGS_DEEP_SLEEP_ENABLE,
+  //.sleep.flags = SLEEP_FLAGS_DEEP_SLEEP_ENABLE,
+  .sleep.flags = 0,	//Disable deep sleep
   .bluetooth.max_connections = MAX_CONNECTIONS,
   .bluetooth.heap = bluetooth_stack_heap,
   .bluetooth.heap_size = sizeof(bluetooth_stack_heap),
@@ -76,8 +76,7 @@ void main(void){
 	InitBoard();	//Init Mcu ports & IO for PCB
 	InitApp();		//Init ICs
 
-
-	//gecko_init(&config);		// Initialize stack
+	gecko_init(&config);		// Initialize stack
 
 	//LeTimer must be after gecko_init()
 	InitLeTimer();
@@ -118,9 +117,9 @@ void main(void){
 		#endif
 		//}
 
+		RETARGET_WriteString("Reset", 5);
 		//When Test Mode Complete Reboot device
 		gecko_cmd_system_reset(0);	//0:Normal Reset,1:DFU Reset
-		RETARGET_WriteString("Reset", 5);
 	}
 
 	while(1){
@@ -128,7 +127,6 @@ void main(void){
 		//LowAccelGyroAppDataProcessRead();
 		//HighAccelGyroAppDataProcessRead();
 
-		//EMU_EnterEM2(true);
 		/**/
 		struct gecko_cmd_packet* evt;
 		evt = gecko_wait_event();	// Check for stack event

@@ -40,6 +40,7 @@ Ecode_t InitLeTimer(void){
 	LETIMER_Init_TypeDef leTimerInit = LETIMER_INIT_DEFAULT;
 
 	CMU_ClockEnable(LETIMER_CLK, true);
+
 	LETIMER_Init(LETIMER, &leTimerInit);
 
 	LETIMER_IntDisable(LETIMER, LETIMER_IEN_COMP0);
